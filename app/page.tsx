@@ -1,19 +1,18 @@
-import { BriefForm, GeoShowcase, VisualShowcase } from './interactions';
+import { BriefForm, CaseTabs, CourseTabs, GrowthTabs } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 const products = [
-  { index: '01', title: 'GEO Pilot', label: 'AI 内容增长系统', text: '把洞察、生成、分发与反馈串成一套可持续运行的内容增长闭环。' },
-  { index: '02', title: 'AI 商品视觉', label: '品牌内容生产', text: '从原始素材到商业视觉、场景延展与多平台内容，一次生产，多端复用。' },
-  { index: '03', title: 'AI 数字人', label: '获客与个人 IP', text: '围绕真实身份授权、内容矩阵和持续运营，建立可复用的表达资产。' },
-  { index: '04', title: 'AI 实战训练', label: '组织能力共建', text: '以真实岗位任务为训练场，让团队学得会、做得出、带得走。' },
+  { index: '01', title: 'AI 技术应用', label: '效率与系统', text: '面向内容、运营、办公与业务流程，设计 AI 工具、工作流及系统应用。' },
+  { index: '02', title: '数字人 × IP', label: '触达与增长', text: '通过数字人、内容矩阵与个人 IP 运营，提升品牌触达、客户信任和持续转化。' },
+  { index: '03', title: 'GEO Pilot', label: '内容增长系统', text: '把洞察、知识、生成、分发与反馈串成可追踪、可持续优化的增长闭环。' },
+  { index: '04', title: 'AI 训练营', label: '能力共建', text: '围绕真实岗位任务开展工具实操、项目训练和应用辅导，把学习转化为成果。' },
 ];
 
-const trainingCases = [
-  { title: '企业专项培训', image: 'training-enterprise.webp' },
-  { title: '场景化夜校实训', image: 'training-community.webp' },
-  { title: '青年创业者工作坊', image: 'training-workshop.webp' },
-  { title: 'AI 商业实战课堂', image: 'training-seminar.webp' },
+const team = [
+  { name: '杰瑞米｜Jeremy Li', role: '创始人 · 软件开发工程师', image: 'team-jeremy.webp', text: '聚焦算法、全栈开发、系统架构与 AI 产品从 0 到 1，把复杂技术转化为可交付的业务方案。' },
+  { name: '富兰克林李', role: '商业应用与 AIGC 实践', image: 'team-franklin.webp', text: '聚焦图像生成、视觉设计与内容自动化，让 AI 工具成为可以传播、获客和持续运营的商业内容。' },
+  { name: '哈德森', role: '全栈技术与系统架构', image: 'team-hudson.webp', text: '聚焦全栈开发、复杂系统集成与平台建设，保障工程实施、系统稳定与持续运行。' },
 ];
 
 const deliverySteps = ['需求诊断', '方案设计', '样板验证', '实施交付', '持续优化'];
@@ -26,15 +25,12 @@ export default function Home() {
 
       <header className="site-header">
         <a className="brand" href="#top" aria-label="海南元一智能首页">
-          <span className="brand-logo-wrap">
-            <img src={`${basePath}/assets/brand-logo.webp`} alt="海南元一智能科技有限公司" />
-          </span>
+          <span className="brand-symbol"><img src={`${basePath}/assets/brand-symbol-cutout.png`} alt="" /></span>
+          <span className="brand-wordmark"><strong>海南元一智能</strong><small>YUANYI INTELLIGENT</small></span>
         </a>
         <nav className="main-nav" aria-label="主导航">
-          <a href="#products">产品服务</a>
-          <a href="#geo">核心系统</a>
-          <a href="#cases">落地场景</a>
-          <a href="#contact">项目合作</a>
+          <a href="#about">关于元一</a><a href="#cases">产品案例</a><a href="#course">实战提效营</a>
+          <a href="#growth">私教成长</a><a href="#contact">项目合作</a>
         </nav>
         <a className="nav-cta" href="#contact">预约场景诊断 <span>↗</span></a>
       </header>
@@ -45,101 +41,98 @@ export default function Home() {
           <h1>让 AI 真正进入<span>业务现场</span></h1>
           <p className="hero-lead">立足海南，为政府、企业与机构提供可落地、可交付、可持续的 AI 服务。</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#products">探索产品能力 <span>→</span></a>
-            <a className="button button-ghost" href="#contact">发起项目合作</a>
+            <a className="button button-primary" href="#cases">查看产品与案例 <span>→</span></a>
+            <a className="button button-ghost" href="#course">了解 AI 实战提效营</a>
           </div>
           <div className="hero-proof">
-            <div><strong>3</strong><span>大核心业务</span></div>
-            <div><strong>5</strong><span>步项目交付法</span></div>
-            <div><strong>1:1</strong><span>场景诊断起步</span></div>
+            <div><strong>3</strong><span>大核心业务</span></div><div><strong>5</strong><span>步项目交付法</span></div><div><strong>1:1</strong><span>场景诊断起步</span></div>
           </div>
         </div>
 
         <div className="hero-visual" aria-label="GEO Pilot 产品界面预览">
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
+          <div className="orbit orbit-one" /><div className="orbit orbit-two" />
           <div className="signal-card signal-top"><i /> 工作流运行中<strong>12</strong><span>今日任务</span></div>
           <div className="dashboard-shell">
-            <div className="dashboard-bar">
-              <div className="window-dots"><i /><i /><i /></div>
-              <span>GEO PILOT / 智能运营总览</span><b>LIVE</b>
-            </div>
-            <img src={`${basePath}/assets/geo-overview.webp`} alt="GEO Pilot 智能运营总览界面" />
-            <div className="scanline" />
+            <div className="dashboard-bar"><div className="window-dots"><i /><i /><i /></div><span>GEO PILOT / 智能运营总览</span><b>LIVE</b></div>
+            <img src={`${basePath}/assets/geo-overview.webp`} alt="GEO Pilot 智能运营总览界面" /><div className="scanline" />
           </div>
-          <div className="signal-card signal-bottom">
-            <span className="signal-icon">✓</span>
-            <div><strong>人工确认节点</strong><span>让每一次输出可控、可用</span></div>
-          </div>
+          <div className="signal-card signal-bottom"><span className="signal-icon">✓</span><div><strong>人工确认节点</strong><span>让每一次输出可控、可用</span></div></div>
         </div>
       </section>
 
       <section className="trust-strip" aria-label="业务定位">
-        <span>从工具到结果</span><i /><span>从单点到系统</span><i />
-        <span>从培训到共建</span><i /><span className="hainan-mark">扎根海南 · 服务本地</span>
+        <span>AI 技术应用</span><i /><span>AI 数字人获客与个人 IP</span><i /><span>AI 实战训练</span><i /><span className="hainan-mark">扎根海南 · 服务本地</span>
       </section>
 
       <section className="section products-section" id="products">
         <div className="section-heading">
-          <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>把 AI 转化为<br /><em>业务增长力</em></h2></div>
-          <p>我们不只是提供工具，而是从真实业务问题出发，完成场景设计、项目交付与能力沉淀。</p>
+          <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>用技术解决效率，<br /><em>用内容推动增长</em></h2></div>
+          <p>四项能力并非彼此孤立，而是一套从业务升级、内容增长到组织能力沉淀的完整服务体系。</p>
         </div>
         <div className="product-grid">
           {products.map((product) => (
             <article className="product-card" key={product.index}>
-              <div className="product-top"><span>{product.index}</span><i>↗</i></div>
-              <p>{product.label}</p><h3>{product.title}</h3><div className="product-line" />
-              <p className="product-desc">{product.text}</p>
+              <div className="product-top"><span>{product.index}</span><i>↗</i></div><p>{product.label}</p><h3>{product.title}</h3><div className="product-line" /><p className="product-desc">{product.text}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <GeoShowcase basePath={basePath} />
-
-      <section className="visual-section" id="cases">
-        <div className="section visual-inner">
-          <div className="section-heading visual-heading">
-            <div><p className="section-kicker">AI PRODUCT VISUAL</p><h2>把普通素材，变成<br /><em>可用的品牌内容</em></h2></div>
-            <p>素材识别 → 视觉重构 → 场景延展 → 内容输出，适配电商、社媒和品牌传播的多种需要。</p>
+      <section className="about-section" id="about">
+        <div className="section about-inner">
+          <div className="about-intro">
+            <div><p className="section-kicker">ABOUT YUANYI</p><h2>AI 落地不是交付工具，<br /><em>而是建立可运行的业务能力。</em></h2></div>
+            <div className="about-values">
+              <article><span>01</span><strong>看懂业务</strong><p>从真实场景、业务目标和现有流程出发，明确最值得解决的问题。</p></article>
+              <article><span>02</span><strong>做得出方案</strong><p>把模型、工具、内容与流程组合成可实施、可交付的解决方案。</p></article>
+              <article><span>03</span><strong>陪得到结果</strong><p>通过实施、培训和运营迭代，让团队会使用、业务有改善。</p></article>
+            </div>
           </div>
-          <VisualShowcase basePath={basePath} />
+          <div className="team-grid">
+            {team.map((member, index) => (
+              <article className={`team-card team-card-${index + 1}`} key={member.name}>
+                <div className="team-photo"><img src={`${basePath}/assets/${member.image}`} alt={member.name} /></div>
+                <div className="team-info"><span>CORE TEAM · 0{index + 1}</span><h3>{member.name}</h3><strong>{member.role}</strong><p>{member.text}</p></div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section training-section">
+      <section className="section cases-section" id="cases">
         <div className="section-heading">
-          <div><p className="section-kicker">AI PRACTICAL TRAINING</p><h2>不是听懂 AI，<br /><em>而是当场做出来</em></h2></div>
-          <p>围绕真实岗位任务开展实训，覆盖办公提效、内容生产、智能体工作流、数字人和多平台运营。</p>
+          <div><p className="section-kicker">SOLUTIONS & CLIENT CASES</p><h2>从一个具体问题，<br /><em>走到真实交付</em></h2></div>
+          <p>产品系统、客户官网、数字人、商业视觉与场景化实训，都围绕真实需求组织，并保留人工确认与持续优化。</p>
         </div>
-        <div className="training-grid">
-          {trainingCases.map((item, index) => (
-            <figure className={`training-card training-${index + 1}`} key={item.title}>
-              <img src={`${basePath}/assets/${item.image}`} alt={item.title} />
-              <figcaption><span>0{index + 1}</span><strong>{item.title}</strong></figcaption>
-            </figure>
-          ))}
+        <CaseTabs basePath={basePath} />
+      </section>
+
+      <section className="course-section" id="course">
+        <div className="section course-inner">
+          <div className="course-heading">
+            <p className="section-kicker">AI PRACTICAL PRODUCTIVITY CAMP</p>
+            <h2>AI 实战提效营</h2>
+            <p>两天一晚线下集中实训 + 线上开营 / 课前诊断 + 14 天线上陪跑。终点不是听懂，而是完成一套能继续使用的 AI 工作系统。</p>
+            <div className="course-pills"><span>AI 办公提效</span><span>AI Agent 与内容自动化</span><span>新媒体实操</span></div>
+          </div>
+          <CourseTabs />
         </div>
-        <div className="training-facts">
-          <div><strong>8</strong><span>核心学习小时</span></div>
-          <div><strong>7:1</strong><span>实操 / 方法比例</span></div>
-          <div><strong>14</strong><span>天陪跑与作业反馈</span></div>
-          <p>AI 实战提效营 · 线下场景课 · 企业专项内训</p>
+      </section>
+
+      <section className="section growth-section" id="growth">
+        <div className="section-heading">
+          <div><p className="section-kicker">AI + IP + GEO PRIVATE CLASS</p><h2>从工具入门，走向<br /><em>可复制商业体系</em></h2></div>
+          <p>元一 AI+IP+GEO 私教班三期成长档案：学习者的角色从 AI 小白、价值贡献者，逐步走向城市合伙人与体系共建者。</p>
         </div>
+        <GrowthTabs />
       </section>
 
       <section className="delivery-section">
         <div className="section delivery-inner">
-          <div className="delivery-title">
-            <p className="section-kicker">DELIVERY METHOD</p>
-            <h2>看懂业务，<br />做得出方案，<br /><em>陪得到结果。</em></h2>
-          </div>
+          <div className="delivery-title"><p className="section-kicker">DELIVERY METHOD</p><h2>先验证价值，<br />再进入流程，<br /><em>陪得到结果。</em></h2></div>
           <div className="delivery-flow">
             {deliverySteps.map((step, index) => (
-              <div className="delivery-step" key={step}>
-                <span>0{index + 1}</span><i /><strong>{step}</strong>
-                <p>{['先看现场与目标，不从工具清单出发。', '明确边界、路径与可以衡量的结果。', '先做小样板，验证业务价值与可行性。', '系统、流程、培训与文档同步落地。', '根据数据反馈，持续迭代运营机制。'][index]}</p>
-              </div>
+              <div className="delivery-step" key={step}><span>0{index + 1}</span><i /><strong>{step}</strong><p>{['梳理目标、现有流程与关键问题，形成 AI 机会清单。', '明确应用场景、工具组合、实施路径与责任分工。', '通过样稿、工作流或功能原型验证方向和价值。', '完成系统配置、内容制作、项目实施或团队培训。', '根据反馈复盘问题，让团队逐步自主应用和迭代。'][index]}</p></div>
             ))}
           </div>
         </div>
@@ -148,8 +141,7 @@ export default function Home() {
       <section className="brief-section" id="contact">
         <div className="section brief-inner">
           <div className="brief-copy">
-            <p className="section-kicker">START WITH A REAL SCENARIO</p>
-            <h2>从一个真实场景开始，<br /><em>让 AI 产生真实价值。</em></h2>
+            <p className="section-kicker">START WITH A REAL SCENARIO</p><h2>从一个真实场景开始，<br /><em>让 AI 产生真实价值。</em></h2>
             <p>告诉我们你想解决的问题，先生成一份简明合作需求。它将帮助双方更快进入场景诊断。</p>
             <div className="brief-principles"><span>场景诊断与试点</span><span>专项项目交付</span><span>长期运营与共建</span></div>
           </div>
@@ -159,7 +151,7 @@ export default function Home() {
 
       <footer>
         <div className="footer-main">
-          <span className="footer-brand"><img src={`${basePath}/assets/brand-logo.webp`} alt="海南元一智能科技有限公司" /></span>
+          <span className="footer-logo"><img src={`${basePath}/assets/brand-symbol-cutout.png`} alt="海南元一智能" /><b>海南元一智能</b></span>
           <p>AI 落地不是交付一个工具，<br />而是建立一套可运行的业务能力。</p>
           <div><span>LOCATION</span><strong>中国 · 海南</strong></div>
         </div>
