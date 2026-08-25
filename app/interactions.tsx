@@ -10,6 +10,13 @@ const visualCases = [
   { src: 'visual-portrait.webp', label: '人物品牌视觉', alt: '人物品牌 AI 视觉案例' },
 ];
 
+const platformScreens = [
+  { src: 'digital-ip-login.webp', label: '平台入口', detail: '本地优先的数字人内容工作台', alt: '数字人 IP 智能体平台登录界面' },
+  { src: 'digital-ip-home.webp', label: '智能工作台', detail: '一套软件连接八个内容生产环节', alt: '数字人 IP 智能体平台工作台首页' },
+  { src: 'digital-ip-capabilities.webp', label: '产品能力', detail: '从爆款解析到发布准备的模块能力', alt: '数字人 IP 智能体平台产品能力界面' },
+  { src: 'digital-ip-history.webp', label: '任务与结果', detail: '批次进度、视频结果与历史任务可追踪', alt: '数字人 IP 智能体平台视频结果与历史记录' },
+];
+
 const schedule = [
   ['课前线上', '协商安排 · 60 分钟', '运营负责人 + 助教 + 讲师团队', '开营、资料包、工具检查、业务任务诊断', '个人任务卡'],
   ['第一天上午', '09:00–10:30', '李英和', 'AI 文档、方案、PPT 与商业图片', '方案 / PPT 初稿与商业图片'],
@@ -154,6 +161,36 @@ export function CaseTabs({ basePath }: { basePath: string }) {
         <figure onClick={(event) => event.stopPropagation()}><img src={`${basePath}/assets/${visualCases[expandedVisual].src}`} alt={visualCases[expandedVisual].alt} /><figcaption><span>{String(expandedVisual + 1).padStart(2,'0')} / {String(visualCases.length).padStart(2,'0')}</span>{visualCases[expandedVisual].label}</figcaption></figure>
         <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setExpandedVisual((expandedVisual + 1) % visualCases.length); }} aria-label="下一张">›</button>
       </div>}
+    </div>
+  );
+}
+
+export function DigitalIpShowcase({ basePath }: { basePath: string }) {
+  const [activeScreen, setActiveScreen] = useState(1);
+  const screen = platformScreens[activeScreen];
+
+  return (
+    <div className="digital-ip-showcase">
+      <div className="platform-demo">
+        <div className="platform-demo-bar"><span>元一智能 · AI 内容获客工作台</span><b>PLATFORM CASE</b></div>
+        <a className="platform-screen" href={`${basePath}/assets/${screen.src}`} target="_blank" rel="noreferrer" aria-label={`查看${screen.label}完整界面`}>
+          <img src={`${basePath}/assets/${screen.src}`} alt={screen.alt} />
+          <span>查看完整界面 ↗</span>
+        </a>
+        <div className="platform-screen-tabs" role="tablist" aria-label="数字人 IP 智能体平台界面">
+          {platformScreens.map((item,index)=><button key={item.src} className={activeScreen===index?'active':''} type="button" onClick={()=>setActiveScreen(index)} role="tab" aria-selected={activeScreen===index}><span>0{index+1}</span><strong>{item.label}</strong><small>{item.detail}</small></button>)}
+        </div>
+      </div>
+      <div className="digital-result-card">
+        <div className="digital-result-head"><div><span>OUTPUT · 01</span><strong>数字人成片结果</strong></div><b>27 SEC</b></div>
+        <div className="digital-video-wrap">
+          <video controls playsInline preload="metadata" poster={`${basePath}/assets/digital-ip-video-poster.webp`} aria-label="数字人 IP 智能体平台生成的视频案例">
+            <source src={`${basePath}/assets/digital-ip-result.mp4`} type="video/mp4" />
+          </video>
+        </div>
+        <div className="digital-result-meta"><span>真人授权形象</span><span>智能剪辑</span><span>竖屏成片</span></div>
+        <p>从平台任务进入成片结果，适用于个人 IP、本地商家口播与持续内容运营。</p>
+      </div>
     </div>
   );
 }

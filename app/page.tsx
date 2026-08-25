@@ -1,4 +1,4 @@
-import { BriefForm, CaseTabs, CourseTabs, GrowthTabs } from './interactions';
+import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
@@ -38,7 +38,7 @@ export default function Home() {
           <span className="brand-wordmark"><strong>元一智能科技</strong><small>YUANYI INTELLIGENT</small></span>
         </a>
         <nav className="main-nav" aria-label="主导航">
-          <a href="#about">关于元一</a><a href="#cases">产品案例</a><a href="#course">实战提效营</a>
+          <a href="#about">关于元一</a><a href="#cases">产品案例</a><a href="#digital-ip">数字人 × IP</a><a href="#course">实战提效营</a>
           <a href="#growth">私教成长</a><a href="#contact">项目合作</a>
         </nav>
         <a className="nav-cta" href="#contact">预约场景诊断 <span>↗</span></a>
@@ -117,6 +117,26 @@ export default function Home() {
           <p>以阿驰二手车 GEO 品牌官网、青创社群 GEO 内容增长为真实落地结果，同时展示 AI 商品视觉及政府、企业 AI 培训的交付方式。</p>
         </div>
         <CaseTabs basePath={basePath} />
+      </section>
+
+      <section className="digital-ip-section" id="digital-ip">
+        <div className="section digital-ip-inner">
+          <div className="section-heading digital-ip-heading">
+            <div><p className="section-kicker">DIGITAL HUMAN × IP AGENT PLATFORM</p><h2>一个真实形象，<br /><em>持续生成可发布内容</em></h2></div>
+            <p>把选题、文案、授权声音、数字人形象、素材识别、智能剪辑与发布准备串成一条可恢复的内容生产线，让个人 IP 和本地商家稳定出片。</p>
+          </div>
+          <div className="digital-ip-metrics">
+            <article><strong>08</strong><span>环节内容生产流水线</span></article>
+            <article><strong>≈ 3 min</strong><span>样板任务进入视频预览*</span></article>
+            <article><strong>02</strong><span>抖音 / 小红书发布准备</span></article>
+            <article><strong>LOCAL</strong><span>素材与任务记录本地优先</span></article>
+          </div>
+          <DigitalIpShowcase basePath={basePath} />
+          <div className="digital-ip-flow">
+            {['爆款解析', '选题文案', '声音克隆', '真人形象', '素材识别', '智能剪辑', '剪映草稿', '发布准备'].map((step,index)=><article key={step}><span>{String(index+1).padStart(2,'0')}</span><strong>{step}</strong></article>)}
+          </div>
+          <p className="digital-ip-note">* 样板时长不含首次形象训练；声音与人物形象仅在获得本人或合法授权后使用，发布前保留人工确认。</p>
+        </div>
       </section>
 
       <section className="course-section" id="course">
