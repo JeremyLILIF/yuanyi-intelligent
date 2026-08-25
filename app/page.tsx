@@ -10,9 +10,18 @@ const products = [
 ];
 
 const team = [
-  { name: '杰瑞米｜Jeremy Li', role: '创始人 · 软件开发工程师', image: 'team-jeremy.webp', text: '聚焦算法、全栈开发、系统架构与 AI 产品从 0 到 1，把复杂技术转化为可交付的业务方案。' },
-  { name: '富兰克林李', role: '商业应用与 AIGC 实践', image: 'team-franklin.webp', text: '聚焦图像生成、视觉设计与内容自动化，让 AI 工具成为可以传播、获客和持续运营的商业内容。' },
-  { name: '哈德森', role: '全栈技术与系统架构', image: 'team-hudson.webp', text: '聚焦全栈开发、复杂系统集成与平台建设，保障工程实施、系统稳定与持续运行。' },
+  {
+    name: '杰瑞米', role: '技术架构与模型优化', image: 'team-jeremy.webp',
+    background: ['前 Fetch Rewards 软件开发工程师', '前洛杉矶字节跳动算法工程师', 'USC 计算机科学硕士', '专长全栈开发、系统架构和模型优化'],
+  },
+  {
+    name: '哈德森', role: '系统工程与企业级交付', image: 'team-hudson.webp',
+    background: ['前 IBM 银行后端技术专家', '计算机硕士与博士背景', '专长 Java 后端、IT 咨询和智慧城市', '熟悉复杂系统仿真建模与集成交付'],
+  },
+  {
+    name: '李老师', role: '商业化与市场战略', image: 'team-franklin.webp',
+    background: ['前央企金融高管', '财富管理与上市孵化经验', 'AI 智能体商业化路径设计', '推动企业级应用落地与复制'],
+  },
 ];
 
 const deliverySteps = ['需求诊断', '方案设计', '样板验证', '实施交付', '持续优化'];
@@ -92,7 +101,10 @@ export default function Home() {
             {team.map((member, index) => (
               <article className={`team-card team-card-${index + 1}`} key={member.name}>
                 <div className="team-photo"><img src={`${basePath}/assets/${member.image}`} alt={member.name} /></div>
-                <div className="team-info"><span>CORE TEAM · 0{index + 1}</span><h3>{member.name}</h3><strong>{member.role}</strong><p>{member.text}</p></div>
+                <div className="team-info">
+                  <span>CORE TEAM · 0{index + 1}</span><h3>{member.name}</h3><strong>{member.role}</strong>
+                  <ul>{member.background.map((item) => <li key={item}>{item}</li>)}</ul>
+                </div>
               </article>
             ))}
           </div>
@@ -112,8 +124,8 @@ export default function Home() {
           <div className="course-heading">
             <p className="section-kicker">AI PRACTICAL PRODUCTIVITY CAMP</p>
             <h2>AI 实战提效营</h2>
-            <p>两天一晚线下集中实训 + 线上开营 / 课前诊断 + 14 天线上陪跑。终点不是听懂，而是完成一套能继续使用的 AI 工作系统。</p>
-            <div className="course-pills"><span>AI 办公提效</span><span>AI Agent 与内容自动化</span><span>新媒体实操</span></div>
+            <p>以 2 天 1 晚集中实训或 14 天 6 次实战课推进：由 1 名运营指挥 5 个数字员工，亲手搭建一套可以持续运转的 AI 数字内容团队。</p>
+            <div className="course-pills"><span>5 个数字员工</span><span>AI 办公提效</span><span>全自动内容工作台</span><span>发布与 GEO 增长</span></div>
           </div>
           <CourseTabs />
         </div>

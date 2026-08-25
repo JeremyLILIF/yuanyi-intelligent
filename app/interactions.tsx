@@ -39,6 +39,20 @@ const deliverables = [
   ['视频剪辑交付物', '剪映草稿、字幕轨、封面模板与成片检查清单。'],
 ];
 
+const digitalEmployees = [
+  ['01', 'AI 办公助理', '事务处理 · 资料检索', '承接资料归档、会议纪要、信息查询与日常办公任务。'],
+  ['02', '内容策划员', '选题策划 · 文案创作', '读取业务素材，生成选题库、内容日历与多平台文案。'],
+  ['03', '图文生产员', '图文生成 · 排版美化', '把选题转成海报、封面、长图与商业图片等视觉内容。'],
+  ['04', '视频制作员', '视频脚本 · 剪辑制作', '完成脚本、分镜、数字人口播与短视频剪辑任务。'],
+  ['05', '发布复盘员', '定时发布 · 数据复盘', '协助多平台发布、记录数据，并把结论回流到下一轮内容。'],
+];
+
+const courseTracks = [
+  ['MODULE 01', 'AI 办公提效实战', 'Codex + 微信助手、AI + 飞书多维表格、AI 文档 / 方案 / PPT 与商业图片'],
+  ['MODULE 02', 'AI 内容营销创作实战', '多媒体素材采集与选题策划、AI 图文、短视频与真人数字人内容生产'],
+  ['MODULE 03', '自动发布与 GEO 增长实战', '内容定时发布、GEO 工作台、关键数据跟踪、复盘优化与增长闭环'],
+];
+
 const growthPhases = [
   {
     phase: '第一期', date: '2026.06.06–06.07', role: 'AI 小白 → AI 实践者', question: 'AI 是什么？我能不能学会？', insight: 'AI 是效率杠杆，IP 是价值放大器；未来第一个客户是 AI。', tools: '提示词、知识库、数字人、智能体、Obsidian、Codex', geo: '让品牌进入 AI 知识体系，让 AI 理解、信任并推荐品牌。', capability: '从会听、会学走向第一次落地。', quote: '让 AI 帮我干活，让 GEO 帮我获客。',
@@ -111,7 +125,7 @@ export function CaseTabs({ basePath }: { basePath: string }) {
 
 export function CourseTabs() {
   const [active, setActive] = useState(0);
-  const tabs = ['课程概览', '完整课表', '八大模块', '成果包', '14 天陪跑'];
+  const tabs = ['课程概览', '5 个数字员工', '完整课表', '核心模块', '成果系统', '14 天陪跑'];
 
   return (
     <div className="course-tabs-wrap">
@@ -119,15 +133,26 @@ export function CourseTabs() {
         {tabs.map((tab, index) => <button key={tab} className={active === index ? 'active' : ''} onClick={() => setActive(index)} role="tab" aria-selected={active === index}><span>0{index + 1}</span>{tab}</button>)}
       </div>
 
-      {active === 0 && <div className="course-panel course-overview"><div className="course-metrics"><article><strong>2 天 1 晚</strong><span>线下集中实训</span></article><article><strong>8 小时</strong><span>核心学习量</span></article><article><strong>7 小时</strong><span>核心实操</span></article><article><strong>14 天</strong><span>线上陪跑</span></article></div><div className="learning-path">{[['学','理解工具与方法'],['练','完成真实岗位任务'],['做','形成可展示项目'],['用','沉淀模板与工作流']].map((item,index)=><article key={item[0]}><span>0{index+1}</span><strong>{item[0]}</strong><p>{item[1]}</p></article>)}</div><p className="course-note">线上开营、课前诊断、答疑和复盘时间由学员与讲师协商；可采用小组或一对一形式。</p></div>}
+      {active === 0 && <div className="course-panel course-overview">
+        <div className="course-metrics"><article><strong>14 天</strong><span>搭建 AI 数字内容团队</span></article><article><strong>6 次</strong><span>任务制实战课程</span></article><article><strong>12 小时</strong><span>系统学习与实操</span></article><article><strong>5 个</strong><span>24 小时候命数字员工</span></article></div>
+        <div className="course-command"><div><span>1 名运营</span><strong>你负责方向与确认</strong><small>统筹全局 · 指挥团队</small></div><i>→</i><div><span>5 个数字员工</span><strong>AI 负责协作与执行</strong><small>持续生产 · 自动运转</small></div></div>
+        <div className="content-workflow">{[['01','信息进入','收集需求与素材'],['02','智能体分工','AI 团队自动接单'],['03','内容生产','图文 / 视频 / 数字人'],['04','自动发布','多平台定时发布'],['05','数据复盘','效果分析与优化']].map((item)=><article key={item[0]}><span>{item[0]}</span><strong>{item[1]}</strong><small>{item[2]}</small></article>)}</div>
+        <p className="course-note">可按企业需求选择 2 天 1 晚线下集中实训，或 14 天 6 次线上 / 混合实战；核心目标一致：做完并带走 1 套 Codex 自动内容工作法。</p>
+      </div>}
 
-      {active === 1 && <div className="course-panel schedule-panel"><div className="schedule-head"><span>阶段 / 时间</span><span>授课人 / 主题</span><span>核心成果</span></div>{schedule.map((item,index)=><article className="schedule-row" key={`${item[0]}-${item[1]}`}><div><b>0{index+1}</b><strong>{item[0]}</strong><small>{item[1]}</small></div><div><strong>{item[2]}</strong><p>{item[3]}</p></div><p>{item[4]}</p></article>)}<p className="course-note">以上为推荐现场节奏；正式日期及线上环节时间以学员、讲师和运营方最终确认为准。</p></div>}
+      {active === 1 && <div className="course-panel agent-team-panel">
+        <div className="agent-team-head"><div><span>DIGITAL CONTENT TEAM</span><h3>一名运营，指挥一支<br />24 小时候命的数字内容团队</h3></div><p>每个智能体都有明确岗位、输入与交付物；关键节点由人确认，让自动化既高效又可控。</p></div>
+        <div className="agent-team-grid">{digitalEmployees.map((item)=><article key={item[0]}><span>{item[0]}</span><div className="agent-avatar">AI</div><h4>{item[1]}</h4><strong>{item[2]}</strong><p>{item[3]}</p></article>)}</div>
+        <div className="agent-system-result"><span>最终带走</span><strong>1 套全自动内容工作台</strong><p>任务自动分配 · 内容全流程自动化 · 多平台一键发布 · 数据自动复盘</p></div>
+      </div>}
 
-      {active === 2 && <div className="course-panel modules-grid">{modules.map((item)=><article key={item[0]}><div><span>{item[0]}</span><small>{item[1]}</small></div><h4>{item[2]}</h4><p>{item[3]}</p></article>)}</div>}
+      {active === 2 && <div className="course-panel schedule-panel"><div className="schedule-head"><span>阶段 / 时间</span><span>授课人 / 主题</span><span>核心成果</span></div>{schedule.map((item,index)=><article className="schedule-row" key={`${item[0]}-${item[1]}`}><div><b>0{index+1}</b><strong>{item[0]}</strong><small>{item[1]}</small></div><div><strong>{item[2]}</strong><p>{item[3]}</p></div><p>{item[4]}</p></article>)}<p className="course-note">以上为 2 天 1 晚集中实训推荐节奏；也可拆分为 14 天 6 次任务制课程，正式安排以学员、讲师和运营方确认为准。</p></div>}
 
-      {active === 3 && <div className="course-panel deliverables-grid">{deliverables.map((item,index)=><article key={item[0]}><span>0{index+1}</span><div><h4>{item[0]}</h4><p>{item[1]}</p></div></article>)}<div className="deliverable-summary"><strong>最终成果</strong><p>完成 1 套个人或企业 AI 工作系统，并形成可展示、可复用、可继续迭代的成果包。</p></div></div>}
+      {active === 3 && <div className="course-panel modules-panel"><div className="course-track-grid">{courseTracks.map((item)=><article key={item[0]}><span>{item[0]}</span><h4>{item[1]}</h4><p>{item[2]}</p></article>)}</div><div className="modules-grid">{modules.map((item)=><article key={item[0]}><div><span>{item[0]}</span><small>{item[1]}</small></div><h4>{item[2]}</h4><p>{item[3]}</p></article>)}</div></div>}
 
-      {active === 4 && <div className="course-panel follow-panel"><div className="follow-intro"><strong>14 DAY SUPPORT</strong><h4>结营不是结束，应用才刚开始。</h4><p>陪跑期内由助教收集问题，讲师与学员协商安排线上答疑、作品点评和最终复盘。</p></div><div className="practice-grid">{[['竞品分析','拆解同行账号的标题、封面、结构与行动引导'],['内容审核','检查敏感词、事实、授权、平台表达和人工确认点'],['发布日历','建立 7 天或 30 天发布计划与内容状态表'],['数据复盘','记录曝光、互动、线索或订单，形成优化结论'],['数据回流','把发布内容和数据回填到飞书或系统'],['课前准备','电脑、工具账号、业务资料、产品素材及本人 / 授权素材']].map((item,index)=><article key={item[0]}><span>0{index+1}</span><h4>{item[0]}</h4><p>{item[1]}</p></article>)}</div><p className="compliance-note">合规提醒：素材采集、自动发布、声音克隆、形象克隆和 GEO 不做违规承诺；涉及第三方素材、声音或人物形象时必须确认授权。</p></div>}
+      {active === 4 && <div className="course-panel deliverables-grid">{deliverables.map((item,index)=><article key={item[0]}><span>0{index+1}</span><div><h4>{item[0]}</h4><p>{item[1]}</p></div></article>)}<div className="deliverable-summary"><strong>三套核心系统</strong><p>AI 办公提效工作台 + AI 内容自动生产系统 + AI 发布与 GEO 增长系统，形成可展示、可复用、可继续迭代的成果包。</p></div></div>}
+
+      {active === 5 && <div className="course-panel follow-panel"><div className="follow-intro"><strong>14 DAY SUPPORT</strong><h4>结营不是结束，应用才刚开始。</h4><p>14 天社群陪跑由助教收集问题，讲师安排答疑、作品点评和最终复盘；并提供商业咨询与工作流使用指导。</p></div><div className="practice-grid">{[['竞品分析','拆解同行账号的标题、封面、结构与行动引导'],['内容审核','检查敏感词、事实、授权、平台表达和人工确认点'],['发布日历','建立 7 天或 30 天发布计划与内容状态表'],['数据复盘','记录曝光、互动、线索或订单，形成优化结论'],['数据回流','把发布内容和数据回填到飞书或系统'],['持续服务','课程答疑、商业咨询、复训与工作流使用指导']].map((item,index)=><article key={item[0]}><span>0{index+1}</span><h4>{item[0]}</h4><p>{item[1]}</p></article>)}</div><p className="compliance-note">合规提醒：素材采集、自动发布、声音克隆、形象克隆和 GEO 不做违规承诺；涉及第三方素材、声音或人物形象时必须确认授权。</p></div>}
     </div>
   );
 }
