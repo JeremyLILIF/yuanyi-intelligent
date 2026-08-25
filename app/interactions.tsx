@@ -154,7 +154,7 @@ export function BriefForm() {
   const [organization, setOrganization] = useState('企业');
   const [challenge, setChallenge] = useState('');
   const [copied, setCopied] = useState(false);
-  const brief = useMemo(() => `海南元一智能｜项目合作需求\n合作方向：${projectType}\n机构类型：${organization}\n当前问题：${challenge || '待进一步沟通'}\n期望下一步：预约一次场景诊断`, [projectType, organization, challenge]);
+  const brief = useMemo(() => `元一智能科技｜项目合作需求\n合作方向：${projectType}\n机构类型：${organization}\n当前问题：${challenge || '待进一步沟通'}\n期望下一步：预约一次场景诊断`, [projectType, organization, challenge]);
 
   async function copyBrief() {
     await navigator.clipboard.writeText(brief); setCopied(true); window.setTimeout(() => setCopied(false), 1800);

@@ -24,9 +24,9 @@ export default function Home() {
       <div className="ambient ambient-two" />
 
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="海南元一智能首页">
+        <a className="brand" href="#top" aria-label="元一智能科技首页">
           <span className="brand-symbol"><img src={`${basePath}/assets/brand-symbol-cutout.png`} alt="" /></span>
-          <span className="brand-wordmark"><strong>海南元一智能</strong><small>YUANYI INTELLIGENT</small></span>
+          <span className="brand-wordmark"><strong>元一智能科技</strong><small>YUANYI INTELLIGENT</small></span>
         </a>
         <nav className="main-nav" aria-label="主导航">
           <a href="#about">关于元一</a><a href="#cases">产品案例</a><a href="#course">实战提效营</a>
@@ -151,11 +151,11 @@ export default function Home() {
 
       <footer>
         <div className="footer-main">
-          <span className="footer-logo"><img src={`${basePath}/assets/brand-symbol-cutout.png`} alt="海南元一智能" /><b>海南元一智能</b></span>
+          <span className="footer-logo"><img src={`${basePath}/assets/brand-symbol-cutout.png`} alt="元一智能科技" /><b>元一智能科技</b></span>
           <p>AI 落地不是交付一个工具，<br />而是建立一套可运行的业务能力。</p>
           <div><span>LOCATION</span><strong>中国 · 海南</strong></div>
         </div>
-        <div className="footer-bottom"><span>© 2026 海南元一智能科技有限公司</span><a href="#top">返回顶部 ↑</a></div>
+        <div className="footer-bottom"><span>© 2026 元一智能科技</span><a href="#top">返回顶部 ↑</a></div>
       </footer>
     </main>
   );
