@@ -189,9 +189,27 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .case-media > img { width: 100%; max-height: 500px; object-fit: cover; border-radius: 7px; }
 .case-media-bar { min-height: 37px; display: flex; align-items: center; justify-content: space-between; padding: 0 5px; color: #5f7d99; font: 8px monospace; letter-spacing: .13em; }
 .case-media-bar b { color: var(--mint); }
-.visual-case-gallery > div:last-child { display: grid; grid-template-columns: 1.35fr .65fr; grid-template-rows: 1fr 1fr; gap: 8px; height: 440px; }
-.visual-case-gallery > div:last-child img { width: 100%; height: 100%; object-fit: cover; border-radius: 7px; }
-.visual-case-gallery > div:last-child img:first-child { grid-row: 1 / 3; }
+.visual-main { width: 100%; position: relative; display: block; padding: 0; overflow: hidden; color: inherit; border: 0; border-radius: 8px; background: #090d0a; cursor: zoom-in; }
+.visual-main img { width: 100%; aspect-ratio: 1206 / 680; object-fit: cover; transition: transform .35s, filter .35s; }
+.visual-main:hover img { transform: scale(1.012); filter: brightness(.78); }
+.visual-main > span { position: absolute; right: 15px; bottom: 14px; padding: 8px 11px; color: #0a0d08; border-radius: 6px; background: var(--cyan); font-size: 9px; font-weight: 800; opacity: 0; transform: translateY(5px); transition: opacity .2s, transform .2s; }
+.visual-main:hover > span, .visual-main:focus-visible > span { opacity: 1; transform: translateY(0); }
+.visual-thumbnails { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 9px; }
+.visual-thumbnails button { min-width: 0; padding: 5px; color: #9aa59a; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.02); font: 9px/1.35 inherit; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
+.visual-thumbnails button.active { color: #ecf6dc; border-color: rgba(200,255,77,.48); background: rgba(200,255,77,.07); }
+.visual-thumbnails img { width: 100%; aspect-ratio: 1206 / 680; object-fit: cover; border-radius: 5px; }
+.visual-thumbnails span { display: block; padding: 7px 3px 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.image-lightbox { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 52px 96px; background: rgba(3,5,3,.94); backdrop-filter: blur(18px); animation: image-in .22s ease both; }
+.image-lightbox figure { width: min(1180px, 100%); margin: 0; }
+.image-lightbox figure img { width: 100%; max-height: calc(100vh - 150px); object-fit: contain; border: 1px solid rgba(200,255,77,.2); border-radius: 10px; box-shadow: 0 35px 100px rgba(0,0,0,.58); }
+.image-lightbox figcaption { display: flex; gap: 16px; align-items: center; margin-top: 13px; color: #e9eee4; font-size: 12px; }
+.image-lightbox figcaption span { color: var(--cyan); font: 9px monospace; }
+.lightbox-close, .lightbox-arrow { position: absolute; z-index: 2; display: grid; place-items: center; color: #f5f7ef; border: 1px solid rgba(200,255,77,.26); background: rgba(17,23,18,.82); cursor: pointer; }
+.lightbox-close { width: 42px; height: 42px; top: 22px; right: 24px; border-radius: 50%; font-size: 24px; }
+.lightbox-arrow { width: 48px; height: 66px; top: 50%; border-radius: 8px; font-size: 34px; transform: translateY(-50%); }
+.lightbox-prev { left: 24px; }
+.lightbox-next { right: 24px; }
+.lightbox-close:hover, .lightbox-arrow:hover { color: #0a0d08; background: var(--cyan); }
 .case-photo { padding: 0; position: relative; overflow: hidden; min-height: 430px; }
 .case-photo > img { width: 100%; height: 430px; max-height: none; border-radius: 0; object-fit: cover; }
 .case-photo::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgba(3,9,18,.9)); }
@@ -753,7 +771,11 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .achi-preview-body { min-height: 321px; padding: 32px 25px; }
   .achi-preview-body > div { left: 25px; right: 25px; bottom: 27px; }
   .case-photo, .case-photo > img { min-height: 300px; height: 300px; }
-  .visual-case-gallery > div:last-child { height: 300px; }
+  .image-lightbox { padding: 70px 15px 35px; }
+  .lightbox-close { top: 15px; right: 15px; }
+  .lightbox-arrow { width: 38px; height: 54px; top: auto; bottom: 13px; transform: none; }
+  .lightbox-prev { left: 15px; }
+  .lightbox-next { right: 15px; }
   .case-copy h3 { font-size: 34px; }
   .course-heading { margin-bottom: 38px; }
   .course-panel { min-height: 0; padding: 24px 16px; }

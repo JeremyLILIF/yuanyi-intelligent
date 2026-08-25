@@ -114,7 +114,7 @@ export default function Home() {
       <section className="section cases-section" id="cases">
         <div className="section-heading">
           <div><p className="section-kicker">SOLUTIONS & CLIENT CASES</p><h2>从一个具体问题，<br /><em>走到真实交付</em></h2></div>
-          <p>产品系统、客户官网、数字人、商业视觉与场景化实训，都围绕真实需求组织，并保留人工确认与持续优化。</p>
+          <p>以阿驰二手车 GEO 品牌官网、青创社群 GEO 内容增长为真实落地结果，同时展示 AI 商品视觉及政府、企业 AI 培训的交付方式。</p>
         </div>
         <CaseTabs basePath={basePath} />
       </section>

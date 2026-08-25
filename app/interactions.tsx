@@ -1,8 +1,14 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-const caseTabs = ['阿驰二手车', 'GEO Pilot', 'AI 商品视觉', '场景化实训', '青创社群'];
+const caseTabs = ['阿驰 · GEO 官网', 'GEO Pilot', 'AI 商品视觉', '政企 AI 培训', '青创 · GEO 增长'];
+
+const visualCases = [
+  { src: 'visual-tea.webp', label: '品牌商品主视觉', alt: '中国红茶原图到 AI 商品视觉案例' },
+  { src: 'visual-vitality.webp', label: '产品场景视觉', alt: '东方元气 AI 商品场景视觉案例' },
+  { src: 'visual-portrait.webp', label: '人物品牌视觉', alt: '人物品牌 AI 视觉案例' },
+];
 
 const schedule = [
   ['课前线上', '协商安排 · 60 分钟', '运营负责人 + 助教 + 讲师团队', '开营、资料包、工具检查、业务任务诊断', '个人任务卡'],
@@ -67,6 +73,24 @@ const growthPhases = [
 
 export function CaseTabs({ basePath }: { basePath: string }) {
   const [active, setActive] = useState(0);
+  const [visualIndex, setVisualIndex] = useState(0);
+  const [expandedVisual, setExpandedVisual] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (expandedVisual === null) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setExpandedVisual(null);
+      if (event.key === 'ArrowLeft') setExpandedVisual((current) => current === null ? null : (current + visualCases.length - 1) % visualCases.length);
+      if (event.key === 'ArrowRight') setExpandedVisual((current) => current === null ? null : (current + 1) % visualCases.length);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [expandedVisual]);
 
   return (
     <div className="case-tabs-wrap">
@@ -77,11 +101,11 @@ export function CaseTabs({ basePath }: { basePath: string }) {
       {active === 0 && (
         <div className="case-panel case-achi">
           <div className="case-copy">
-            <p className="panel-kicker">CLIENT CASE · HAIKOU</p><h3>海南阿驰二手车<br /><em>数字人内容 × 品牌官网</em></h3>
-            <p>账号需要持续输出车辆介绍、行业知识和业务宣传内容。元一把数字人口播能力继续延展为品牌官网，让内容触达之后，有一个清晰、可信、可持续承接咨询的线上阵地。</p>
+            <p className="panel-kicker">GEO WEBSITE CASE · HAIKOU</p><h3>海南阿驰二手车<br /><em>GEO 品牌官网落地案例</em></h3>
+            <p>围绕海口二手车用户关心的买车、卖车、估价与服务问题，把品牌信息、本地业务与问答型内容组织成更容易被搜索引擎和 AI 理解的官网结构，并形成可持续更新的公开知识入口。</p>
             <dl className="case-facts">
-              <div><dt>客户场景</dt><dd>海口本地二手车品牌</dd></div><div><dt>核心需求</dt><dd>降低重复出镜成本，建立自有线上展示入口</dd></div>
-              <div><dt>交付内容</dt><dd>数字人口播内容方式 + 品牌展示 / 车源咨询官网</dd></div><div><dt>应用价值</dt><dd>把真人专业表达转化为可持续复用的内容与转化资产</dd></div>
+              <div><dt>案例结果</dt><dd>品牌官网正式上线，形成企业可控的 GEO 内容阵地</dd></div><div><dt>内容策略</dt><dd>品牌实体、本地服务、用户问题与业务信息结构化呈现</dd></div>
+              <div><dt>交付内容</dt><dd>官网信息架构、业务页面、问答内容与咨询承接入口</dd></div><div><dt>应用价值</dt><dd>让品牌内容更易被检索、理解，并持续承接客户咨询</dd></div>
             </dl>
             <a className="case-link" href="https://1822881038-droid.github.io/achi-used-car/" target="_blank" rel="noreferrer">访问阿驰二手车官网 <span>↗</span></a>
           </div>
@@ -102,23 +126,34 @@ export function CaseTabs({ basePath }: { basePath: string }) {
       {active === 2 && (
         <div className="case-panel">
           <div className="case-copy"><p className="panel-kicker">AI PRODUCT VISUAL</p><h3>从一张原图，延展为<br /><em>一套品牌内容资产</em></h3><p>提取包装、品牌信息和卖点，优化构图、光影与质感，再延展到电商详情、社交媒体、宣传海报和短视频封面。</p><div className="case-step-list">{['素材识别', '视觉重构', '场景延展', '多类型内容输出'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div></div>
-          <div className="case-media visual-case-gallery"><div className="case-media-bar"><span>ORIGINAL → AI VISUAL</span><b>BRAND ASSET</b></div><div><img src={`${basePath}/assets/visual-tea.webp`} alt="中国红茶原图到 AI 商品视觉案例" /><img src={`${basePath}/assets/visual-vitality.webp`} alt="东方元气 AI 商品视觉案例" /><img src={`${basePath}/assets/visual-portrait.webp`} alt="人物品牌 AI 视觉案例" /></div></div>
+          <div className="case-media visual-case-gallery">
+            <div className="case-media-bar"><span>{visualCases[visualIndex].label}</span><b>点击大图查看</b></div>
+            <button className="visual-main" type="button" onClick={() => setExpandedVisual(visualIndex)} aria-label={`放大查看${visualCases[visualIndex].label}`}><img src={`${basePath}/assets/${visualCases[visualIndex].src}`} alt={visualCases[visualIndex].alt} /><span>展开查看 ↗</span></button>
+            <div className="visual-thumbnails">{visualCases.map((item,index)=><button className={visualIndex===index?'active':''} type="button" key={item.src} onClick={()=>setVisualIndex(index)} aria-label={`切换到${item.label}`}><img src={`${basePath}/assets/${item.src}`} alt="" /><span>{item.label}</span></button>)}</div>
+          </div>
         </div>
       )}
 
       {active === 3 && (
         <div className="case-panel">
-          <div className="case-copy"><p className="panel-kicker">SCENARIO TRAINING</p><h3>同一套 AI 能力，进入<br /><em>不同组织的岗位任务</em></h3><p>社区和夜校强调低门槛实操，党群与公共服务机构聚焦办公和宣传，职业院校结合专业开展编程、内容创作与项目实践。</p><div className="tag-cloud"><span>社区与夜校</span><span>党群与公共服务</span><span>职业院校</span><span>企业专项培训</span></div></div>
-          <div className="case-media case-photo"><img src={`${basePath}/assets/training-community.webp`} alt="海南场景化 AI 实训" /><div><span>交付标准</span><strong>独立完成一项真实任务</strong></div></div>
+          <div className="case-copy"><p className="panel-kicker">GOVERNMENT & ENTERPRISE AI TRAINING</p><h3>政府 AI 培训 ×<br /><em>企业内部提效训练</em></h3><p>面向政府及公共机构，围绕办公提效、材料整理、政务宣传与安全合规开展实操培训；面向企业，则从部门流程和岗位任务出发，训练团队把 AI 真正用进业务。</p><div className="tag-cloud"><span>政府与公共机构</span><span>企业内部培训</span><span>部门专项工作坊</span><span>真实业务任务共创</span></div></div>
+          <div className="case-media case-photo"><img src={`${basePath}/assets/training-community.webp`} alt="政府 AI 培训与企业内训现场" /><div><span>培训目标</span><strong>让岗位人员独立完成真实任务</strong></div></div>
         </div>
       )}
 
       {active === 4 && (
         <div className="case-panel">
-          <div className="case-copy"><p className="panel-kicker">COMMUNITY GROWTH</p><h3>把一次活动，变成<br /><em>长期社群关系</em></h3><p>围绕创业者真实问题持续输出内容，通过工作坊和主题分享建立连接，再把活动参与者沉淀为长期成员，推动资源协同和项目合作。</p><div className="case-step-list">{['内容触达', '线下连接', '社群沉淀', '资源协同'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div></div>
-          <div className="case-media case-photo"><img src={`${basePath}/assets/training-workshop.webp`} alt="青年创业者 AI 工作坊" /><div><span>增长闭环</span><strong>内容 × 活动 × 资源</strong></div></div>
+          <div className="case-copy"><p className="panel-kicker">GEO COMMUNITY GROWTH CASE</p><h3>海南青创社群<br /><em>GEO 内容增长落地案例</em></h3><p>围绕海南青年创业者关心的 AI 应用、创业增长与资源链接问题，持续建设可被搜索和 AI 理解的主题内容，再把线上触达导向活动报名、社群沉淀与项目合作。</p><div className="case-step-list">{['用户问题与主题词库', 'GEO 内容持续生产', '搜索与内容平台触达', '活动报名与线下连接', '社群沉淀与项目合作'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div></div>
+          <div className="case-media case-photo"><img src={`${basePath}/assets/training-workshop.webp`} alt="海南青创社群 GEO 内容增长活动" /><div><span>案例结果</span><strong>GEO 内容 × 活动 × 社群转化</strong></div></div>
         </div>
       )}
+
+      {expandedVisual !== null && <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="AI 商品视觉大图" onClick={() => setExpandedVisual(null)}>
+        <button className="lightbox-close" type="button" onClick={() => setExpandedVisual(null)} aria-label="关闭大图">×</button>
+        <button className="lightbox-arrow lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); setExpandedVisual((expandedVisual + visualCases.length - 1) % visualCases.length); }} aria-label="上一张">‹</button>
+        <figure onClick={(event) => event.stopPropagation()}><img src={`${basePath}/assets/${visualCases[expandedVisual].src}`} alt={visualCases[expandedVisual].alt} /><figcaption><span>{String(expandedVisual + 1).padStart(2,'0')} / {String(visualCases.length).padStart(2,'0')}</span>{visualCases[expandedVisual].label}</figcaption></figure>
+        <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setExpandedVisual((expandedVisual + 1) % visualCases.length); }} aria-label="下一张">›</button>
+      </div>}
     </div>
   );
 }
