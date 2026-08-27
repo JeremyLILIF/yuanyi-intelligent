@@ -220,6 +220,31 @@ export function HeroOceanBackdrop() {
   return <div className="hero-motion-bg" aria-hidden="true"><canvas ref={canvasRef} className="hero-ocean-canvas" /></div>;
 }
 
+export function SiteMotionEffects() {
+  useEffect(() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>('main .section > *'));
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: .08, rootMargin: '0px 0px -7% 0px' });
+
+    targets.forEach((target, index) => {
+      target.classList.add('motion-reveal');
+      target.style.setProperty('--reveal-delay', `${(index % 3) * 70}ms`);
+      observer.observe(target);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return null;
+}
+
 export function CaseTabs({ basePath }: { basePath: string }) {
   const [active, setActive] = useState(0);
   const [visualIndex, setVisualIndex] = useState(0);

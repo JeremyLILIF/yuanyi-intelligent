@@ -1,4 +1,4 @@
-import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase } from './interactions';
+import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, SiteMotionEffects } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
@@ -32,6 +32,7 @@ export default function Home() {
     <main>
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
+      <SiteMotionEffects />
 
       <header className="site-header">
         <a className="brand" href="#top" aria-label="元一智能科技首页">
@@ -94,7 +95,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section products-section" id="products">
+      <section className="section products-section motion-surface" id="products">
         <div className="section-heading">
           <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>用技术解决效率，<br /><em>用内容推动增长</em></h2></div>
           <p>五项能力从空间载体、技术落地、内容增长到组织训练彼此连接，形成可交付、可持续迭代的服务体系。</p>
@@ -108,7 +109,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="about-section" id="about">
+      <section className="about-section motion-surface" id="about">
         <div className="section about-inner">
           <div className="about-intro">
             <div><p className="section-kicker">ABOUT YUANYI</p><h2>AI 落地不是交付工具，<br /><em>而是建立可运行的业务能力。</em></h2></div>
@@ -132,7 +133,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section cases-section" id="cases">
+      <section className="section cases-section motion-surface" id="cases">
         <div className="section-heading">
           <div><p className="section-kicker">SOLUTIONS & CLIENT CASES</p><h2>从一个具体问题，<br /><em>走到真实交付</em></h2></div>
           <p>以阿驰二手车 GEO 品牌官网、青创社群 GEO 内容增长为真实落地结果，同时展示 AI 商品视觉及政府、企业 AI 培训的交付方式。</p>
@@ -140,7 +141,7 @@ export default function Home() {
         <CaseTabs basePath={basePath} />
       </section>
 
-      <section className="digital-ip-section" id="digital-ip">
+      <section className="digital-ip-section motion-surface" id="digital-ip">
         <div className="section digital-ip-inner">
           <div className="section-heading digital-ip-heading">
             <div><p className="section-kicker">DIGITAL HUMAN × IP AGENT PLATFORM</p><h2>一个真实形象，<br /><em>持续生成可发布内容</em></h2></div>
@@ -160,7 +161,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="course-section" id="course">
+      <section className="course-section motion-surface" id="course">
         <div className="section course-inner">
           <div className="course-heading">
             <p className="section-kicker">AI PRACTICAL PRODUCTIVITY CAMP</p>
@@ -172,7 +173,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section growth-section" id="growth">
+      <section className="section growth-section motion-surface" id="growth">
         <div className="section-heading">
           <div><p className="section-kicker">AI + IP + GEO PRIVATE CLASS</p><h2>从工具入门，走向<br /><em>可复制商业体系</em></h2></div>
           <p>元一 AI+IP+GEO 私教班三期成长档案：学习者的角色从 AI 小白、价值贡献者，逐步走向城市合伙人与体系共建者。</p>
@@ -180,7 +181,7 @@ export default function Home() {
         <GrowthTabs />
       </section>
 
-      <section className="delivery-section">
+      <section className="delivery-section motion-surface">
         <div className="section delivery-inner">
           <div className="delivery-title"><p className="section-kicker">DELIVERY METHOD</p><h2>先验证价值，<br />再进入流程，<br /><em>陪得到结果。</em></h2></div>
           <div className="delivery-flow">
@@ -191,7 +192,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="brief-section" id="contact">
+      <section className="brief-section motion-surface" id="contact">
         <div className="section brief-inner">
           <div className="brief-copy">
             <p className="section-kicker">START WITH A REAL SCENARIO</p><h2>从一个真实场景开始，<br /><em>让 AI 产生真实价值。</em></h2>
