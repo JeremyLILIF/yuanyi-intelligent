@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 const caseTabs = ['阿驰 · GEO 官网', 'GEO Pilot', 'AI 商品视觉', '政企 AI 培训', '青创 · GEO 增长'];
 
@@ -87,6 +87,130 @@ const growthPhases = [
     phase: '第三期', date: '2026.08.08–08.09', role: '价值贡献者 → 城市合伙人', question: '如何把 AI、IP 和 GEO 变成可复制商业体系？', insight: 'AI = 可复制智力；IP = 长期价值；GEO = 面向 AI 的内容营销。', tools: '个人 IP 技能包、短视频流水线、GEO 发布工具', geo: 'GEO 同样适合个人品牌：用内容营销 AI，再借助 AI 影响用户。', capability: '建设 Skill、GEO 交付、内容流水线与课程体系。', quote: '工具入门 → 业务贡献 → 商业体系。',
   },
 ];
+
+export function HeroOceanBackdrop() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext('2d');
+    if (!canvas || !context) return;
+
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let seed = 27;
+    const random = () => {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    };
+    const motes = Array.from({ length: 58 }, () => ({
+      x: random(), y: random() * .72, radius: .45 + random() * 1.25,
+      alpha: .12 + random() * .42, speed: .000002 + random() * .000006, phase: random() * Math.PI * 2,
+    }));
+    const meteors = Array.from({ length: 4 }, (_, index) => ({
+      period: 6200 + index * 1100 + random() * 1300,
+      offset: index * 1650 + random() * 900,
+      duration: 850 + random() * 420,
+      x: .64 + random() * .34,
+      y: .04 + random() * .3,
+      travelX: .19 + random() * .12,
+      travelY: .12 + random() * .1,
+      length: 70 + random() * 85,
+    }));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const resize = () => {
+      const bounds = canvas.getBoundingClientRect();
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    };
+
+    const draw = (time: number) => {
+      context.clearRect(0, 0, width, height);
+
+      const horizon = context.createRadialGradient(width * .72, height * .62, 0, width * .72, height * .62, width * .58);
+      horizon.addColorStop(0, 'rgba(62, 226, 185, .12)');
+      horizon.addColorStop(.34, 'rgba(38, 165, 187, .065)');
+      horizon.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      context.fillStyle = horizon;
+      context.fillRect(0, height * .2, width, height * .8);
+
+      motes.forEach((mote) => {
+        const x = ((mote.x + time * mote.speed) % 1) * width;
+        const pulse = .5 + Math.sin(time * .0012 + mote.phase) * .5;
+        context.beginPath();
+        context.arc(x, mote.y * height, mote.radius, 0, Math.PI * 2);
+        context.fillStyle = `rgba(208, 255, 157, ${mote.alpha * (.35 + pulse * .65)})`;
+        context.fill();
+      });
+
+      for (let row = 0; row < 10; row += 1) {
+        const baseY = height * (.58 + row * .046);
+        const stroke = context.createLinearGradient(0, 0, width, 0);
+        stroke.addColorStop(0, 'rgba(62, 215, 208, 0)');
+        stroke.addColorStop(.34, `rgba(62, 215, 208, ${.025 + row * .004})`);
+        stroke.addColorStop(.72, `rgba(198, 255, 84, ${.075 + row * .009})`);
+        stroke.addColorStop(1, 'rgba(198, 255, 84, 0)');
+        context.beginPath();
+        for (let x = -24; x <= width + 24; x += 18) {
+          const y = baseY
+            + Math.sin(x * .009 + time * .00042 + row * .68) * (3.5 + row * .72)
+            + Math.sin(x * .0031 - time * .00025) * (3 + row * .4);
+          if (x === -24) context.moveTo(x, y); else context.lineTo(x, y);
+        }
+        context.strokeStyle = stroke;
+        context.lineWidth = .7 + row * .07;
+        context.stroke();
+      }
+
+      meteors.forEach((meteor) => {
+        const cycle = (time + meteor.offset) % meteor.period;
+        if (cycle > meteor.duration) return;
+        const progress = cycle / meteor.duration;
+        const opacity = Math.sin(progress * Math.PI) * .66;
+        const headX = width * (meteor.x - meteor.travelX * progress);
+        const headY = height * (meteor.y + meteor.travelY * progress);
+        const tailX = headX + meteor.length;
+        const tailY = headY - meteor.length * .42;
+        const streak = context.createLinearGradient(headX, headY, tailX, tailY);
+        streak.addColorStop(0, `rgba(218, 255, 174, ${opacity})`);
+        streak.addColorStop(.18, `rgba(111, 245, 213, ${opacity * .75})`);
+        streak.addColorStop(1, 'rgba(111, 245, 213, 0)');
+        context.beginPath();
+        context.moveTo(headX, headY);
+        context.lineTo(tailX, tailY);
+        context.strokeStyle = streak;
+        context.lineWidth = 1.4;
+        context.stroke();
+        context.beginPath();
+        context.arc(headX, headY, 1.7, 0, Math.PI * 2);
+        context.fillStyle = `rgba(235, 255, 215, ${opacity})`;
+        context.fill();
+      });
+
+      if (!reducedMotion) frame = window.requestAnimationFrame(draw);
+    };
+
+    resize();
+    draw(0);
+    const observer = new ResizeObserver(() => {
+      resize();
+      if (reducedMotion) draw(0);
+    });
+    observer.observe(canvas);
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return <div className="hero-motion-bg" aria-hidden="true"><canvas ref={canvasRef} className="hero-ocean-canvas" /></div>;
+}
 
 export function CaseTabs({ basePath }: { basePath: string }) {
   const [active, setActive] = useState(0);

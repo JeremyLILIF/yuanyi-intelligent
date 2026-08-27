@@ -1,4 +1,4 @@
-import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs, IncubatorShowcase } from './interactions';
+import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
@@ -46,7 +46,7 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-backdrop hero-backdrop-building" style={{ backgroundImage: `linear-gradient(90deg, rgba(7,9,7,.99) 0%, rgba(7,9,7,.9) 38%, rgba(7,9,7,.52) 66%, rgba(7,9,7,.72) 100%), radial-gradient(circle at 78% 38%, rgba(185,255,56,.13), transparent 34%), url(${basePath}/assets/incubator-building.webp)` }} aria-hidden="true" />
+        <HeroOceanBackdrop />
         <div className="hero-copy">
           <div className="eyebrow"><i /> HAINAN · AI SEAVIEW INCUBATION BASE</div>
           <h1>让 AI 真正进入<span>业务现场</span></h1>
