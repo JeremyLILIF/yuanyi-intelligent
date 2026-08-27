@@ -77,9 +77,10 @@ export default function Home() {
       </section>
 
       <section className="incubator-section" id="incubator">
+        <div className="incubator-seaview-bg" style={{ backgroundImage: `linear-gradient(90deg, rgba(7,9,7,.82) 0%, rgba(7,9,7,.46) 52%, rgba(7,9,7,.22) 100%), url(${basePath}/assets/hero-seaview-base.webp)` }} aria-hidden="true" />
         <div className="section incubator-inner">
           <div className="section-heading incubator-heading">
-            <div><p className="section-kicker">YUANYI AI SEAVIEW INCUBATION BASE</p><h2>海南最大 AI 海景孵化基地，<br /><em>让团队在这里开始生长</em></h2></div>
+            <div><p className="section-kicker">YUANYI AI SEAVIEW INCUBATION BASE</p><h2><span className="incubator-title-line">海南最大 AI 海景孵化基地</span><br /><em>让团队在这里开始生长</em></h2></div>
             <p>元一智能科技坐落于海口湾畔的 1500㎡ AI 孵化空间，面向 AI 创业团队、内容团队、企业项目组与培训合作方开放独立办公室和灵活工位。</p>
           </div>
           <div className="incubator-features">

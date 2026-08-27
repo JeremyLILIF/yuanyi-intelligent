@@ -119,19 +119,23 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .trust-strip i { width: 4px; height: 4px; border-radius: 50%; background: #2b97e7; }
 .trust-strip .hainan-mark { color: #cff7ff; }
 
-.incubator-section { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: radial-gradient(circle at 82% 20%, rgba(185,255,56,.08), transparent 27%), linear-gradient(180deg, #0c100d, #070907); }
-.incubator-section::before { content: "1500 M²"; position: absolute; right: -30px; top: 45px; color: rgba(200,255,77,.027); font-size: 190px; line-height: 1; font-weight: 850; letter-spacing: -.08em; }
+.incubator-section { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); background: linear-gradient(180deg, #0c100d, #070907); }
+.incubator-section::before { content: "1500 M²"; position: absolute; z-index: 1; right: -30px; top: 45px; color: rgba(200,255,77,.04); font-size: 190px; line-height: 1; font-weight: 850; letter-spacing: -.08em; }
+.incubator-seaview-bg { position: absolute; z-index: 0; inset: 0 0 auto; height: 880px; background-position: center 42%; background-repeat: no-repeat; background-size: cover; opacity: .8; -webkit-mask-image: linear-gradient(#000 0%, #000 62%, transparent 100%); mask-image: linear-gradient(#000 0%, #000 62%, transparent 100%); }
 .incubator-inner { z-index: 1; }
+.incubator-heading { grid-template-columns: minmax(0, 1fr) 390px; gap: 48px; }
+.incubator-heading h2 { font-size: clamp(38px, 4vw, 54px); }
+.incubator-title-line { display: inline-block; white-space: nowrap; }
 .incubator-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 58px; }
 .incubator-features article { min-height: 126px; display: flex; flex-direction: column; justify-content: center; padding: 23px; border: 1px solid var(--line); border-radius: 11px; background: linear-gradient(145deg, rgba(34,45,28,.65), rgba(10,14,11,.76)); }
 .incubator-features strong, .incubator-features span { display: block; }
 .incubator-features strong { color: #dfff91; font-size: 21px; }
 .incubator-features span { margin-top: 9px; color: #8d998c; font-size: 10px; line-height: 1.6; }
-.incubator-showcase { display: grid; grid-template-columns: minmax(0, 1.36fr) minmax(290px, .64fr); gap: 15px; margin-top: 18px; }
+.incubator-showcase { display: grid; grid-template-columns: minmax(0, .96fr) minmax(340px, .64fr); gap: 15px; margin-top: 18px; }
 .incubator-gallery, .incubator-tour-card { overflow: hidden; border: 1px solid rgba(200,255,77,.2); border-radius: 14px; background: rgba(10,14,11,.88); box-shadow: 0 32px 90px rgba(0,0,0,.32); }
 .incubator-media-bar { min-height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; color: #758275; border-bottom: 1px solid var(--line); font: 8px monospace; letter-spacing: .12em; }
 .incubator-media-bar b { color: var(--cyan); font-weight: 500; }
-.incubator-main-image { width: 100%; height: 570px; position: relative; display: grid; place-items: center; padding: 0; overflow: hidden; color: inherit; border: 0; background: radial-gradient(circle, rgba(80,102,66,.12), transparent 55%), #080a08; cursor: zoom-in; }
+.incubator-main-image { width: 100%; aspect-ratio: 4 / 5; position: relative; display: grid; place-items: center; padding: 0; overflow: hidden; color: inherit; border: 0; background: radial-gradient(circle, rgba(80,102,66,.12), transparent 55%), #080a08; cursor: zoom-in; }
 .incubator-main-image img { width: 100%; height: 100%; object-fit: contain; transition: transform .35s, filter .35s; }
 .incubator-main-image:hover img { transform: scale(1.01); filter: brightness(.75); }
 .incubator-main-image > span { position: absolute; right: 16px; bottom: 15px; padding: 9px 12px; color: #0a0d08; border-radius: 6px; background: var(--cyan); font-size: 9px; font-weight: 800; opacity: 0; transform: translateY(5px); transition: opacity .2s, transform .2s; }
@@ -139,7 +143,7 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .incubator-thumbs { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; padding: 9px; border-top: 1px solid var(--line); }
 .incubator-thumbs button { min-width: 0; padding: 4px; color: #7f8a7f; border: 1px solid var(--line); border-radius: 7px; background: rgba(255,255,255,.015); cursor: pointer; }
 .incubator-thumbs button.active { color: #e7efd9; border-color: rgba(200,255,77,.48); background: rgba(200,255,77,.065); }
-.incubator-thumbs img { width: 100%; height: 62px; object-fit: cover; border-radius: 4px; }
+.incubator-thumbs img { width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: contain; border-radius: 4px; background: #070907; }
 .incubator-thumbs span { display: block; padding: 6px 2px 2px; overflow: hidden; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
 .incubator-tour-card { padding: 14px; }
 .incubator-tour-head { min-height: 40px; display: flex; align-items: flex-start; justify-content: space-between; padding: 0 2px 11px; }
@@ -792,6 +796,8 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .hero-base-link { margin-inline: auto; }
   .hero-visual { min-height: 520px; }
   .incubator-features { grid-template-columns: 1fr 1fr; }
+  .incubator-heading { grid-template-columns: 1fr; gap: 25px; }
+  .incubator-heading h2 { font-size: clamp(38px, 6.7vw, 54px); }
   .incubator-showcase { grid-template-columns: 1fr; }
   .incubator-tour-card { width: min(100%, 420px); justify-self: center; }
   .section-heading { grid-template-columns: 1fr; gap: 25px; }
@@ -859,9 +865,12 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .trust-strip i { display: none; }
   .section { padding: 88px 0; }
   .incubator-features { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 38px; }
+  .incubator-seaview-bg { height: 720px; background-position: 61% center; opacity: .65; }
+  .incubator-heading h2 { font-size: clamp(30px, 9.4vw, 44px); }
+  .incubator-title-line { white-space: normal; }
   .incubator-features article { min-height: 112px; padding: 17px; }
   .incubator-features strong { font-size: 17px; }
-  .incubator-main-image { height: 470px; }
+  .incubator-main-image { aspect-ratio: 3 / 4; }
   .incubator-thumbs { display: flex; overflow-x: auto; scrollbar-width: none; }
   .incubator-thumbs::-webkit-scrollbar { display: none; }
   .incubator-thumbs button { min-width: 94px; flex: 0 0 auto; }
