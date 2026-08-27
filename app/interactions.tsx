@@ -17,6 +17,16 @@ const platformScreens = [
   { src: 'digital-ip-history.webp', label: '任务与结果', detail: '批次进度、视频结果与历史任务可追踪', alt: '数字人 IP 智能体平台视频结果与历史记录' },
 ];
 
+const incubatorImages = [
+  { src: 'incubator-building.webp', label: '孵化基地外景', alt: '元一智能科技所在的海口 AI 海景孵化基地写字楼' },
+  { src: 'incubator-reception.webp', label: '海浪形象前厅', alt: 'AI 海景孵化基地接待前厅' },
+  { src: 'incubator-office-sea.webp', label: '海景独立办公室', alt: '可俯瞰海口湾的独立办公室' },
+  { src: 'incubator-office-city.webp', label: '城市景观办公室', alt: 'AI 海景孵化基地城市景观办公室' },
+  { src: 'incubator-lounge.webp', label: '海景会客空间', alt: 'AI 海景孵化基地海景会客与交流空间' },
+  { src: 'incubator-workstations.webp', label: '团队办公工位', alt: 'AI 海景孵化基地团队办公工位' },
+  { src: 'incubator-meeting.webp', label: '会议与培训空间', alt: 'AI 海景孵化基地会议与培训空间' },
+];
+
 const schedule = [
   ['课前线上', '协商安排 · 60 分钟', '运营负责人 + 助教 + 讲师团队', '开营、资料包、工具检查、业务任务诊断', '个人任务卡'],
   ['第一天上午', '09:00–10:30', '李英和', 'AI 文档、方案、PPT 与商业图片', '方案 / PPT 初稿与商业图片'],
@@ -160,6 +170,51 @@ export function CaseTabs({ basePath }: { basePath: string }) {
         <button className="lightbox-arrow lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); setExpandedVisual((expandedVisual + visualCases.length - 1) % visualCases.length); }} aria-label="上一张">‹</button>
         <figure onClick={(event) => event.stopPropagation()}><img src={`${basePath}/assets/${visualCases[expandedVisual].src}`} alt={visualCases[expandedVisual].alt} /><figcaption><span>{String(expandedVisual + 1).padStart(2,'0')} / {String(visualCases.length).padStart(2,'0')}</span>{visualCases[expandedVisual].label}</figcaption></figure>
         <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setExpandedVisual((expandedVisual + 1) % visualCases.length); }} aria-label="下一张">›</button>
+      </div>}
+    </div>
+  );
+}
+
+export function IncubatorShowcase({ basePath }: { basePath: string }) {
+  const [activeImage, setActiveImage] = useState(2);
+  const [expandedImage, setExpandedImage] = useState<number | null>(null);
+  const selected = incubatorImages[activeImage];
+
+  useEffect(() => {
+    if (expandedImage === null) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setExpandedImage(null);
+      if (event.key === 'ArrowLeft') setExpandedImage((current) => current === null ? null : (current + incubatorImages.length - 1) % incubatorImages.length);
+      if (event.key === 'ArrowRight') setExpandedImage((current) => current === null ? null : (current + 1) % incubatorImages.length);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [expandedImage]);
+
+  return (
+    <div className="incubator-showcase">
+      <div className="incubator-gallery">
+        <div className="incubator-media-bar"><span>REAL SPACE · 0{activeImage + 1}</span><b>{selected.label}</b></div>
+        <button className="incubator-main-image" type="button" onClick={() => setExpandedImage(activeImage)} aria-label={`放大查看${selected.label}`}><img src={`${basePath}/assets/${selected.src}`} alt={selected.alt} /><span>查看实景大图 ↗</span></button>
+        <div className="incubator-thumbs" aria-label="孵化基地实景图集">{incubatorImages.map((item,index)=><button className={activeImage===index?'active':''} type="button" key={item.src} onClick={()=>setActiveImage(index)} aria-label={`切换到${item.label}`}><img src={`${basePath}/assets/${item.src}`} alt="" /><span>{item.label}</span></button>)}</div>
+      </div>
+      <div className="incubator-tour-card">
+        <div className="incubator-tour-head"><div><span>SPACE TOUR</span><strong>35 秒实景探访</strong></div><b>HAIKOU</b></div>
+        <div className="incubator-tour-video"><video controls playsInline preload="metadata" poster={`${basePath}/assets/incubator-tour-poster.webp`} aria-label="元一 AI 海景孵化基地实景视频"><source src={`${basePath}/assets/incubator-tour.mp4`} type="video/mp4" /></video></div>
+        <div className="incubator-tour-meta"><span>独立办公室</span><span>共享工位</span><span>会议培训</span></div>
+        <p>真实空间、真实海景、真实办公条件。可根据团队人数与项目周期匹配入驻方式。</p>
+      </div>
+
+      {expandedImage !== null && <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="AI 海景孵化基地实景大图" onClick={() => setExpandedImage(null)}>
+        <button className="lightbox-close" type="button" onClick={() => setExpandedImage(null)} aria-label="关闭大图">×</button>
+        <button className="lightbox-arrow lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); setExpandedImage((expandedImage + incubatorImages.length - 1) % incubatorImages.length); }} aria-label="上一张">‹</button>
+        <figure className="incubator-lightbox-figure" onClick={(event) => event.stopPropagation()}><img src={`${basePath}/assets/${incubatorImages[expandedImage].src}`} alt={incubatorImages[expandedImage].alt} /><figcaption><span>{String(expandedImage + 1).padStart(2,'0')} / {String(incubatorImages.length).padStart(2,'0')}</span>{incubatorImages[expandedImage].label}</figcaption></figure>
+        <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setExpandedImage((expandedImage + 1) % incubatorImages.length); }} aria-label="下一张">›</button>
       </div>}
     </div>
   );

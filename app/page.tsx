@@ -1,12 +1,13 @@
-import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs } from './interactions';
+import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs, IncubatorShowcase } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 const products = [
-  { index: '01', title: 'AI 技术应用', label: '效率与系统', text: '面向内容、运营、办公与业务流程，设计 AI 工具、工作流及系统应用。' },
-  { index: '02', title: '数字人 × IP', label: '触达与增长', text: '通过数字人、内容矩阵与个人 IP 运营，提升品牌触达、客户信任和持续转化。' },
-  { index: '03', title: 'GEO Pilot', label: '内容增长系统', text: '把洞察、知识、生成、分发与反馈串成可追踪、可持续优化的增长闭环。' },
-  { index: '04', title: 'AI 训练营', label: '能力共建', text: '围绕真实岗位任务开展工具实操、项目训练和应用辅导，把学习转化为成果。' },
+  { index: '01', title: 'AI 海景孵化基地', label: '空间与生态', text: '1500㎡ 海景空间，提供独立办公室与开放工位，连接 AI 创业、培训及项目合作。' },
+  { index: '02', title: 'AI 技术应用', label: '效率与系统', text: '面向内容、运营、办公与业务流程，设计 AI 工具、工作流及系统应用。' },
+  { index: '03', title: '数字人 × IP', label: '触达与增长', text: '通过数字人、内容矩阵与个人 IP 运营，提升品牌触达、客户信任和持续转化。' },
+  { index: '04', title: 'GEO Pilot', label: '内容增长系统', text: '把洞察、知识、生成、分发与反馈串成可追踪、可持续优化的增长闭环。' },
+  { index: '05', title: 'AI 训练营', label: '能力共建', text: '围绕真实岗位任务开展工具实操、项目训练和应用辅导，把学习转化为成果。' },
 ];
 
 const team = [
@@ -38,23 +39,25 @@ export default function Home() {
           <span className="brand-wordmark"><strong>元一智能科技</strong><small>YUANYI INTELLIGENT</small></span>
         </a>
         <nav className="main-nav" aria-label="主导航">
-          <a href="#about">关于元一</a><a href="#cases">产品案例</a><a href="#digital-ip">数字人 × IP</a><a href="#course">实战提效营</a>
+          <a href="#incubator">海景孵化基地</a><a href="#cases">产品案例</a><a href="#digital-ip">数字人 × IP</a><a href="#course">实战提效营</a>
           <a href="#growth">私教成长</a><a href="#contact">项目合作</a>
         </nav>
         <a className="nav-cta" href="#contact">预约场景诊断 <span>↗</span></a>
       </header>
 
       <section className="hero" id="top">
+        <div className="hero-backdrop" style={{ backgroundImage: `linear-gradient(90deg, rgba(7,9,7,.98) 0%, rgba(7,9,7,.85) 34%, rgba(7,9,7,.36) 68%, rgba(7,9,7,.7) 100%), linear-gradient(180deg, rgba(7,9,7,.08), rgba(7,9,7,.72)), url(${basePath}/assets/hero-seaview-base.webp)` }} />
         <div className="hero-copy">
-          <div className="eyebrow"><i /> HAINAN · AI DELIVERY PARTNER</div>
+          <div className="eyebrow"><i /> HAINAN · AI SEAVIEW INCUBATION BASE</div>
           <h1>让 AI 真正进入<span>业务现场</span></h1>
-          <p className="hero-lead">立足海南，为政府、企业与机构提供可落地、可交付、可持续的 AI 服务。</p>
+          <p className="hero-lead">元一智能科技坐落于海口 1500㎡ AI 海景孵化基地，为政府、企业、创业者与机构提供空间、技术、培训和增长服务。</p>
+          <a className="hero-base-link" href="#incubator"><span>1500㎡ 海景空间</span><strong>独立办公室与开放工位入驻 <b>→</b></strong></a>
           <div className="hero-actions">
             <a className="button button-primary" href="#cases">查看产品与案例 <span>→</span></a>
             <a className="button button-ghost" href="#course">了解 AI 实战提效营</a>
           </div>
           <div className="hero-proof">
-            <div><strong>3</strong><span>大核心业务</span></div><div><strong>5</strong><span>步项目交付法</span></div><div><strong>1:1</strong><span>场景诊断起步</span></div>
+            <div><strong>5</strong><span>大核心产品</span></div><div><strong>5</strong><span>步项目交付法</span></div><div><strong>1:1</strong><span>场景诊断起步</span></div>
           </div>
         </div>
 
@@ -70,13 +73,30 @@ export default function Home() {
       </section>
 
       <section className="trust-strip" aria-label="业务定位">
-        <span>AI 技术应用</span><i /><span>AI 数字人获客与个人 IP</span><i /><span>AI 实战训练</span><i /><span className="hainan-mark">扎根海南 · 服务本地</span>
+        <span>AI 海景孵化基地</span><i /><span>AI 技术应用</span><i /><span>数字人 × IP</span><i /><span>GEO 内容增长</span><i /><span className="hainan-mark">扎根海南 · 服务本地</span>
+      </section>
+
+      <section className="incubator-section" id="incubator">
+        <div className="section incubator-inner">
+          <div className="section-heading incubator-heading">
+            <div><p className="section-kicker">YUANYI AI SEAVIEW INCUBATION BASE</p><h2>海南最大 AI 海景孵化基地，<br /><em>让团队在这里开始生长</em></h2></div>
+            <p>元一智能科技坐落于海口湾畔的 1500㎡ AI 孵化空间，面向 AI 创业团队、内容团队、企业项目组与培训合作方开放独立办公室和灵活工位。</p>
+          </div>
+          <div className="incubator-features">
+            <article><strong>1500㎡</strong><span>海南 AI 海景孵化空间</span></article>
+            <article><strong>独立单间</strong><span>适合团队长期办公与项目交付</span></article>
+            <article><strong>灵活工位</strong><span>个人与小团队均可申请入驻</span></article>
+            <article><strong>配套全免</strong><span>水电 · 物业 · 网络 · 停车免费</span></article>
+          </div>
+          <IncubatorShowcase basePath={basePath} />
+          <div className="incubator-footer"><p><span>SEA VIEW · HAIKOU</span>窗外可眺望海口湾、世纪大桥与云洞公园片区，空间同时支持办公、会议、路演、培训与项目共创。</p><a className="button button-primary" href="#contact">咨询入驻与合作 <span>→</span></a></div>
+        </div>
       </section>
 
       <section className="section products-section" id="products">
         <div className="section-heading">
           <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>用技术解决效率，<br /><em>用内容推动增长</em></h2></div>
-          <p>四项能力并非彼此孤立，而是一套从业务升级、内容增长到组织能力沉淀的完整服务体系。</p>
+          <p>五项能力从空间载体、技术落地、内容增长到组织训练彼此连接，形成可交付、可持续迭代的服务体系。</p>
         </div>
         <div className="product-grid">
           {products.map((product) => (
