@@ -69,6 +69,7 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
   z-index: 2;
 }
 .hero-backdrop { position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); z-index: -1; background-position: center; background-size: cover; pointer-events: none; }
+.hero-backdrop-building { background-color: #070907; background-position: center, center, right 8vw center; background-repeat: no-repeat; background-size: cover, cover, auto 118%; }
 .hero-copy, .hero-visual { z-index: 1; }
 .eyebrow, .section-kicker { color: #8fdfff; font-size: 11px; letter-spacing: .22em; font-weight: 700; }
 .eyebrow { display: flex; align-items: center; gap: 10px; }
@@ -852,6 +853,7 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .hero h1 { font-size: 48px; }
   .hero-lead { font-size: 15px; }
   .hero-backdrop { background-position: 63% center; }
+  .hero-backdrop-building { background-position: center, center, right -80px top 90px; background-size: cover, cover, auto 78%; }
   .hero-base-link { flex-direction: column; align-items: flex-start; gap: 7px; padding: 12px 14px; text-align: left; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-proof div { min-width: 0; flex: 1; padding: 0 10px; }
