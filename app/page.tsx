@@ -1,4 +1,4 @@
-import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, SiteMotionEffects } from './interactions';
+import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, SiteMotionEffects, TrainingGallery } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
@@ -170,6 +170,7 @@ export default function Home() {
             <div className="course-pills"><span>5 个数字员工</span><span>AI 办公提效</span><span>全自动内容工作台</span><span>发布与 GEO 增长</span></div>
           </div>
           <CourseTabs />
+          <TrainingGallery basePath={basePath} />
         </div>
       </section>
 

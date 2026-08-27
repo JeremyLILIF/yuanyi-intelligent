@@ -718,6 +718,31 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
 }
 .compliance-note { color: #6f7b70; }
 
+.training-gallery-block { margin-top: 52px; padding-top: 48px; border-top: 1px solid var(--line); }
+.training-gallery-heading { display: grid; grid-template-columns: 1fr minmax(320px, 500px); align-items: end; gap: 60px; margin-bottom: 24px; }
+.training-gallery-heading span { color: var(--cyan); font: 10px monospace; letter-spacing: .18em; }
+.training-gallery-heading h3 { margin: 12px 0 0; font-size: clamp(32px, 3.8vw, 52px); line-height: 1; letter-spacing: -.05em; }
+.training-gallery-heading p { margin: 0; color: #91a091; font-size: 13px; line-height: 1.85; }
+.training-gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 190px; gap: 10px; }
+.training-gallery-card { position: relative; min-width: 0; padding: 0; overflow: hidden; color: #f2f7eb; border: 1px solid rgba(200,255,77,.18); border-radius: 10px; background: #090d0a; text-align: left; cursor: zoom-in; isolation: isolate; }
+.training-gallery-card-1 { grid-column: span 2; grid-row: span 2; }
+.training-gallery-card-4,
+.training-gallery-card-5,
+.training-gallery-card-6,
+.training-gallery-card-7,
+.training-gallery-card-8 { grid-column: span 2; }
+.training-gallery-card img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .5s cubic-bezier(.2,.7,.2,1), filter .35s; }
+.training-gallery-card::after { content: ""; position: absolute; z-index: 1; inset: 35% 0 0; background: linear-gradient(transparent, rgba(4,8,5,.88)); pointer-events: none; }
+.training-gallery-card:hover img,
+.training-gallery-card:focus-visible img { transform: scale(1.035); filter: brightness(.78); }
+.training-gallery-index { position: absolute; z-index: 2; top: 13px; right: 14px; padding: 5px 7px; color: var(--cyan); border: 1px solid rgba(200,255,77,.22); border-radius: 999px; background: rgba(5,8,6,.7); font: 8px monospace; backdrop-filter: blur(8px); }
+.training-gallery-caption { position: absolute; z-index: 2; left: 17px; right: 17px; bottom: 15px; display: flex; flex-direction: column; gap: 5px; }
+.training-gallery-caption strong { font-size: 13px; }
+.training-gallery-caption small { color: #b0b9ae; font-size: 9px; }
+.training-lightbox-figure figcaption { display: grid; grid-template-columns: auto auto 1fr; }
+.training-lightbox-figure figcaption strong { font-size: 12px; }
+.training-lightbox-figure figcaption small { color: #8e9a8e; font-size: 10px; }
+
 .growth-rail button:hover,
 .growth-rail button.active {
   color: #f3f7ed;
@@ -836,6 +861,14 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .digital-ip-flow article:nth-child(4n) { border-right: 0; }
   .digital-ip-flow article:nth-child(4n)::after { display: none; }
   .course-metrics { grid-template-columns: 1fr 1fr; }
+  .training-gallery-heading { grid-template-columns: 1fr; gap: 18px; }
+  .training-gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 210px; }
+  .training-gallery-card-1 { grid-column: span 2; }
+  .training-gallery-card-4,
+  .training-gallery-card-5,
+  .training-gallery-card-6,
+  .training-gallery-card-7,
+  .training-gallery-card-8 { grid-column: span 1; }
   .agent-team-grid { grid-template-columns: repeat(3, 1fr); }
   .agent-team-head { grid-template-columns: 1fr; gap: 22px; }
   .course-track-grid { grid-template-columns: 1fr; }
@@ -937,6 +970,22 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .course-panel { min-height: 0; padding: 24px 16px; }
   .course-metrics { grid-template-columns: 1fr 1fr; }
   .course-metrics article { padding: 17px; }
+  .training-gallery-block { margin-top: 36px; padding-top: 38px; }
+  .training-gallery-heading { margin-bottom: 18px; }
+  .training-gallery-heading h3 { font-size: 34px; }
+  .training-gallery-heading p { font-size: 12px; }
+  .training-gallery-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .training-gallery-card,
+  .training-gallery-card-1,
+  .training-gallery-card-4,
+  .training-gallery-card-5,
+  .training-gallery-card-6,
+  .training-gallery-card-7,
+  .training-gallery-card-8 { grid-column: auto; grid-row: auto; aspect-ratio: 4 / 3; }
+  .training-gallery-caption strong { font-size: 14px; }
+  .training-gallery-caption small { font-size: 10px; }
+  .training-lightbox-figure figcaption { grid-template-columns: auto 1fr; gap: 6px 12px; }
+  .training-lightbox-figure figcaption small { grid-column: 2; }
   .course-command { grid-template-columns: 1fr; gap: 11px; }
   .course-command > i { transform: rotate(90deg); }
   .content-workflow { grid-template-columns: 1fr; }

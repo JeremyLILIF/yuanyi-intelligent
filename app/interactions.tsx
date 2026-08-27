@@ -27,6 +27,17 @@ const incubatorImages = [
   { src: 'incubator-meeting.webp', label: '会议与培训空间', alt: 'AI 海景孵化基地会议与培训空间' },
 ];
 
+const trainingGalleryImages = [
+  { src: 'training-case-01.webp', label: 'AI 实战工作坊', detail: '真实业务场景拆解与任务推进', alt: '元一智能 AI 实战提效营会议室工作坊现场' },
+  { src: 'training-case-02.webp', label: '小组讨论与协作', detail: '任务共创与现场答疑', alt: 'AI 实战提效营学员进行小组讨论' },
+  { src: 'training-case-03.webp', label: 'AI 工具现场实操', detail: '边学边做，完成真实交付', alt: 'AI 实战提效营学员使用电脑进行工具实操' },
+  { src: 'training-case-04.webp', label: '海南 Codex 交流会', detail: '小班深度交流与学习合影', alt: '海南 Codex 交流会往期学员合影' },
+  { src: 'training-case-05.webp', label: 'AI 图片与视频训练', detail: '面向企业与机构的场景实训', alt: 'AI 图片和视频主题培训课堂现场' },
+  { src: 'training-case-06.webp', label: '往期学员合影', detail: '学习成果与实战结营见证', alt: '元一智能 AI 实战课程往期学员大合影' },
+  { src: 'training-case-07.webp', label: '主题交流专场', detail: '技术、业务与资源同场连接', alt: '海南 Codex 主题交流活动学员合影' },
+  { src: 'training-case-08.webp', label: '海景实训课堂', detail: '沉浸式学习与项目练习', alt: '元一智能海景教室 AI 实战培训现场' },
+];
+
 const schedule = [
   ['课前线上', '协商安排 · 60 分钟', '运营负责人 + 助教 + 讲师团队', '开营、资料包、工具检查、业务任务诊断', '个人任务卡'],
   ['第一天上午', '09:00–10:30', '李英和', 'AI 文档、方案、PPT 与商业图片', '方案 / PPT 初稿与商业图片'],
@@ -403,6 +414,54 @@ export function DigitalIpShowcase({ basePath }: { basePath: string }) {
         <div className="digital-result-meta"><span>真人授权形象</span><span>智能剪辑</span><span>竖屏成片</span></div>
         <p>从平台任务进入成片结果，适用于个人 IP、本地商家口播与持续内容运营。</p>
       </div>
+    </div>
+  );
+}
+
+export function TrainingGallery({ basePath }: { basePath: string }) {
+  const [expandedImage, setExpandedImage] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (expandedImage === null) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setExpandedImage(null);
+      if (event.key === 'ArrowLeft') setExpandedImage((current) => current === null ? null : (current + trainingGalleryImages.length - 1) % trainingGalleryImages.length);
+      if (event.key === 'ArrowRight') setExpandedImage((current) => current === null ? null : (current + 1) % trainingGalleryImages.length);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [expandedImage]);
+
+  return (
+    <div className="training-gallery-block">
+      <div className="training-gallery-heading">
+        <div><span>PAST TRAINING HIGHLIGHTS</span><h3>往期实战现场</h3></div>
+        <p>从小班工作坊、企业培训到海南 Codex 交流会，记录真实学习、协作与成果共创。每一场都从业务问题出发，在现场完成练习与交付。</p>
+      </div>
+      <div className="training-gallery-grid" aria-label="AI 实战提效营往期现场案例">
+        {trainingGalleryImages.map((item, index) => (
+          <button className={`training-gallery-card training-gallery-card-${index + 1}`} type="button" key={item.src} onClick={() => setExpandedImage(index)} aria-label={`放大查看${item.label}`}>
+            <img src={`${basePath}/assets/${item.src}`} alt={item.alt} loading="lazy" decoding="async" />
+            <span className="training-gallery-index">{String(index + 1).padStart(2, '0')}</span>
+            <span className="training-gallery-caption"><strong>{item.label}</strong><small>{item.detail}</small></span>
+          </button>
+        ))}
+      </div>
+
+      {expandedImage !== null && <div className="image-lightbox training-lightbox" role="dialog" aria-modal="true" aria-label="AI 实战提效营往期现场大图" onClick={() => setExpandedImage(null)}>
+        <button className="lightbox-close" type="button" onClick={() => setExpandedImage(null)} aria-label="关闭大图">×</button>
+        <button className="lightbox-arrow lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); setExpandedImage((expandedImage + trainingGalleryImages.length - 1) % trainingGalleryImages.length); }} aria-label="上一张">‹</button>
+        <figure className="training-lightbox-figure" onClick={(event) => event.stopPropagation()}>
+          <img src={`${basePath}/assets/${trainingGalleryImages[expandedImage].src}`} alt={trainingGalleryImages[expandedImage].alt} />
+          <figcaption><span>{String(expandedImage + 1).padStart(2, '0')} / {String(trainingGalleryImages.length).padStart(2, '0')}</span><strong>{trainingGalleryImages[expandedImage].label}</strong><small>{trainingGalleryImages[expandedImage].detail}</small></figcaption>
+        </figure>
+        <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setExpandedImage((expandedImage + 1) % trainingGalleryImages.length); }} aria-label="下一张">›</button>
+      </div>}
     </div>
   );
 }
