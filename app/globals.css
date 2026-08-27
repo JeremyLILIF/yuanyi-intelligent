@@ -560,11 +560,19 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
 
 .eyebrow, .section-kicker { color: #c8ff4d; }
 .hero h1 span {
-  color: #d9ff75;
+  width: max-content;
+  max-width: 100%;
+  position: relative;
+  color: #f5f7ef;
   -webkit-text-stroke: 0;
-  text-shadow: 0 9px 34px rgba(123,222,89,.17);
-  font-weight: 720;
+  text-shadow: none;
+  font-weight: 650;
 }
+.hero h1 span::after { content: ""; display: block; width: 58px; height: 3px; margin-top: 12px; border-radius: 999px; background: #c8ff4d; box-shadow: 0 0 14px rgba(200,255,77,.22); }
+.title-keep-line { display: inline-block; white-space: nowrap; }
+.about-intro { grid-template-columns: 1.12fr 1fr; gap: 70px; }
+.about-intro h2 { font-size: clamp(36px, 3.5vw, 50px); }
+.brief-copy h2 { font-size: clamp(36px, 3.8vw, 52px); }
 .hero-lead { color: #b1b8af; }
 .button-primary,
 .case-link,
@@ -1080,6 +1088,12 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
 .brief-form textarea { font-size: 14px; }
 .footer-main > div span,
 .footer-bottom { font-size: 12px; }
+
+@media (max-width: 640px) {
+  .about-intro h2,
+  .brief-copy h2 { font-size: clamp(26px, 8vw, 31px); }
+  .hero h1 span { margin-inline: auto; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

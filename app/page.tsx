@@ -112,7 +112,7 @@ export default function Home() {
       <section className="about-section motion-surface" id="about">
         <div className="section about-inner">
           <div className="about-intro">
-            <div><p className="section-kicker">ABOUT YUANYI</p><h2>AI 落地不是交付工具，<br /><em>而是建立可运行的业务能力。</em></h2></div>
+            <div><p className="section-kicker">ABOUT YUANYI</p><h2><span className="title-keep-line">AI 落地不是交付工具，</span><br /><em>而是建立可运行的业务能力。</em></h2></div>
             <div className="about-values">
               <article><span>01</span><strong>看懂业务</strong><p>从真实场景、业务目标和现有流程出发，明确最值得解决的问题。</p></article>
               <article><span>02</span><strong>做得出方案</strong><p>把模型、工具、内容与流程组合成可实施、可交付的解决方案。</p></article>
@@ -175,7 +175,7 @@ export default function Home() {
 
       <section className="section growth-section motion-surface" id="growth">
         <div className="section-heading">
-          <div><p className="section-kicker">AI + IP + GEO PRIVATE CLASS</p><h2>从工具入门，走向<br /><em>可复制商业体系</em></h2></div>
+          <div><p className="section-kicker">AI + IP + GEO PRIVATE CLASS</p><h2>从工具入门，<br />走向 <em>可复制商业体系</em></h2></div>
           <p>元一 AI+IP+GEO 私教班三期成长档案：学习者的角色从 AI 小白、价值贡献者，逐步走向城市合伙人与体系共建者。</p>
         </div>
         <GrowthTabs />
@@ -183,7 +183,7 @@ export default function Home() {
 
       <section className="delivery-section motion-surface">
         <div className="section delivery-inner">
-          <div className="delivery-title"><p className="section-kicker">DELIVERY METHOD</p><h2>先验证价值，<br />再进入流程，<br /><em>陪得到结果。</em></h2></div>
+          <div className="delivery-title"><p className="section-kicker">DELIVERY METHOD</p><h2>先验证价值<br />再进入流程<br /><em>陪得到结果</em></h2></div>
           <div className="delivery-flow">
             {deliverySteps.map((step, index) => (
               <div className="delivery-step" key={step}><span>0{index + 1}</span><i /><strong>{step}</strong><p>{['梳理目标、现有流程与关键问题，形成 AI 机会清单。', '明确应用场景、工具组合、实施路径与责任分工。', '通过样稿、工作流或功能原型验证方向和价值。', '完成系统配置、内容制作、项目实施或团队培训。', '根据反馈复盘问题，让团队逐步自主应用和迭代。'][index]}</p></div>
@@ -195,7 +195,7 @@ export default function Home() {
       <section className="brief-section motion-surface" id="contact">
         <div className="section brief-inner">
           <div className="brief-copy">
-            <p className="section-kicker">START WITH A REAL SCENARIO</p><h2>从一个真实场景开始，<br /><em>让 AI 产生真实价值。</em></h2>
+            <p className="section-kicker">START WITH A REAL SCENARIO</p><h2><span className="title-keep-line">从一个真实场景开始</span><br /><em>让 AI 产生真实价值。</em></h2>
             <p>告诉我们你想解决的问题，先生成一份简明合作需求。它将帮助双方更快进入场景诊断。</p>
             <div className="brief-principles"><span>场景诊断与试点</span><span>专项项目交付</span><span>长期运营与共建</span></div>
           </div>
