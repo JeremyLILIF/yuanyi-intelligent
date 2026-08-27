@@ -104,14 +104,14 @@ export function HeroOceanBackdrop() {
       seed = (seed * 16807) % 2147483647;
       return (seed - 1) / 2147483646;
     };
-    const motes = Array.from({ length: 58 }, () => ({
+    const motes = Array.from({ length: 72 }, () => ({
       x: random(), y: random() * .72, radius: .45 + random() * 1.25,
-      alpha: .12 + random() * .42, speed: .000002 + random() * .000006, phase: random() * Math.PI * 2,
+      alpha: .24 + random() * .52, speed: .000003 + random() * .000009, phase: random() * Math.PI * 2,
     }));
-    const meteors = Array.from({ length: 4 }, (_, index) => ({
-      period: 6200 + index * 1100 + random() * 1300,
-      offset: index * 1650 + random() * 900,
-      duration: 850 + random() * 420,
+    const meteors = Array.from({ length: 5 }, (_, index) => ({
+      period: 4400 + index * 760 + random() * 900,
+      offset: index * 1050 + random() * 650,
+      duration: 1050 + random() * 480,
       x: .64 + random() * .34,
       y: .04 + random() * .3,
       travelX: .19 + random() * .12,
@@ -133,12 +133,20 @@ export function HeroOceanBackdrop() {
     const draw = (time: number) => {
       context.clearRect(0, 0, width, height);
 
-      const horizon = context.createRadialGradient(width * .72, height * .62, 0, width * .72, height * .62, width * .58);
-      horizon.addColorStop(0, 'rgba(62, 226, 185, .12)');
-      horizon.addColorStop(.34, 'rgba(38, 165, 187, .065)');
+      const horizon = context.createRadialGradient(width * .7, height * .57, 0, width * .7, height * .57, width * .62);
+      horizon.addColorStop(0, 'rgba(84, 255, 205, .26)');
+      horizon.addColorStop(.32, 'rgba(33, 197, 211, .15)');
       horizon.addColorStop(1, 'rgba(0, 0, 0, 0)');
       context.fillStyle = horizon;
       context.fillRect(0, height * .2, width, height * .8);
+
+      const horizonLine = context.createLinearGradient(0, 0, width, 0);
+      horizonLine.addColorStop(0, 'rgba(84, 242, 203, 0)');
+      horizonLine.addColorStop(.38, 'rgba(84, 242, 203, .08)');
+      horizonLine.addColorStop(.7, 'rgba(201, 255, 80, .38)');
+      horizonLine.addColorStop(1, 'rgba(201, 255, 80, 0)');
+      context.fillStyle = horizonLine;
+      context.fillRect(0, height * .555, width, 1.4);
 
       motes.forEach((mote) => {
         const x = ((mote.x + time * mote.speed) % 1) * width;
@@ -149,12 +157,12 @@ export function HeroOceanBackdrop() {
         context.fill();
       });
 
-      for (let row = 0; row < 10; row += 1) {
-        const baseY = height * (.58 + row * .046);
+      for (let row = 0; row < 12; row += 1) {
+        const baseY = height * (.48 + row * .047);
         const stroke = context.createLinearGradient(0, 0, width, 0);
         stroke.addColorStop(0, 'rgba(62, 215, 208, 0)');
-        stroke.addColorStop(.34, `rgba(62, 215, 208, ${.025 + row * .004})`);
-        stroke.addColorStop(.72, `rgba(198, 255, 84, ${.075 + row * .009})`);
+        stroke.addColorStop(.27, `rgba(62, 226, 218, ${.085 + row * .007})`);
+        stroke.addColorStop(.72, `rgba(198, 255, 84, ${.15 + row * .012})`);
         stroke.addColorStop(1, 'rgba(198, 255, 84, 0)');
         context.beginPath();
         for (let x = -24; x <= width + 24; x += 18) {
@@ -164,7 +172,7 @@ export function HeroOceanBackdrop() {
           if (x === -24) context.moveTo(x, y); else context.lineTo(x, y);
         }
         context.strokeStyle = stroke;
-        context.lineWidth = .7 + row * .07;
+        context.lineWidth = 1.05 + row * .09;
         context.stroke();
       }
 
@@ -172,7 +180,7 @@ export function HeroOceanBackdrop() {
         const cycle = (time + meteor.offset) % meteor.period;
         if (cycle > meteor.duration) return;
         const progress = cycle / meteor.duration;
-        const opacity = Math.sin(progress * Math.PI) * .66;
+        const opacity = Math.sin(progress * Math.PI) * .95;
         const headX = width * (meteor.x - meteor.travelX * progress);
         const headY = height * (meteor.y + meteor.travelY * progress);
         const tailX = headX + meteor.length;
@@ -185,7 +193,7 @@ export function HeroOceanBackdrop() {
         context.moveTo(headX, headY);
         context.lineTo(tailX, tailY);
         context.strokeStyle = streak;
-        context.lineWidth = 1.4;
+        context.lineWidth = 2;
         context.stroke();
         context.beginPath();
         context.arc(headX, headY, 1.7, 0, Math.PI * 2);
