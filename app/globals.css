@@ -35,12 +35,12 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .ambient-two { width: 360px; height: 360px; background: #24d68a; top: 760px; left: -220px; }
 
 .motion-surface { position: relative; isolation: isolate; overflow: hidden; }
-.motion-surface::after { content: ""; position: absolute; z-index: 0; inset: -26%; pointer-events: none; background: radial-gradient(ellipse at 18% 45%, rgba(58,227,194,.1), transparent 31%), radial-gradient(ellipse at 78% 58%, rgba(200,255,77,.075), transparent 29%); mix-blend-mode: screen; animation: section-current 16s ease-in-out infinite alternate; }
+.motion-surface::after { content: ""; position: absolute; z-index: 0; inset: -24%; pointer-events: none; background: repeating-radial-gradient(ellipse at 52% 116%, transparent 0 52px, rgba(91,242,202,.075) 54px 55px, transparent 58px 105px), radial-gradient(ellipse at 15% 43%, rgba(58,227,194,.18), transparent 32%), radial-gradient(ellipse at 82% 58%, rgba(200,255,77,.14), transparent 31%); background-size: 118% 112%, 100% 100%, 100% 100%; mix-blend-mode: screen; animation: section-current 14s ease-in-out infinite alternate; }
 .motion-surface:nth-of-type(even)::after { animation-direction: alternate-reverse; animation-duration: 19s; }
 .motion-surface > * { position: relative; z-index: 1; }
 .motion-reveal { opacity: 0; filter: blur(7px); transform: translateY(30px); transition: opacity .8s ease var(--reveal-delay, 0ms), transform .85s cubic-bezier(.22,.7,.23,1) var(--reveal-delay, 0ms), filter .75s ease var(--reveal-delay, 0ms); }
 .motion-reveal.is-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
-@keyframes section-current { 0% { transform: translate3d(-2%, -1.5%, 0) scale(.98); opacity: .48; } 55% { opacity: .8; } 100% { transform: translate3d(3%, 2%, 0) scale(1.04); opacity: .58; } }
+@keyframes section-current { 0% { transform: translate3d(-2.5%, -1.5%, 0) scale(.98); opacity: .72; background-position: 0 0, 0 0, 0 0; } 55% { opacity: 1; } 100% { transform: translate3d(3.5%, 2.5%, 0) scale(1.045); opacity: .82; background-position: 4% 2%, -3% 1%, 3% -2%; } }
 
 .site-header {
   width: min(1280px, calc(100% - 48px));
@@ -971,6 +971,115 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .footer-main { grid-template-columns: 1fr; gap: 24px; padding: 50px 0; }
   .footer-main > div { justify-self: start; }
 }
+
+/* Readability pass — keep interface labels legible on ordinary laptop screens */
+.brand-wordmark small { font-size: 9px; }
+.main-nav { font-size: 14px; }
+@media (min-width: 641px) { .nav-cta { font-size: 14px; } }
+.eyebrow, .section-kicker { font-size: 12px; }
+.hero-base-link span { font-size: 11px; }
+.hero-base-link strong { font-size: 13px; }
+.hero-proof span { font-size: 12px; }
+.dashboard-bar { font-size: 11px; }
+.dashboard-bar b { font-size: 10px; }
+.signal-top { font-size: 12px; }
+.signal-bottom strong { font-size: 13px; }
+.signal-bottom div span { font-size: 11px; }
+.trust-strip { font-size: 13px; }
+.incubator-features span { font-size: 12px; }
+.incubator-media-bar,
+.incubator-tour-head span,
+.incubator-tour-head b,
+.incubator-footer p span { font-size: 10px; }
+.incubator-main-image > span,
+.incubator-thumbs span,
+.incubator-tour-meta span { font-size: 11px; }
+.incubator-tour-head strong { font-size: 14px; }
+.incubator-tour-card > p,
+.incubator-footer p { font-size: 13px; }
+.product-top { font-size: 12px; }
+.product-card > p:not(.product-desc) { font-size: 12px; }
+.product-desc { font-size: 14px; }
+.about-values span { font-size: 11px; }
+.about-values strong { font-size: 14px; }
+.about-values p { font-size: 13px; }
+.team-info > span { font-size: 10px; }
+.team-info > strong,
+.team-info li { font-size: 13px; }
+.tab-rail button,
+.course-tab-rail button { font-size: 13px; }
+.tab-rail button span,
+.course-tab-rail button span,
+.panel-kicker,
+.case-facts dt,
+.case-step-list b,
+.case-media-bar { font-size: 10px !important; }
+.case-facts dd,
+.case-step-list span,
+.tag-cloud span { font-size: 12px; }
+.platform-demo-bar,
+.digital-result-head span,
+.digital-result-head b,
+.digital-ip-flow span { font-size: 10px; }
+.platform-screen-tabs button > span,
+.platform-screen-tabs small,
+.digital-result-meta span { font-size: 10px; }
+.platform-screen-tabs strong,
+.digital-result-card > p,
+.digital-ip-flow strong,
+.digital-ip-note,
+.digital-ip-metrics span { font-size: 12px; }
+.course-pills span,
+.course-metrics span,
+.course-note,
+.course-track-grid p,
+.modules-grid p,
+.deliverables-grid p,
+.practice-grid p { font-size: 12px; }
+.course-command > div span,
+.content-workflow span,
+.content-workflow small,
+.agent-team-head span,
+.agent-team-grid article > span,
+.agent-team-grid strong,
+.agent-system-result span,
+.schedule-head,
+.schedule-row > div:first-child b,
+.course-track-grid span,
+.modules-grid article > div,
+.deliverables-grid article > span,
+.follow-intro > strong,
+.practice-grid span { font-size: 10px; }
+.course-command > div small,
+.content-workflow strong,
+.agent-team-head > p,
+.agent-team-grid p,
+.agent-system-result p,
+.learning-path article p,
+.schedule-row small,
+.schedule-row p,
+.course-track-grid h4,
+.modules-grid h4,
+.deliverables-grid h4,
+.follow-intro p,
+.practice-grid h4,
+.compliance-note { font-size: 12px; }
+.growth-rail span,
+.growth-rail small,
+.growth-main > span,
+.growth-facts dt { font-size: 10px; }
+.growth-rail strong,
+.growth-question,
+.growth-facts dd { font-size: 13px; }
+.delivery-step > span { font-size: 11px; }
+.delivery-step p { font-size: 13px; }
+.brief-principles span,
+.form-head { font-size: 11px; }
+.brief-form label { font-size: 13px; }
+.brief-form select,
+.brief-form textarea { font-size: 14px; }
+.footer-main > div span,
+.footer-bottom { font-size: 12px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
