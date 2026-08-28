@@ -168,7 +168,7 @@ export default function Home() {
       <section className="about-section motion-surface" id="about">
         <div className="section about-inner">
           <div className="about-intro">
-            <div><p className="section-kicker">ABOUT YUANYI</p><h2><span className="title-keep-line">AI 落地不是交付工具，</span><br /><em>而是建立可运行的业务能力。</em></h2></div>
+            <div><p className="section-kicker">ABOUT YUANYI</p><h2><span className="title-keep-line">我们是一支懂业务、懂技术，</span><br /><em>也懂商业增长的 AI 实战团队。</em></h2></div>
             <div className="about-values">
               <article><span>01</span><strong>看懂业务</strong><p>从真实场景、业务目标和现有流程出发，明确最值得解决的问题。</p></article>
               <article><span>02</span><strong>做得出方案</strong><p>把模型、工具、内容与流程组合成可实施、可交付的解决方案。</p></article>
