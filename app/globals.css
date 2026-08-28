@@ -382,8 +382,8 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .community-proof-head span { color: #6aabdf; font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .16em; }
 .community-proof-head strong { margin-top: 6px; font-size: 13px; }
 .community-proof-head b { color: #c8ff4d; font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; }
-.community-proof-image { position: relative; height: 430px; display: block; overflow: hidden; border: 1px solid rgba(106,176,255,.2); border-radius: 10px; background: #eef1ef; }
-.community-proof-image img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center top; transition: transform .45s, filter .3s; }
+.community-proof-image { position: relative; width: min(320px, 100%); height: auto; aspect-ratio: 9 / 16; display: block; margin: 0 auto; overflow: hidden; border: 1px solid rgba(106,176,255,.2); border-radius: 16px; background: #eef1ef; box-shadow: 0 18px 48px rgba(0,0,0,.28); }
+.community-proof-image img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center top; transition: transform .45s, filter .3s; }
 .community-proof-image > span { position: absolute; right: 14px; bottom: 13px; padding: 9px 11px; color: #07110b; border-radius: 6px; background: var(--cyan); font-size: 10px; font-weight: 800; opacity: 0; transform: translateY(5px); transition: opacity .2s, transform .2s; }
 .community-proof-image:hover img { transform: scale(1.01); filter: brightness(.74); }
 .community-proof-image:hover > span, .community-proof-image:focus-visible > span { opacity: 1; transform: translateY(0); }
@@ -1058,7 +1058,7 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .community-host-profile { grid-template-columns: 105px 1fr; gap: 17px; }
   .community-host-profile h3 { font-size: 24px; }
   .community-host-credentials { grid-template-columns: 1fr; }
-  .community-proof-image { height: 400px; }
+  .community-proof-image { width: 100%; height: auto; }
   .community-benefits { grid-template-columns: 1fr; }
   .community-benefits article { min-height: 0; padding: 19px; }
   .digital-ip-flow article:nth-child(2n)::after { display: none; }
