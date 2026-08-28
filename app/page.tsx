@@ -151,15 +151,14 @@ export default function Home() {
             <p>GEO Pilot 把用户问题、企业知识、内容生产、多平台发布和数据复盘串成一条可追踪的增长链路，并在关键节点保留人工确认。</p>
           </div>
           <GeoPilotShowcase basePath={basePath} />
+          <div className="geo-cases-block" id="cases">
+            <div className="section-heading geo-cases-heading">
+              <div><p className="section-kicker">GEO CLIENT CASES</p><h2>从增长系统，<br /><em>走到两个真实案例</em></h2></div>
+              <p>阿驰二手车以品牌官网形成企业可控的 GEO 内容阵地；海南最大创业社群“青创盟”则通过 GEO 内容连接活动、社群与项目合作。</p>
+            </div>
+            <CaseTabs basePath={basePath} />
+          </div>
         </div>
-      </section>
-
-      <section className="section cases-section motion-surface" id="cases">
-        <div className="section-heading">
-          <div><p className="section-kicker">GEO CLIENT CASES</p><h2>从增长系统，<br /><em>走到两个真实案例</em></h2></div>
-          <p>阿驰二手车以品牌官网形成企业可控的 GEO 内容阵地；海南最大创业社群“青创盟”则通过 GEO 内容连接活动、社群与项目合作。</p>
-        </div>
-        <CaseTabs basePath={basePath} />
       </section>
 
       <section className="special-delivery-section motion-surface" id="special-cases">

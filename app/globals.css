@@ -215,7 +215,6 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .team-info li { position: relative; margin-top: 9px; padding-left: 14px; color: #a7b0a7; font-size: 11px; line-height: 1.55; }
 .team-info li::before { content: ""; position: absolute; left: 0; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 9px rgba(200,255,77,.6); }
 
-.cases-section { width: min(1220px, calc(100% - 48px)); }
 .case-tabs-wrap { margin-top: 62px; }
 .tab-rail { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line); border-radius: 12px 12px 0 0; overflow: hidden; background: rgba(8,18,31,.75); }
 .tab-rail button { min-height: 63px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #72869d; border: 0; border-right: 1px solid var(--line); background: transparent; font-family: inherit; font-size: 12px; cursor: pointer; transition: color .2s, background .2s; }
@@ -228,6 +227,9 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .geo-pilot-section { position: relative; overflow: hidden; border-block: 1px solid var(--line); background: radial-gradient(circle at 78% 28%, rgba(200,255,77,.095), transparent 29%), linear-gradient(180deg, #0b100c, #070a08); }
 .geo-pilot-section::before { content: "GEO"; position: absolute; right: -22px; top: 28px; color: rgba(200,255,77,.025); font-size: 240px; line-height: 1; font-weight: 900; letter-spacing: -.09em; }
 .geo-pilot-inner { position: relative; z-index: 1; }
+.geo-cases-block { position: relative; margin-top: 112px; padding-top: 98px; border-top: 1px solid rgba(200,255,77,.2); scroll-margin-top: 88px; }
+.geo-cases-block::before { content: "02 · VERIFIED DELIVERY"; position: absolute; top: -11px; left: 0; padding-right: 14px; color: #a9d64f; background: #080c09; font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .16em; }
+.geo-cases-heading h2 em { color: #d4ff69; }
 .geo-pilot-showcase { display: grid; grid-template-columns: .86fr 1.14fr; gap: 65px; align-items: center; margin-top: 62px; padding: 54px; border: 1px solid rgba(200,255,77,.2); border-radius: 14px; background: radial-gradient(circle at 85% 20%, rgba(185,255,56,.09), transparent 34%), rgba(11,16,12,.84); box-shadow: 0 32px 90px rgba(0,0,0,.22); }
 .geo-pilot-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 25px; }
 .geo-pilot-metrics article { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: rgba(200,255,77,.035); }
@@ -1014,7 +1016,7 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
   .team-grid { grid-template-columns: 1fr; }
   .team-card-1 { grid-column: auto; }
   .team-card { min-height: 560px; }
-  .cases-section { width: min(100% - 30px, 1220px); }
+  .geo-cases-block { margin-top: 78px; padding-top: 70px; }
   .tab-rail, .course-tab-rail { display: flex; overflow-x: auto; scrollbar-width: none; }
   .tab-rail::-webkit-scrollbar, .course-tab-rail::-webkit-scrollbar { display: none; }
   .tab-rail button, .course-tab-rail button { min-width: 142px; flex: 0 0 auto; }
