@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-const caseTabs = ['阿驰 GEO 官网', '青创盟 GEO 增长', 'GEO Pilot', 'AI 商品视觉', '政企 AI 培训'];
+const caseTabs = ['阿驰 GEO 官网', '青创盟 GEO 增长'];
 
 const visualCases = [
   { src: 'visual-portrait.webp', label: '海南农垦 · 人物品牌视觉', alt: '海南农垦集团茶叶宣传片人物品牌视觉案例' },
@@ -256,29 +256,30 @@ export function SiteMotionEffects() {
   return null;
 }
 
+export function GeoPilotShowcase({ basePath }: { basePath: string }) {
+  return (
+    <div className="geo-pilot-showcase">
+      <div className="case-copy geo-pilot-copy">
+        <p className="panel-kicker">PRODUCT SYSTEM · GEO PILOT</p>
+        <h3>从用户问题出发，<br /><em>形成可持续增长闭环</em></h3>
+        <p>围绕关键词洞察、企业知识沉淀、内容生成、数字人视频、多平台草稿与数据反馈，让内容从“被看见”走向“被理解、被信任、被转化”。</p>
+        <div className="geo-pilot-metrics"><article><strong>05</strong><span>增长闭环环节</span></article><article><strong>HITL</strong><span>人工确认发布</span></article><article><strong>LOOP</strong><span>数据持续回流</span></article></div>
+        <div className="case-step-list">{['用户问题与关键词洞察', '企业知识库与素材资产', '智能内容与数字人生产', '多平台草稿与人工确认', '数据回流与下一轮优化'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div>
+      </div>
+      <div className="case-media geo-pilot-media">
+        <div className="case-media-bar"><span>GEO PILOT · CONTENT GROWTH SYSTEM</span><b>HUMAN IN THE LOOP</b></div>
+        <img src={`${basePath}/assets/geo-loop.webp`} alt="GEO Pilot 内容增长闭环界面" loading="lazy" decoding="async" />
+        <div className="geo-pilot-status"><span>问题洞察</span><i>→</i><span>知识沉淀</span><i>→</i><span>内容生产</span><i>→</i><span>发布复盘</span></div>
+      </div>
+    </div>
+  );
+}
+
 export function CaseTabs({ basePath }: { basePath: string }) {
   const [active, setActive] = useState(0);
-  const [visualIndex, setVisualIndex] = useState(0);
-  const [expandedVisual, setExpandedVisual] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (expandedVisual === null) return;
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setExpandedVisual(null);
-      if (event.key === 'ArrowLeft') setExpandedVisual((current) => current === null ? null : (current + visualCases.length - 1) % visualCases.length);
-      if (event.key === 'ArrowRight') setExpandedVisual((current) => current === null ? null : (current + 1) % visualCases.length);
-    };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [expandedVisual]);
 
   return (
-    <div className="case-tabs-wrap">
+    <div className="case-tabs-wrap client-case-tabs-wrap">
       <div className="tab-rail" role="tablist" aria-label="解决方案与客户案例">
         {caseTabs.map((tab, index) => <button key={tab} className={active === index ? 'active' : ''} onClick={() => setActive(index)} role="tab" aria-selected={active === index}><span>0{index + 1}</span>{tab}</button>)}
       </div>
@@ -307,31 +308,55 @@ export function CaseTabs({ basePath }: { basePath: string }) {
           <div className="case-media case-photo"><img src={`${basePath}/assets/training-workshop.webp`} alt="海南青创盟 GEO 内容增长活动" loading="lazy" decoding="async" /><div><span>案例结果</span><strong>GEO 内容 × 活动 × 社群转化</strong></div></div>
         </div>
       )}
+    </div>
+  );
+}
 
-      {active === 2 && (
-        <div className="case-panel">
-          <div className="case-copy"><p className="panel-kicker">PRODUCT SYSTEM · GEO PILOT</p><h3>从问题发现，走到<br /><em>人工确认发布</em></h3><p>围绕关键词洞察、企业知识沉淀、内容生成、数字人视频、多平台草稿与数据反馈，构建可以追踪和持续优化的内容增长闭环。</p><div className="case-step-list">{['用户问题与关键词洞察', '企业知识库与素材资产', '智能内容与数字人生产', '多平台草稿与人工确认', '数据回流与下一轮优化'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div></div>
-          <div className="case-media"><div className="case-media-bar"><span>GEO CLOSED LOOP</span><b>HUMAN IN THE LOOP</b></div><img src={`${basePath}/assets/geo-loop.webp`} alt="GEO Pilot 内容增长闭环界面" loading="lazy" decoding="async" /></div>
-        </div>
-      )}
+export function SpecialDeliveryShowcase({ basePath }: { basePath: string }) {
+  const [visualIndex, setVisualIndex] = useState(0);
+  const [expandedVisual, setExpandedVisual] = useState<number | null>(null);
 
-      {active === 3 && (
-        <div className="case-panel">
-          <div className="case-copy"><p className="panel-kicker">AI PRODUCT VISUAL · CLIENT CASE</p><h3>从一张原图，延展为<br /><em>一套品牌内容资产</em></h3><p>代表案例：为海南农垦集团茶叶项目打造宣传片人物品牌视觉，并围绕产品与品牌卖点延展商品主视觉、场景画面、社交媒体素材和短视频内容。</p><div className="visual-client-case"><span>CLIENT CASE · 01</span><strong>海南农垦集团 · 茶叶宣传片</strong><small>人物品牌视觉 × 商品视觉 × 产品场景</small></div><div className="case-step-list">{['人物品牌塑造', '商品视觉重构', '消费场景延展', '宣传片内容输出'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div></div>
-          <div className="case-media visual-case-gallery">
-            <div className="case-media-bar"><span>{visualCases[visualIndex].label}</span><b>点击大图查看</b></div>
-            <button className="visual-main" type="button" onClick={() => setExpandedVisual(visualIndex)} aria-label={`放大查看${visualCases[visualIndex].label}`}><img src={`${basePath}/assets/${visualCases[visualIndex].src}`} alt={visualCases[visualIndex].alt} loading="lazy" decoding="async" /><span>展开查看 ↗</span></button>
-            <div className="visual-thumbnails">{visualCases.map((item,index)=><button className={visualIndex===index?'active':''} type="button" key={item.src} onClick={()=>setVisualIndex(index)} aria-label={`切换到${item.label}`}><img src={`${basePath}/assets/${item.src}`} alt="" loading="lazy" decoding="async" /><span>{item.label}</span></button>)}</div>
-          </div>
-        </div>
-      )}
+  useEffect(() => {
+    if (expandedVisual === null) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setExpandedVisual(null);
+      if (event.key === 'ArrowLeft') setExpandedVisual((current) => current === null ? null : (current + visualCases.length - 1) % visualCases.length);
+      if (event.key === 'ArrowRight') setExpandedVisual((current) => current === null ? null : (current + 1) % visualCases.length);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [expandedVisual]);
 
-      {active === 4 && (
-        <div className="case-panel">
-          <div className="case-copy"><p className="panel-kicker">GOVERNMENT & ENTERPRISE AI TRAINING</p><h3>政府 AI 培训 ×<br /><em>企业内部提效训练</em></h3><p>面向政府及公共机构，围绕办公提效、材料整理、政务宣传与安全合规开展实操培训；面向企业，则从部门流程和岗位任务出发，训练团队把 AI 真正用进业务。</p><div className="tag-cloud"><span>政府与公共机构</span><span>企业内部培训</span><span>部门专项工作坊</span><span>真实业务任务共创</span></div></div>
-          <div className="case-media case-photo"><img src={`${basePath}/assets/training-community.webp`} alt="政府 AI 培训与企业内训现场" loading="lazy" decoding="async" /><div><span>培训目标</span><strong>让岗位人员独立完成真实任务</strong></div></div>
+  return (
+    <div className="special-case-grid">
+      <article className="special-case-card">
+        <div className="case-copy special-case-copy">
+          <p className="panel-kicker">01 · AI PRODUCT VISUAL</p>
+          <h3>AI 商品视觉<br /><em>从原图到品牌内容资产</em></h3>
+          <p>为海南农垦集团茶叶项目打造宣传片人物品牌视觉，并延展商品主视觉、消费场景、社交媒体素材与短视频内容。</p>
+          <div className="visual-client-case"><span>CLIENT CASE</span><strong>海南农垦集团 · 茶叶宣传片</strong><small>人物品牌视觉 × 商品视觉 × 产品场景</small></div>
         </div>
-      )}
+        <div className="case-media visual-case-gallery">
+          <div className="case-media-bar"><span>{visualCases[visualIndex].label}</span><b>点击大图查看</b></div>
+          <button className="visual-main" type="button" onClick={() => setExpandedVisual(visualIndex)} aria-label={`放大查看${visualCases[visualIndex].label}`}><img src={`${basePath}/assets/${visualCases[visualIndex].src}`} alt={visualCases[visualIndex].alt} loading="lazy" decoding="async" /><span>展开查看 ↗</span></button>
+          <div className="visual-thumbnails">{visualCases.map((item,index)=><button className={visualIndex===index?'active':''} type="button" key={item.src} onClick={()=>setVisualIndex(index)} aria-label={`切换到${item.label}`}><img src={`${basePath}/assets/${item.src}`} alt="" loading="lazy" decoding="async" /><span>{item.label}</span></button>)}</div>
+        </div>
+      </article>
+
+      <article className="special-case-card">
+        <div className="case-copy special-case-copy">
+          <p className="panel-kicker">02 · GOVERNMENT & ENTERPRISE TRAINING</p>
+          <h3>政企 AI 培训<br /><em>把 AI 用进真实岗位任务</em></h3>
+          <p>面向政府及公共机构开展办公提效、材料整理、政务宣传和安全合规实训；面向企业，则围绕部门流程与岗位任务进行内部提效训练。</p>
+          <div className="tag-cloud"><span>政府与公共机构</span><span>企业内部培训</span><span>部门专项工作坊</span><span>真实业务任务共创</span></div>
+        </div>
+        <div className="case-media case-photo special-training-photo"><img src={`${basePath}/assets/training-community.webp`} alt="政府 AI 培训与企业内训现场" loading="lazy" decoding="async" /><div><span>培训目标</span><strong>现场实操 · 完成真实任务</strong></div></div>
+      </article>
 
       {expandedVisual !== null && <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="AI 商品视觉大图" onClick={() => setExpandedVisual(null)}>
         <button className="lightbox-close" type="button" onClick={() => setExpandedVisual(null)} aria-label="关闭大图">×</button>

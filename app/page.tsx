@@ -1,4 +1,4 @@
-import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, SiteMotionEffects, TrainingGallery } from './interactions';
+import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GeoPilotShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, SiteMotionEffects, SpecialDeliveryShowcase, TrainingGallery } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
@@ -40,7 +40,7 @@ export default function Home() {
           <span className="brand-wordmark"><strong>元一智能科技</strong><small>YUANYI INTELLIGENT</small></span>
         </a>
         <nav className="main-nav" aria-label="主导航">
-          <a href="#incubator">海景孵化基地</a><a href="#cases">产品案例</a><a href="#digital-ip">数字人 × IP</a><a href="#course">实战提效营</a>
+          <a href="#incubator">海景孵化基地</a><a href="#geo-pilot">GEO Pilot</a><a href="#digital-ip">数字人 × IP</a><a href="#course">实战提效营</a>
           <a href="#growth">私教成长</a><a href="#contact">项目合作</a>
         </nav>
         <a className="nav-cta" href="#contact">预约场景诊断 <span>↗</span></a>
@@ -54,7 +54,7 @@ export default function Home() {
           <p className="hero-lead">元一智能科技坐落于海口 1500㎡ AI 海景孵化基地，为政府、企业、创业者与机构提供空间、技术、培训和增长服务。</p>
           <a className="hero-base-link" href="#incubator"><span>1500㎡ 海景空间</span><strong>独立办公室与开放工位入驻 <b>→</b></strong></a>
           <div className="hero-actions">
-            <a className="button button-primary" href="#cases">查看产品与案例 <span>→</span></a>
+            <a className="button button-primary" href="#geo-pilot">查看产品与案例 <span>→</span></a>
             <a className="button button-ghost" href="#course">了解 AI 实战提效营</a>
           </div>
           <div className="hero-proof">
@@ -62,12 +62,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="GEO Pilot 产品界面预览">
+        <div className="hero-visual" aria-label="AI 内容获客工作台界面预览">
           <div className="orbit orbit-one" /><div className="orbit orbit-two" />
           <div className="signal-card signal-top"><i /> 工作流运行中<strong>12</strong><span>今日任务</span></div>
           <div className="dashboard-shell">
-            <div className="dashboard-bar"><div className="window-dots"><i /><i /><i /></div><span>GEO PILOT / 智能运营总览</span><b>LIVE</b></div>
-            <img src={`${basePath}/assets/geo-overview.webp`} alt="GEO Pilot 智能运营总览界面" /><div className="scanline" />
+            <div className="dashboard-bar"><div className="window-dots"><i /><i /><i /></div><span>AI 内容获客工作台 / 智能生产总览</span><b>LIVE</b></div>
+            <img src={`${basePath}/assets/digital-ip-home.webp`} alt="元一智能 AI 内容获客工作台界面" fetchPriority="high" /><div className="scanline" />
           </div>
           <div className="signal-card signal-bottom"><span className="signal-icon">✓</span><div><strong>人工确认节点</strong><span>让每一次输出可控、可用</span></div></div>
         </div>
@@ -134,12 +134,32 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="geo-pilot-section motion-surface" id="geo-pilot">
+        <div className="section geo-pilot-inner">
+          <div className="section-heading">
+            <div><p className="section-kicker">GEO PILOT · CONTENT GROWTH SYSTEM</p><h2>先建立增长系统，<br /><em>再复制内容成果</em></h2></div>
+            <p>GEO Pilot 把用户问题、企业知识、内容生产、多平台发布和数据复盘串成一条可追踪的增长链路，并在关键节点保留人工确认。</p>
+          </div>
+          <GeoPilotShowcase basePath={basePath} />
+        </div>
+      </section>
+
       <section className="section cases-section motion-surface" id="cases">
         <div className="section-heading">
-          <div><p className="section-kicker">SOLUTIONS & CLIENT CASES</p><h2>从一个具体问题，<br /><em>走到真实交付</em></h2></div>
-          <p>以阿驰二手车 GEO 品牌官网、海南最大创业社群“青创盟”GEO 内容增长为真实落地结果，同时展示海南农垦集团茶叶宣传、AI 商品视觉及政企培训交付。</p>
+          <div><p className="section-kicker">GEO CLIENT CASES</p><h2>从增长系统，<br /><em>走到两个真实案例</em></h2></div>
+          <p>阿驰二手车以品牌官网形成企业可控的 GEO 内容阵地；海南最大创业社群“青创盟”则通过 GEO 内容连接活动、社群与项目合作。</p>
         </div>
         <CaseTabs basePath={basePath} />
+      </section>
+
+      <section className="special-delivery-section motion-surface" id="special-cases">
+        <div className="section special-delivery-inner">
+          <div className="section-heading">
+            <div><p className="section-kicker">SPECIALIZED DELIVERY</p><h2>视觉内容与组织训练，<br /><em>放进同一个业务体系</em></h2></div>
+            <p>一边为品牌生产可传播的视觉内容，一边帮助政府与企业团队掌握可执行的 AI 工作方法，形成内容与能力的双重交付。</p>
+          </div>
+          <SpecialDeliveryShowcase basePath={basePath} />
+        </div>
       </section>
 
       <section className="digital-ip-section motion-surface" id="digital-ip">
