@@ -207,9 +207,9 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .team-photo::after { content: ""; position: absolute; inset: 12% 0 0; background: linear-gradient(transparent 12%, rgba(3,9,17,.93) 58%, rgba(3,9,17,.99) 100%); }
 .team-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; filter: saturate(.92); transition: transform .5s; }
 .team-card:hover .team-photo img { transform: scale(1.025); }
+.team-badge { position: absolute; z-index: 3; top: 18px; right: 18px; padding: 7px 9px; color: #c8ff4d; border: 1px solid rgba(200,255,77,.25); border-radius: 999px; background: rgba(5,8,6,.72); font: 8px monospace; letter-spacing: .16em; backdrop-filter: blur(8px); }
 .team-info { position: absolute; z-index: 2; left: 24px; right: 24px; bottom: 23px; }
-.team-info > span { color: #61d7ff; font: 8px monospace; letter-spacing: .16em; }
-.team-info h3 { margin: 9px 0 5px; font-size: 22px; }
+.team-info h3 { margin: 0 0 5px; font-size: 22px; }
 .team-info > strong { color: #8ba4bd; font-size: 11px; }
 .team-info ul { list-style: none; margin: 18px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); }
 .team-info li { position: relative; margin-top: 9px; padding-left: 14px; color: #a7b0a7; font-size: 11px; line-height: 1.55; }
@@ -228,6 +228,10 @@ main { position: relative; min-height: 100vh; overflow: hidden; }
 .panel-kicker { margin: 0; color: #56bde9 !important; font: 9px monospace !important; letter-spacing: .18em; }
 .case-copy h3 { margin: 16px 0 21px; font-size: clamp(31px, 3.5vw, 49px); line-height: 1.16; letter-spacing: -.045em; }
 .case-copy h3 em { color: #8ee9ff; font-style: normal; font-weight: 400; }
+.visual-client-case { display: flex; flex-direction: column; gap: 7px; margin-top: 22px; padding: 15px 17px; border: 1px solid rgba(200,255,77,.22); border-radius: 9px; background: linear-gradient(120deg, rgba(200,255,77,.09), rgba(11,17,12,.46)); }
+.visual-client-case span { color: var(--cyan); font: 8px monospace; letter-spacing: .16em; }
+.visual-client-case strong { color: #ecf6df; font-size: 13px; }
+.visual-client-case small { color: #899589; font-size: 9px; }
 .case-copy > p:not(.panel-kicker) { margin: 0; color: #8296ac; font-size: 13px; line-height: 1.9; }
 .case-facts { margin: 28px 0 0; border-top: 1px solid var(--line); }
 .case-facts div { display: grid; grid-template-columns: 82px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
@@ -657,7 +661,6 @@ footer { width: min(1280px, calc(100% - 48px)); margin: 0 auto; border-top: 1px 
 .about-values span { color: #a9db4b; }
 .team-card { background: #0d130f; }
 .team-photo::after { background: linear-gradient(transparent 12%, rgba(5,8,6,.94) 58%, rgba(5,8,6,.99) 100%); }
-.team-info > span { color: #c8ff4d; }
 .team-info > strong { color: #a1aba0; }
 
 .tab-rail,

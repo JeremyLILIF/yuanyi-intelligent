@@ -12,7 +12,7 @@ const products = [
 
 const team = [
   {
-    name: '杰瑞米', role: '技术架构与模型优化', image: 'team-jeremy.webp',
+    name: '杰瑞米', role: '创始人 · 技术架构与模型优化', image: 'team-jeremy.webp',
     background: ['前 Fetch Rewards 软件开发工程师', '前洛杉矶字节跳动算法工程师', 'USC 计算机科学硕士', '专长全栈开发、系统架构和模型优化'],
   },
   {
@@ -122,9 +122,10 @@ export default function Home() {
           <div className="team-grid">
             {team.map((member, index) => (
               <article className={`team-card team-card-${index + 1}`} key={member.name}>
-                <div className="team-photo"><img src={`${basePath}/assets/${member.image}`} alt={member.name} /></div>
+                <div className="team-photo"><img src={`${basePath}/assets/${member.image}`} alt={member.name} loading="lazy" decoding="async" /></div>
+                <span className="team-badge">CORE TEAM · 0{index + 1}</span>
                 <div className="team-info">
-                  <span>CORE TEAM · 0{index + 1}</span><h3>{member.name}</h3><strong>{member.role}</strong>
+                  <h3>{member.name}</h3><strong>{member.role}</strong>
                   <ul>{member.background.map((item) => <li key={item}>{item}</li>)}</ul>
                 </div>
               </article>
@@ -136,7 +137,7 @@ export default function Home() {
       <section className="section cases-section motion-surface" id="cases">
         <div className="section-heading">
           <div><p className="section-kicker">SOLUTIONS & CLIENT CASES</p><h2>从一个具体问题，<br /><em>走到真实交付</em></h2></div>
-          <p>以阿驰二手车 GEO 品牌官网、青创社群 GEO 内容增长为真实落地结果，同时展示 AI 商品视觉及政府、企业 AI 培训的交付方式。</p>
+          <p>以阿驰二手车 GEO 品牌官网、海南最大创业社群“青创盟”GEO 内容增长为真实落地结果，同时展示海南农垦集团茶叶宣传、AI 商品视觉及政企培训交付。</p>
         </div>
         <CaseTabs basePath={basePath} />
       </section>
