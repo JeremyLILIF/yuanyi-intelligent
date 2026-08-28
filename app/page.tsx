@@ -275,17 +275,9 @@ export default function Home() {
             <p className="section-kicker">START WITH A REAL SCENARIO</p><h2><span className="title-keep-line">从一个真实场景开始</span><br /><em>让 AI 产生真实价值。</em></h2>
             <p>告诉我们你想解决的问题，先生成一份简明合作需求。它将帮助双方更快进入场景诊断。</p>
             <div className="brief-principles"><span>场景诊断与试点</span><span>专项项目交付</span><span>长期运营与共建</span></div>
+            <ContactTrigger basePath={basePath} className="button button-primary brief-contact-button" label="直接微信联系" title="添加微信，直接沟通需求" note="扫码添加杰瑞米，沟通 AI 社群、基地入驻、企业培训或项目合作。" />
           </div>
           <BriefForm />
-          <aside className="contact-bottom-card" aria-label="微信联系方式">
-            <div className="contact-bottom-copy">
-              <p className="section-kicker">WECHAT · DIRECT CONTACT</p>
-              <h3>扫码添加微信，<br /><em>把需求直接说清楚</em></h3>
-              <p>加入海南 AI 社群、预约场景诊断、咨询基地入驻、企业培训或项目合作，都可以通过微信直接联系。</p>
-              <div className="contact-bottom-id"><span>微信号</span><strong>b352543239</strong></div>
-            </div>
-            <div className="contact-bottom-qr"><img src={`${basePath}/assets/contact-wechat.jpg`} alt="杰瑞米微信二维码，微信号 b352543239" loading="lazy" decoding="async" /><span>微信扫码添加杰瑞米</span></div>
-          </aside>
         </div>
       </section>
 
