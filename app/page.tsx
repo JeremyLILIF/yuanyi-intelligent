@@ -1,4 +1,4 @@
-import { BriefForm, CaseTabs, CourseTabs, DigitalIpShowcase, GeoPilotShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, SiteMotionEffects, SpecialDeliveryShowcase, TrainingGallery } from './interactions';
+import { BriefForm, CaseTabs, ContactTrigger, CourseTabs, DigitalIpShowcase, GeoPilotShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, SiteMotionEffects, SpecialDeliveryShowcase, TrainingGallery } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
@@ -51,9 +51,9 @@ export default function Home() {
         </a>
         <nav className="main-nav" aria-label="主导航">
           <a href="#incubator">海景孵化基地</a><a href="#geo-pilot">GEO Pilot</a><a href="#digital-ip">数字人 × IP</a><a href="#course">实战提效营</a>
-          <a href="#growth">私教成长</a><a href="#contact">项目合作</a>
+          <a href="#growth">私教成长</a><ContactTrigger basePath={basePath} className="nav-contact-trigger" label="项目合作" arrow="" title="添加微信，沟通项目合作" />
         </nav>
-        <a className="nav-cta" href="#contact">预约场景诊断 <span>↗</span></a>
+        <ContactTrigger basePath={basePath} className="nav-cta" label="预约场景诊断" arrow="↗" title="添加微信，预约场景诊断" />
       </header>
 
       <section className="hero" id="top">
@@ -128,7 +128,7 @@ export default function Home() {
 
           <div className="community-footer">
             <p><span>COMMUNITY AS A SERVICE</span>把一次学习延展为持续更新、持续答疑和持续连接，让每一次工具升级都能更快转化为个人与团队的行动。</p>
-            <a className="button button-primary" href="#contact">咨询社群加入方式 <span>→</span></a>
+            <ContactTrigger basePath={basePath} className="button button-primary" label="咨询社群加入方式" title="添加微信，加入海南 AI 社群" note="扫码添加杰瑞米，备注“AI 社群”，获取加入方式与社群说明。" />
           </div>
         </div>
       </section>
@@ -147,7 +147,7 @@ export default function Home() {
             <article><strong>配套全免</strong><span>水电 · 物业 · 网络 · 停车免费</span></article>
           </div>
           <IncubatorShowcase basePath={basePath} />
-          <div className="incubator-footer"><p><span>SEA VIEW · HAIKOU</span>窗外可眺望海口湾、世纪大桥与云洞公园片区，空间同时支持办公、会议、路演、培训与项目共创。</p><a className="button button-primary" href="#contact">咨询入驻与合作 <span>→</span></a></div>
+          <div className="incubator-footer"><p><span>SEA VIEW · HAIKOU</span>窗外可眺望海口湾、世纪大桥与云洞公园片区，空间同时支持办公、会议、路演、培训与项目共创。</p><ContactTrigger basePath={basePath} className="button button-primary" label="咨询入驻与合作" title="添加微信，咨询基地入驻" note="扫码添加杰瑞米，备注“基地入驻”，沟通办公室、工位、培训或项目合作。" /></div>
         </div>
       </section>
 
@@ -277,6 +277,15 @@ export default function Home() {
             <div className="brief-principles"><span>场景诊断与试点</span><span>专项项目交付</span><span>长期运营与共建</span></div>
           </div>
           <BriefForm />
+          <aside className="contact-bottom-card" aria-label="微信联系方式">
+            <div className="contact-bottom-copy">
+              <p className="section-kicker">WECHAT · DIRECT CONTACT</p>
+              <h3>扫码添加微信，<br /><em>把需求直接说清楚</em></h3>
+              <p>加入海南 AI 社群、预约场景诊断、咨询基地入驻、企业培训或项目合作，都可以通过微信直接联系。</p>
+              <div className="contact-bottom-id"><span>微信号</span><strong>b352543239</strong></div>
+            </div>
+            <div className="contact-bottom-qr"><img src={`${basePath}/assets/contact-wechat.jpg`} alt="杰瑞米微信二维码，微信号 b352543239" loading="lazy" decoding="async" /><span>微信扫码添加杰瑞米</span></div>
+          </aside>
         </div>
       </section>
 

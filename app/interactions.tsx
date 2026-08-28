@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const caseTabs = ['阿驰 GEO 官网', '青创盟 GEO 增长'];
 
@@ -539,6 +540,68 @@ export function GrowthTabs() {
         <dl className="growth-facts"><div><dt>核心认知</dt><dd>{phase.insight}</dd></div><div><dt>工具学习</dt><dd>{phase.tools}</dd></div><div><dt>GEO 认知</dt><dd>{phase.geo}</dd></div><div><dt>能力沉淀</dt><dd>{phase.capability}</dd></div></dl>
       </div>
     </div>
+  );
+}
+
+type ContactTriggerProps = {
+  basePath: string;
+  className?: string;
+  label: string;
+  arrow?: string;
+  title?: string;
+  note?: string;
+};
+
+export function ContactTrigger({
+  basePath,
+  className = '',
+  label,
+  arrow = '→',
+  title = '添加微信，开始沟通',
+  note = '扫码添加杰瑞米，备注你的合作方向，我们会尽快回复。',
+}: ContactTriggerProps) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false); };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [open]);
+
+  async function copyWechat() {
+    await navigator.clipboard.writeText('b352543239');
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  }
+
+  return (
+    <>
+      <button className={`${className} contact-trigger`.trim()} type="button" onClick={() => setOpen(true)}>
+        {label}{arrow && <span>{arrow}</span>}
+      </button>
+      {open && createPortal(
+        <div className="contact-modal" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setOpen(false); }}>
+          <section className="contact-modal-card" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+            <button className="contact-modal-close" type="button" aria-label="关闭联系二维码" onClick={() => setOpen(false)} autoFocus>×</button>
+            <div className="contact-modal-copy">
+              <span>WECHAT CONTACT</span>
+              <h2 id="contact-modal-title">{title}</h2>
+              <p>{note}</p>
+              <div className="contact-modal-id"><small>微信号</small><strong>b352543239</strong><button type="button" onClick={copyWechat}>{copied ? '已复制 ✓' : '复制微信号'}</button></div>
+            </div>
+            <div className="contact-modal-qr"><img src={`${basePath}/assets/contact-wechat.jpg`} alt="杰瑞米微信二维码" /></div>
+          </section>
+        </div>,
+        document.body,
+      )}
+    </>
   );
 }
 
