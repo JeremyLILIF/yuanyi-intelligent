@@ -304,7 +304,7 @@ export function CaseTabs({ basePath }: { basePath: string }) {
 
       {active === 1 && (
         <div className="case-panel">
-          <div className="case-copy"><p className="panel-kicker">HAINAN'S LARGEST ENTREPRENEUR COMMUNITY</p><h3>海南青创盟<br /><em>GEO 内容增长落地案例</em></h3><p>面向海南最大创业社群“青创盟”，围绕青年创业者关心的 AI 应用、创业增长与资源链接问题，持续建设可被搜索和 AI 理解的主题内容，再把线上触达导向活动报名、社群沉淀与项目合作。</p><div className="case-step-list">{['用户问题与主题词库', 'GEO 内容持续生产', '搜索与内容平台触达', '活动报名与线下连接', '社群沉淀与项目合作'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div></div>
+          <div className="case-copy"><p className="panel-kicker">HAINAN&apos;S LARGEST ENTREPRENEUR COMMUNITY</p><h3>海南青创盟<br /><em>GEO 内容增长落地案例</em></h3><p>面向海南最大创业社群“青创盟”，围绕青年创业者关心的 AI 应用、创业增长与资源链接问题，持续建设可被搜索和 AI 理解的主题内容，再把线上触达导向活动报名、社群沉淀与项目合作。</p><div className="case-step-list">{['用户问题与主题词库', 'GEO 内容持续生产', '搜索与内容平台触达', '活动报名与线下连接', '社群沉淀与项目合作'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div></div>
           <div className="case-media case-photo"><img src={`${basePath}/assets/training-workshop.webp`} alt="海南青创盟 GEO 内容增长活动" loading="lazy" decoding="async" /><div><span>案例结果</span><strong>GEO 内容 × 活动 × 社群转化</strong></div></div>
         </div>
       )}

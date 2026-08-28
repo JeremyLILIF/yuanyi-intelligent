@@ -5,7 +5,7 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 export const metadata: Metadata = {
   title: '元一智能科技｜AI 技术应用、GEO 内容增长与实战提效营',
-  description: '元一智能科技坐落于海口 1500㎡ AI 海景孵化基地，提供 AI 技术应用、GEO 内容增长、数字人获客、企业官网与 AI 实战提效营。',
+  description: '元一智能科技坐落于海口 1500㎡ AI 海景孵化基地，提供 AI 技术应用、GEO 内容增长、数字人获客、海南 Codex 智能体社群与 AI 实战提效营。',
   metadataBase: new URL('https://jeremylilif.github.io'),
   openGraph: {
     title: '元一智能科技｜让 AI 真正进入业务现场',

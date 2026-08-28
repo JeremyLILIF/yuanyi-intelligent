@@ -8,6 +8,16 @@ const products = [
   { index: '03', title: '数字人 × IP', label: '触达与增长', text: '通过数字人、内容矩阵与个人 IP 运营，提升品牌触达、客户信任和持续转化。' },
   { index: '04', title: 'GEO Pilot', label: '内容增长系统', text: '把洞察、知识、生成、分发与反馈串成可追踪、可持续优化的增长闭环。' },
   { index: '05', title: 'AI 训练营', label: '能力共建', text: '围绕真实岗位任务开展工具实操、项目训练和应用辅导，把学习转化为成果。' },
+  { index: '06', title: '海南 Codex 社群', label: '持续学习与共创', text: '连接教程、资料、案例、答疑与项目实践，为海南 AI 从业者和创业者提供长期交流场域。' },
+];
+
+const communityBenefits = [
+  ['01', 'Codex 安装教程', '从环境准备到工具配置，降低第一次上手的门槛。'],
+  ['02', 'AI 工具资料库', '持续整理实用工具、工作流与可复用学习资料。'],
+  ['03', '每周 AI 案例分享', '拆解真实应用场景、项目方法与可落地的实践路径。'],
+  ['04', '每日 AI 问题答疑', '围绕工具使用、内容生产和项目实施交流解决思路。'],
+  ['05', 'AI 项目实践挑战', '用真实任务推动动手实践，让学习沉淀为作品与能力。'],
+  ['06', 'AI 创业交流机会', '连接海南本地创业者、技术人才与业务合作资源。'],
 ];
 
 const team = [
@@ -58,7 +68,7 @@ export default function Home() {
             <a className="button button-ghost" href="#course">了解 AI 实战提效营</a>
           </div>
           <div className="hero-proof">
-            <div><strong>5</strong><span>大核心产品</span></div><div><strong>5</strong><span>步项目交付法</span></div><div><strong>1:1</strong><span>场景诊断起步</span></div>
+            <div><strong>6</strong><span>大核心产品</span></div><div><strong>5</strong><span>步项目交付法</span></div><div><strong>1:1</strong><span>场景诊断起步</span></div>
           </div>
         </div>
 
@@ -98,7 +108,7 @@ export default function Home() {
       <section className="section products-section motion-surface" id="products">
         <div className="section-heading">
           <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>用技术解决效率，<br /><em>用内容推动增长</em></h2></div>
-          <p>五项能力从空间载体、技术落地、内容增长到组织训练彼此连接，形成可交付、可持续迭代的服务体系。</p>
+          <p>六项能力从空间载体、技术落地、内容增长到组织训练与长期社群彼此连接，形成可交付、可持续迭代的服务体系。</p>
         </div>
         <div className="product-grid">
           {products.map((product) => (
@@ -179,6 +189,52 @@ export default function Home() {
             {['爆款解析', '选题文案', '声音克隆', '真人形象', '素材识别', '智能剪辑', '剪映草稿', '发布准备'].map((step,index)=><article key={step}><span>{String(index+1).padStart(2,'0')}</span><strong>{step}</strong></article>)}
           </div>
           <p className="digital-ip-note">* 样板时长不含首次形象训练；声音与人物形象仅在获得本人或合法授权后使用，发布前保留人工确认。</p>
+        </div>
+      </section>
+
+      <section className="community-section motion-surface" id="community">
+        <div className="section community-inner">
+          <div className="section-heading community-heading">
+            <div><p className="section-kicker">HAINAN CODEX · AI AGENT COMMUNITY</p><h2><span className="community-title-line"><span>海南最大的 AI</span><span> 智能体社群，</span></span><br /><em>让学习与实战持续发生</em></h2></div>
+            <p>这不只是一个交流群，而是连接 AI 工具学习、真实案例、日常答疑、项目实践与创业合作的长期入口。</p>
+          </div>
+
+          <div className="community-showcase">
+            <article className="community-host-card">
+              <span className="community-card-code">COMMUNITY HOST · HAIKOU</span>
+              <div className="community-host-profile">
+                <div className="community-host-photo"><img src={`${basePath}/assets/team-jeremy.webp`} alt="海南 Codex 智能体社群主理人杰瑞米" loading="lazy" decoding="async" /></div>
+                <div><small>主理人</small><h3>Jeremy Li / 杰瑞米</h3><strong>元一智能科技创始人</strong></div>
+              </div>
+              <p className="community-promise">面向海南 AI 从业者、创业者、企业管理者与内容团队，分享可复用的方法，也连接真实项目与同频伙伴。</p>
+              <ul className="community-host-credentials">
+                <li>前 Fetch Rewards 软件开发工程师</li>
+                <li>前字节跳动算法工程师</li>
+                <li>USC 计算机科学硕士</li>
+                <li>长期推动 AI 工具与业务场景结合</li>
+              </ul>
+            </article>
+
+            <article className="community-proof-card">
+              <div className="community-proof-head"><div><span>REAL COMMUNITY</span><strong>真实交流与每日答疑</strong></div><b>持续共创</b></div>
+              <a className="community-proof-image" href={`${basePath}/assets/community-proof.webp`} target="_blank" rel="noreferrer" aria-label="查看海南 Codex 智能体社群交流截图大图">
+                <img src={`${basePath}/assets/community-proof.webp`} alt="海南 Codex 智能体社群真实交流记录" loading="lazy" decoding="async" />
+                <span>点击查看完整交流记录 ↗</span>
+              </a>
+              <p>群内围绕 Codex 开发、内容工作流、平台适配与 AI 项目落地展开真实讨论，让问题有人回应、经验能够复用。</p>
+            </article>
+          </div>
+
+          <div className="community-benefits">
+            {communityBenefits.map(([index, title, text]) => (
+              <article key={index}><span>{index}</span><div><h3>{title}</h3><p>{text}</p></div></article>
+            ))}
+          </div>
+
+          <div className="community-footer">
+            <p><span>COMMUNITY AS A SERVICE</span>把一次学习延展为持续更新、持续答疑和持续连接，让每一次工具升级都能更快转化为个人与团队的行动。</p>
+            <a className="button button-primary" href="#contact">咨询社群加入方式 <span>→</span></a>
+          </div>
         </div>
       </section>
 
