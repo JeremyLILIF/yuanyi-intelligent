@@ -35,8 +35,6 @@ const team = [
   },
 ];
 
-const deliverySteps = ['需求诊断', '方案设计', '样板验证', '实施交付', '持续优化'];
-
 export default function Home() {
   return (
     <main>
@@ -50,8 +48,8 @@ export default function Home() {
           <span className="brand-wordmark"><strong>元一智能科技</strong><small>YUANYI INTELLIGENT</small></span>
         </a>
         <nav className="main-nav" aria-label="主导航">
-          <a href="#incubator">海景孵化基地</a><a href="#geo-pilot">GEO Pilot</a><a href="#digital-ip">数字人 × IP</a><a href="#course">实战提效营</a>
-          <a href="#growth">私教成长</a><ContactTrigger basePath={basePath} className="nav-contact-trigger" label="项目合作" arrow="" title="添加微信，沟通项目合作" />
+          <a href="#course">实战提效营</a><a href="#about">核心团队</a><a href="#community">AI 社群</a><a href="#incubator">孵化基地</a><a href="#geo-pilot">GEO</a><a href="#digital-ip">数字人</a>
+          <ContactTrigger basePath={basePath} className="nav-contact-trigger" label="项目合作" arrow="" title="添加微信，沟通项目合作" />
         </nav>
         <ContactTrigger basePath={basePath} className="nav-cta" label="预约场景诊断" arrow="↗" title="添加微信，预约场景诊断" />
       </header>
@@ -62,29 +60,67 @@ export default function Home() {
           <div className="eyebrow"><i /> HAINAN · AI SEAVIEW INCUBATION BASE</div>
           <h1>让 AI 真正进入<span>业务现场</span></h1>
           <p className="hero-lead">元一智能科技坐落于海口 1500㎡ AI 海景孵化基地，为政府、企业、创业者与机构提供空间、技术、培训和增长服务。</p>
-          <a className="hero-base-link" href="#incubator"><span>1500㎡ 海景空间</span><strong>独立办公室与开放工位入驻 <b>→</b></strong></a>
+          <a className="hero-base-link" href="#incubator"><span>AI 海景孵化基地入驻</span><strong>独立办公室 · 开放工位 <b>→</b></strong></a>
           <div className="hero-actions">
-            <a className="button button-primary" href="#geo-pilot">查看产品与案例 <span>→</span></a>
-            <a className="button button-ghost" href="#course">了解 AI 实战提效营</a>
+            <a className="button button-primary" href="#course">了解 AI 实战提效营 <span>→</span></a>
+            <a className="button button-ghost" href="#incubator">查看孵化基地</a>
           </div>
           <div className="hero-proof">
-            <div><strong>6</strong><span>大核心产品</span></div><div><strong>5</strong><span>步项目交付法</span></div><div><strong>1:1</strong><span>场景诊断起步</span></div>
+            <div><strong>6</strong><span>大核心产品</span></div><div><strong>3</strong><span>位核心团队</span></div><div><strong>1:1</strong><span>场景诊断起步</span></div>
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="AI 内容获客工作台界面预览">
+        <div className="hero-visual" aria-label="元一 AI 海景孵化基地实景">
           <div className="orbit orbit-one" /><div className="orbit orbit-two" />
-          <div className="signal-card signal-top"><i /> 工作流运行中<strong>12</strong><span>今日任务</span></div>
-          <div className="dashboard-shell">
-            <div className="dashboard-bar"><div className="window-dots"><i /><i /><i /></div><span>AI 内容获客工作台 / 智能生产总览</span><b>LIVE</b></div>
-            <img src={`${basePath}/assets/digital-ip-home.webp`} alt="元一智能 AI 内容获客工作台界面" fetchPriority="high" /><div className="scanline" />
+          <div className="signal-card signal-top"><i /> 海口湾一线海景<strong>1500㎡</strong><span>AI 创业与办公空间</span></div>
+          <div className="dashboard-shell hero-building-shell">
+            <div className="dashboard-bar"><div className="window-dots"><i /><i /><i /></div><span>AI 海景孵化基地 / 入驻实景</span><b>HAIKOU</b></div>
+            <img src={`${basePath}/assets/hero-incubator-building.webp`} alt="元一 AI 海景孵化基地所在海景写字楼" fetchPriority="high" /><div className="scanline" />
           </div>
-          <div className="signal-card signal-bottom"><span className="signal-icon">✓</span><div><strong>人工确认节点</strong><span>让每一次输出可控、可用</span></div></div>
+          <div className="signal-card signal-bottom"><span className="signal-icon">✓</span><div><strong>独立办公室与开放工位</strong><span>水电 · 物业 · 网络 · 停车免费</span></div></div>
         </div>
       </section>
 
       <section className="trust-strip" aria-label="业务定位">
         <span>AI 海景孵化基地</span><i /><span>AI 技术应用</span><i /><span>数字人 × IP</span><i /><span>GEO 内容增长</span><i /><span className="hainan-mark">扎根海南 · 服务本地</span>
+      </section>
+
+      <section className="course-section motion-surface" id="course">
+        <div className="section course-inner">
+          <div className="course-heading">
+            <p className="section-kicker">AI PRACTICAL PRODUCTIVITY CAMP</p>
+            <h2>AI 实战提效营</h2>
+            <p>以 2 天 1 晚集中实训或 14 天 6 次实战课推进：由 1 名运营指挥 5 个数字员工，亲手搭建一套可以持续运转的 AI 数字内容团队。</p>
+            <div className="course-pills"><span>5 个数字员工</span><span>AI 办公提效</span><span>全自动内容工作台</span><span>发布与 GEO 增长</span></div>
+          </div>
+          <CourseTabs />
+          <TrainingGallery basePath={basePath} />
+        </div>
+      </section>
+
+      <section className="about-section motion-surface" id="about">
+        <div className="section about-inner">
+          <div className="about-intro">
+            <div><p className="section-kicker">ABOUT YUANYI</p><h2><span className="title-keep-line">我们是一支懂业务、懂技术，</span><br /><em>也懂商业增长的 AI 实战团队。</em></h2></div>
+            <div className="about-values">
+              <article><span>01</span><strong>看懂业务</strong><p>从真实场景、业务目标和现有流程出发，明确最值得解决的问题。</p></article>
+              <article><span>02</span><strong>做得出方案</strong><p>把模型、工具、内容与流程组合成可实施、可交付的解决方案。</p></article>
+              <article><span>03</span><strong>陪得到结果</strong><p>通过实施、培训和运营迭代，让团队会使用、业务有改善。</p></article>
+            </div>
+          </div>
+          <div className="team-grid">
+            {team.map((member, index) => (
+              <article className={`team-card team-card-${index + 1}`} key={member.name}>
+                <div className="team-photo"><img src={`${basePath}/assets/${member.image}`} alt={member.name} loading="lazy" decoding="async" /></div>
+                <span className="team-badge">CORE TEAM · 0{index + 1}</span>
+                <div className="team-info">
+                  <h3>{member.name}</h3><strong>{member.role}</strong>
+                  <ul>{member.background.map((item) => <li key={item}>{item}</li>)}</ul>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="community-section motion-surface" id="community">
@@ -151,45 +187,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section products-section motion-surface" id="products">
-        <div className="section-heading">
-          <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>用技术解决效率，<br /><em>用内容推动增长</em></h2></div>
-          <p>六项能力从空间载体、技术落地、内容增长到组织训练与长期社群彼此连接，形成可交付、可持续迭代的服务体系。</p>
-        </div>
-        <div className="product-grid">
-          {products.map((product) => (
-            <article className="product-card" key={product.index}>
-              <div className="product-top"><span>{product.index}</span><i>↗</i></div><p>{product.label}</p><h3>{product.title}</h3><div className="product-line" /><p className="product-desc">{product.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="about-section motion-surface" id="about">
-        <div className="section about-inner">
-          <div className="about-intro">
-            <div><p className="section-kicker">ABOUT YUANYI</p><h2><span className="title-keep-line">我们是一支懂业务、懂技术，</span><br /><em>也懂商业增长的 AI 实战团队。</em></h2></div>
-            <div className="about-values">
-              <article><span>01</span><strong>看懂业务</strong><p>从真实场景、业务目标和现有流程出发，明确最值得解决的问题。</p></article>
-              <article><span>02</span><strong>做得出方案</strong><p>把模型、工具、内容与流程组合成可实施、可交付的解决方案。</p></article>
-              <article><span>03</span><strong>陪得到结果</strong><p>通过实施、培训和运营迭代，让团队会使用、业务有改善。</p></article>
-            </div>
-          </div>
-          <div className="team-grid">
-            {team.map((member, index) => (
-              <article className={`team-card team-card-${index + 1}`} key={member.name}>
-                <div className="team-photo"><img src={`${basePath}/assets/${member.image}`} alt={member.name} loading="lazy" decoding="async" /></div>
-                <span className="team-badge">CORE TEAM · 0{index + 1}</span>
-                <div className="team-info">
-                  <h3>{member.name}</h3><strong>{member.role}</strong>
-                  <ul>{member.background.map((item) => <li key={item}>{item}</li>)}</ul>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="geo-pilot-section motion-surface" id="geo-pilot">
         <div className="section geo-pilot-inner">
           <div className="section-heading">
@@ -204,16 +201,6 @@ export default function Home() {
             </div>
             <CaseTabs basePath={basePath} />
           </div>
-        </div>
-      </section>
-
-      <section className="special-delivery-section motion-surface" id="special-cases">
-        <div className="section special-delivery-inner">
-          <div className="section-heading">
-            <div><p className="section-kicker">SPECIALIZED DELIVERY</p><h2>视觉内容与组织训练，<br /><em>放进同一个业务体系</em></h2></div>
-            <p>一边为品牌生产可传播的视觉内容，一边帮助政府与企业团队掌握可执行的 AI 工作方法，形成内容与能力的双重交付。</p>
-          </div>
-          <SpecialDeliveryShowcase basePath={basePath} />
         </div>
       </section>
 
@@ -237,16 +224,27 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="course-section motion-surface" id="course">
-        <div className="section course-inner">
-          <div className="course-heading">
-            <p className="section-kicker">AI PRACTICAL PRODUCTIVITY CAMP</p>
-            <h2>AI 实战提效营</h2>
-            <p>以 2 天 1 晚集中实训或 14 天 6 次实战课推进：由 1 名运营指挥 5 个数字员工，亲手搭建一套可以持续运转的 AI 数字内容团队。</p>
-            <div className="course-pills"><span>5 个数字员工</span><span>AI 办公提效</span><span>全自动内容工作台</span><span>发布与 GEO 增长</span></div>
+      <section className="section products-section motion-surface" id="products">
+        <div className="section-heading">
+          <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>用技术解决效率，<br /><em>用内容推动增长</em></h2></div>
+          <p>六项能力从空间载体、技术落地、内容增长到组织训练与长期社群彼此连接，形成可交付、可持续迭代的服务体系。</p>
+        </div>
+        <div className="product-grid">
+          {products.map((product) => (
+            <article className="product-card" key={product.index}>
+              <div className="product-top"><span>{product.index}</span><i>↗</i></div><p>{product.label}</p><h3>{product.title}</h3><div className="product-line" /><p className="product-desc">{product.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="special-delivery-section motion-surface" id="special-cases">
+        <div className="section special-delivery-inner">
+          <div className="section-heading">
+            <div><p className="section-kicker">SPECIALIZED DELIVERY</p><h2>视觉内容与组织训练，<br /><em>放进同一个业务体系</em></h2></div>
+            <p>一边为品牌生产可传播的视觉内容，一边帮助政府与企业团队掌握可执行的 AI 工作方法，形成内容与能力的双重交付。</p>
           </div>
-          <CourseTabs />
-          <TrainingGallery basePath={basePath} />
+          <SpecialDeliveryShowcase basePath={basePath} />
         </div>
       </section>
 
@@ -256,17 +254,6 @@ export default function Home() {
           <p>元一 AI+IP+GEO 私教班三期成长档案：学习者的角色从 AI 小白、价值贡献者，逐步走向城市合伙人与体系共建者。</p>
         </div>
         <GrowthTabs />
-      </section>
-
-      <section className="delivery-section motion-surface">
-        <div className="section delivery-inner">
-          <div className="delivery-title"><p className="section-kicker">DELIVERY METHOD</p><h2>先验证价值<br />再进入流程<br /><em>陪得到结果</em></h2></div>
-          <div className="delivery-flow">
-            {deliverySteps.map((step, index) => (
-              <div className="delivery-step" key={step}><span>0{index + 1}</span><i /><strong>{step}</strong><p>{['梳理目标、现有流程与关键问题，形成 AI 机会清单。', '明确应用场景、工具组合、实施路径与责任分工。', '通过样稿、工作流或功能原型验证方向和价值。', '完成系统配置、内容制作、项目实施或团队培训。', '根据反馈复盘问题，让团队逐步自主应用和迭代。'][index]}</p></div>
-            ))}
-          </div>
-        </div>
       </section>
 
       <section className="brief-section motion-surface" id="contact">
