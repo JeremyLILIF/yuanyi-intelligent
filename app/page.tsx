@@ -75,7 +75,7 @@ export default function Home() {
           <div className="signal-card signal-top"><i /> 海口湾一线海景<strong>1500㎡</strong><span>AI 创业与办公空间</span></div>
           <div className="dashboard-shell hero-building-shell">
             <div className="dashboard-bar"><div className="window-dots"><i /><i /><i /></div><span>AI 海景孵化基地 / 入驻实景</span><b>HAIKOU</b></div>
-            <img src={`${basePath}/assets/hero-incubator-building.webp`} alt="元一 AI 海景孵化基地所在海景写字楼" fetchPriority="high" /><div className="scanline" />
+            <picture><source media="(max-width: 640px)" srcSet={`${basePath}/assets/mobile/hero-incubator-building.webp`} /><img src={`${basePath}/assets/hero-incubator-building.webp`} alt="元一 AI 海景孵化基地所在海景写字楼" width="900" height="1600" fetchPriority="high" decoding="async" /></picture><div className="scanline" />
           </div>
           <div className="signal-card signal-bottom"><span className="signal-icon">✓</span><div><strong>独立办公室与开放工位</strong><span>水电 · 物业 · 网络 · 停车免费</span></div></div>
         </div>
@@ -111,7 +111,7 @@ export default function Home() {
           <div className="team-grid">
             {team.map((member, index) => (
               <article className={`team-card team-card-${index + 1}`} key={member.name}>
-                <div className="team-photo"><img src={`${basePath}/assets/${member.image}`} alt={member.name} loading="lazy" decoding="async" /></div>
+                <div className="team-photo"><picture><source media="(max-width: 640px)" srcSet={`${basePath}/assets/mobile/${member.image}`} /><img src={`${basePath}/assets/${member.image}`} alt={member.name} loading="lazy" decoding="async" /></picture></div>
                 <span className="team-badge">CORE TEAM · 0{index + 1}</span>
                 <div className="team-info">
                   <h3>{member.name}</h3><strong>{member.role}</strong>
@@ -134,7 +134,7 @@ export default function Home() {
             <article className="community-host-card">
               <span className="community-card-code">COMMUNITY HOST · HAIKOU</span>
               <div className="community-host-profile">
-                <div className="community-host-photo"><img src={`${basePath}/assets/team-jeremy.webp`} alt="海南 Codex 智能体社群主理人杰瑞米" loading="lazy" decoding="async" /></div>
+                <div className="community-host-photo"><picture><source media="(max-width: 640px)" srcSet={`${basePath}/assets/mobile/team-jeremy.webp`} /><img src={`${basePath}/assets/team-jeremy.webp`} alt="海南 Codex 智能体社群主理人杰瑞米" loading="lazy" decoding="async" /></picture></div>
                 <div><small>主理人</small><h3>Jeremy Li / 杰瑞米</h3><strong>元一智能科技创始人</strong></div>
               </div>
               <p className="community-promise">面向海南 AI 从业者、创业者、企业管理者与内容团队，分享可复用的方法，也连接真实项目与同频伙伴。</p>

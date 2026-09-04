@@ -39,6 +39,10 @@ const trainingGalleryImages = [
   { src: 'training-case-08.webp', label: '海景实训课堂', detail: '沉浸式学习与项目练习', alt: '元一智能海景教室 AI 实战培训现场' },
 ];
 
+function MobileAsset({ basePath, src, alt }: { basePath: string; src: string; alt: string }) {
+  return <picture className="mobile-asset"><source media="(max-width: 640px)" srcSet={`${basePath}/assets/mobile/${src}`} /><img src={`${basePath}/assets/${src}`} alt={alt} loading="lazy" decoding="async" /></picture>;
+}
+
 const schedule = [
   ['课前线上', '协商安排 · 60 分钟', '运营负责人 + 助教 + 讲师团队', '开营、资料包、工具检查、业务任务诊断', '个人任务卡'],
   ['第一天上午', '09:00–10:30', '李英和', 'AI 文档、方案、PPT 与商业图片', '方案 / PPT 初稿与商业图片'],
@@ -105,6 +109,7 @@ export function HeroOceanBackdrop() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (window.matchMedia('(max-width: 640px)').matches) return;
     const context = canvas?.getContext('2d');
     if (!canvas || !context) return;
 
@@ -234,6 +239,7 @@ export function HeroOceanBackdrop() {
 
 export function SiteMotionEffects() {
   useEffect(() => {
+    if (window.matchMedia('(max-width: 640px), (prefers-reduced-motion: reduce)').matches) return;
     const targets = Array.from(document.querySelectorAll<HTMLElement>('main .section > *'));
     if (!targets.length) return;
 
@@ -306,7 +312,7 @@ export function CaseTabs({ basePath }: { basePath: string }) {
       {active === 1 && (
         <div className="case-panel">
           <div className="case-copy"><p className="panel-kicker">HAINAN&apos;S LARGEST ENTREPRENEUR COMMUNITY</p><h3>海南青创盟<br /><em>GEO 内容增长落地案例</em></h3><p>面向海南最大创业社群“青创盟”，围绕青年创业者关心的 AI 应用、创业增长与资源链接问题，持续建设可被搜索和 AI 理解的主题内容，再把线上触达导向活动报名、社群沉淀与项目合作。</p><div className="case-step-list">{['用户问题与主题词库', 'GEO 内容持续生产', '搜索与内容平台触达', '活动报名与线下连接', '社群沉淀与项目合作'].map((item, index) => <span key={item}><b>0{index + 1}</b>{item}</span>)}</div></div>
-          <div className="case-media case-photo"><img src={`${basePath}/assets/training-workshop.webp`} alt="海南青创盟 GEO 内容增长活动" loading="lazy" decoding="async" /><div><span>案例结果</span><strong>GEO 内容 × 活动 × 社群转化</strong></div></div>
+          <div className="case-media case-photo"><MobileAsset basePath={basePath} src="training-workshop.webp" alt="海南青创盟 GEO 内容增长活动" /><div><span>案例结果</span><strong>GEO 内容 × 活动 × 社群转化</strong></div></div>
         </div>
       )}
     </div>
@@ -344,8 +350,8 @@ export function SpecialDeliveryShowcase({ basePath }: { basePath: string }) {
         </div>
         <div className="case-media visual-case-gallery">
           <div className="case-media-bar"><span>{visualCases[visualIndex].label}</span><b>点击大图查看</b></div>
-          <button className="visual-main" type="button" onClick={() => setExpandedVisual(visualIndex)} aria-label={`放大查看${visualCases[visualIndex].label}`}><img src={`${basePath}/assets/${visualCases[visualIndex].src}`} alt={visualCases[visualIndex].alt} loading="lazy" decoding="async" /><span>展开查看 ↗</span></button>
-          <div className="visual-thumbnails">{visualCases.map((item,index)=><button className={visualIndex===index?'active':''} type="button" key={item.src} onClick={()=>setVisualIndex(index)} aria-label={`切换到${item.label}`}><img src={`${basePath}/assets/${item.src}`} alt="" loading="lazy" decoding="async" /><span>{item.label}</span></button>)}</div>
+          <button className="visual-main" type="button" onClick={() => setExpandedVisual(visualIndex)} aria-label={`放大查看${visualCases[visualIndex].label}`}><MobileAsset basePath={basePath} src={visualCases[visualIndex].src} alt={visualCases[visualIndex].alt} /><span>展开查看 ↗</span></button>
+          <div className="visual-thumbnails">{visualCases.map((item,index)=><button className={visualIndex===index?'active':''} type="button" key={item.src} onClick={()=>setVisualIndex(index)} aria-label={`切换到${item.label}`}><MobileAsset basePath={basePath} src={item.src} alt="" /><span>{item.label}</span></button>)}</div>
         </div>
       </article>
 
@@ -356,7 +362,7 @@ export function SpecialDeliveryShowcase({ basePath }: { basePath: string }) {
           <p>面向政府及公共机构开展办公提效、材料整理、政务宣传和安全合规实训；面向企业，则围绕部门流程与岗位任务进行内部提效训练。</p>
           <div className="tag-cloud"><span>政府与公共机构</span><span>企业内部培训</span><span>部门专项工作坊</span><span>真实业务任务共创</span></div>
         </div>
-        <div className="case-media case-photo special-training-photo"><img src={`${basePath}/assets/training-community.webp`} alt="政府 AI 培训与企业内训现场" loading="lazy" decoding="async" /><div><span>培训目标</span><strong>现场实操 · 完成真实任务</strong></div></div>
+        <div className="case-media case-photo special-training-photo"><MobileAsset basePath={basePath} src="training-community.webp" alt="政府 AI 培训与企业内训现场" /><div><span>培训目标</span><strong>现场实操 · 完成真实任务</strong></div></div>
       </article>
 
       {expandedVisual !== null && <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="AI 商品视觉大图" onClick={() => setExpandedVisual(null)}>
@@ -394,12 +400,12 @@ export function IncubatorShowcase({ basePath }: { basePath: string }) {
     <div className="incubator-showcase">
       <div className="incubator-gallery">
         <div className="incubator-media-bar"><span>REAL SPACE · 0{activeImage + 1}</span><b>{selected.label}</b></div>
-        <button className="incubator-main-image" type="button" onClick={() => setExpandedImage(activeImage)} aria-label={`放大查看${selected.label}`}><img src={`${basePath}/assets/${selected.src}`} alt={selected.alt} /><span>查看实景大图 ↗</span></button>
-        <div className="incubator-thumbs" aria-label="孵化基地实景图集">{incubatorImages.map((item,index)=><button className={activeImage===index?'active':''} type="button" key={item.src} onClick={()=>setActiveImage(index)} aria-label={`切换到${item.label}`}><img src={`${basePath}/assets/${item.src}`} alt="" /><span>{item.label}</span></button>)}</div>
+        <button className="incubator-main-image" type="button" onClick={() => setExpandedImage(activeImage)} aria-label={`放大查看${selected.label}`}><MobileAsset basePath={basePath} src={selected.src} alt={selected.alt} /><span>查看实景大图 ↗</span></button>
+        <div className="incubator-thumbs" aria-label="孵化基地实景图集">{incubatorImages.map((item,index)=><button className={activeImage===index?'active':''} type="button" key={item.src} onClick={()=>setActiveImage(index)} aria-label={`切换到${item.label}`}><MobileAsset basePath={basePath} src={item.src} alt="" /><span>{item.label}</span></button>)}</div>
       </div>
       <div className="incubator-tour-card">
         <div className="incubator-tour-head"><div><span>SPACE TOUR</span><strong>35 秒实景探访</strong></div><b>HAIKOU</b></div>
-        <div className="incubator-tour-video"><video controls playsInline preload="metadata" poster={`${basePath}/assets/incubator-tour-poster.webp`} aria-label="元一 AI 海景孵化基地实景视频"><source src={`${basePath}/assets/incubator-tour.mp4`} type="video/mp4" /></video></div>
+        <div className="incubator-tour-video"><video controls playsInline preload="none" poster={`${basePath}/assets/incubator-tour-poster.webp`} aria-label="元一 AI 海景孵化基地实景视频"><source src={`${basePath}/assets/incubator-tour.mp4`} type="video/mp4" /></video></div>
         <div className="incubator-tour-meta"><span>独立办公室</span><span>共享工位</span><span>会议培训</span></div>
         <p>真实空间、真实海景、真实办公条件。可根据团队人数与项目周期匹配入驻方式。</p>
       </div>
@@ -423,7 +429,7 @@ export function DigitalIpShowcase({ basePath }: { basePath: string }) {
       <div className="platform-demo">
         <div className="platform-demo-bar"><span>元一智能 · AI 内容获客工作台</span><b>PLATFORM CASE</b></div>
         <a className="platform-screen" href={`${basePath}/assets/${screen.src}`} target="_blank" rel="noreferrer" aria-label={`查看${screen.label}完整界面`}>
-          <img src={`${basePath}/assets/${screen.src}`} alt={screen.alt} />
+          <MobileAsset basePath={basePath} src={screen.src} alt={screen.alt} />
           <span>查看完整界面 ↗</span>
         </a>
         <div className="platform-screen-tabs" role="tablist" aria-label="数字人 IP 智能体平台界面">
@@ -433,7 +439,7 @@ export function DigitalIpShowcase({ basePath }: { basePath: string }) {
       <div className="digital-result-card">
         <div className="digital-result-head"><div><span>OUTPUT · 01</span><strong>数字人成片结果</strong></div><b>27 SEC</b></div>
         <div className="digital-video-wrap">
-          <video controls playsInline preload="metadata" poster={`${basePath}/assets/digital-ip-video-poster.webp`} onLoadedMetadata={(event) => { event.currentTarget.currentTime = 0; }} aria-label="数字人 IP 智能体平台生成的视频案例，从 0 分 00 秒开始播放">
+          <video controls playsInline preload="none" poster={`${basePath}/assets/digital-ip-video-poster.webp`} aria-label="数字人 IP 智能体平台生成的视频案例，从 0 分 00 秒开始播放">
             <source src={`${basePath}/assets/digital-ip-result.mp4`} type="video/mp4" />
           </video>
         </div>
@@ -472,7 +478,7 @@ export function TrainingGallery({ basePath }: { basePath: string }) {
       <div className="training-gallery-grid" aria-label="AI 实战提效营往期现场案例">
         {trainingGalleryImages.map((item, index) => (
           <button className={`training-gallery-card training-gallery-card-${index + 1}`} type="button" key={item.src} onClick={() => setExpandedImage(index)} aria-label={`放大查看${item.label}`}>
-            <img src={`${basePath}/assets/${item.src}`} alt={item.alt} loading="lazy" decoding="async" />
+            <MobileAsset basePath={basePath} src={item.src} alt={item.alt} />
             <span className="training-gallery-index">{String(index + 1).padStart(2, '0')}</span>
             <span className="training-gallery-caption"><strong>{item.label}</strong><small>{item.detail}</small></span>
           </button>
