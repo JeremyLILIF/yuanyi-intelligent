@@ -85,6 +85,20 @@ export default function Home() {
         <span>AI 海景孵化基地</span><i /><span>AI 技术应用</span><i /><span>数字人 × IP</span><i /><span>GEO 内容增长</span><i /><span className="hainan-mark">扎根海南 · 服务本地</span>
       </section>
 
+      <section className="section products-section motion-surface" id="products">
+        <div className="section-heading">
+          <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>用技术解决效率，<br /><em>用内容推动增长</em></h2></div>
+          <p>六项能力从空间载体、技术落地、内容增长到组织训练与长期社群彼此连接，形成可交付、可持续迭代的服务体系。</p>
+        </div>
+        <div className="product-grid">
+          {products.map((product) => (
+            <article className="product-card" key={product.index}>
+              <div className="product-top"><span>{product.index}</span><i>↗</i></div><p>{product.label}</p><h3>{product.title}</h3><div className="product-line" /><p className="product-desc">{product.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="course-section motion-surface" id="course">
         <div className="section course-inner">
           <div className="course-heading">
@@ -221,20 +235,6 @@ export default function Home() {
             {['爆款解析', '选题文案', '声音克隆', '真人形象', '素材识别', '智能剪辑', '剪映草稿', '发布准备'].map((step,index)=><article key={step}><span>{String(index+1).padStart(2,'0')}</span><strong>{step}</strong></article>)}
           </div>
           <p className="digital-ip-note">* 样板时长不含首次形象训练；声音与人物形象仅在获得本人或合法授权后使用，发布前保留人工确认。</p>
-        </div>
-      </section>
-
-      <section className="section products-section motion-surface" id="products">
-        <div className="section-heading">
-          <div><p className="section-kicker">PRODUCT ECOSYSTEM</p><h2>用技术解决效率，<br /><em>用内容推动增长</em></h2></div>
-          <p>六项能力从空间载体、技术落地、内容增长到组织训练与长期社群彼此连接，形成可交付、可持续迭代的服务体系。</p>
-        </div>
-        <div className="product-grid">
-          {products.map((product) => (
-            <article className="product-card" key={product.index}>
-              <div className="product-top"><span>{product.index}</span><i>↗</i></div><p>{product.label}</p><h3>{product.title}</h3><div className="product-line" /><p className="product-desc">{product.text}</p>
-            </article>
-          ))}
         </div>
       </section>
 
