@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { CarouselControls, ImageLightbox, ModalShell, TabRail, copyText } from './ui';
+export { CarouselControls } from './ui';
 
 const caseTabs = ['阿驰 GEO 官网', '青创盟 GEO 增长'];
 
@@ -116,6 +117,7 @@ export function HeroOceanBackdrop() {
     let width = 0;
     let height = 0;
     let frame = 0;
+    let visible = true;
     let seed = 27;
     const random = () => {
       seed = (seed * 16807) % 2147483647;
@@ -218,7 +220,7 @@ export function HeroOceanBackdrop() {
         context.fill();
       });
 
-      if (!reducedMotion) frame = window.requestAnimationFrame(draw);
+      if (!reducedMotion && visible && !document.hidden) frame = window.requestAnimationFrame(draw);
     };
 
     resize();
@@ -228,8 +230,20 @@ export function HeroOceanBackdrop() {
       if (reducedMotion) draw(0);
     });
     observer.observe(canvas);
+    const syncAnimation = () => {
+      window.cancelAnimationFrame(frame);
+      if (visible && !document.hidden) draw(reducedMotion ? 0 : performance.now());
+    };
+    const visibilityObserver = new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      syncAnimation();
+    });
+    visibilityObserver.observe(canvas);
+    document.addEventListener('visibilitychange', syncAnimation);
     return () => {
       observer.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener('visibilitychange', syncAnimation);
       window.cancelAnimationFrame(frame);
     };
   }, []);
@@ -239,9 +253,24 @@ export function HeroOceanBackdrop() {
 
 export function SiteMotionEffects() {
   useEffect(() => {
-    if (window.matchMedia('(max-width: 640px), (prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const surfaces = Array.from(document.querySelectorAll<HTMLElement>('.motion-surface'));
+    const motionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => { (entry.target as HTMLElement).dataset.inView = String(entry.isIntersecting); });
+    }, { rootMargin: '80px' });
+    surfaces.forEach(surface => motionObserver.observe(surface));
+    const syncVisibility = () => { document.body.dataset.pageHidden = String(document.hidden); };
+    document.addEventListener('visibilitychange', syncVisibility);
+    syncVisibility();
+    const cleanupMotion = () => {
+      motionObserver.disconnect();
+      document.removeEventListener('visibilitychange', syncVisibility);
+      delete document.body.dataset.pageHidden;
+      surfaces.forEach(surface => { delete surface.dataset.inView; });
+    };
+    if (window.matchMedia('(max-width: 640px)').matches) return cleanupMotion;
     const targets = Array.from(document.querySelectorAll<HTMLElement>('main .section > *'));
-    if (!targets.length) return;
+    if (!targets.length) return cleanupMotion;
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -257,10 +286,47 @@ export function SiteMotionEffects() {
       observer.observe(target);
     });
 
-    return () => observer.disconnect();
+    return () => { observer.disconnect(); cleanupMotion(); };
   }, []);
 
   return null;
+}
+
+const pageNavigation = [
+  ['products', '产品生态'], ['course', '实战提效营'], ['about', '核心团队'],
+  ['community', 'AI 社群'], ['incubator', '孵化基地'], ['geo-pilot', 'GEO 与客户案例'],
+  ['digital-ip', '数字人 × IP'], ['special-cases', '视觉与政企培训'],
+  ['growth', '私教成长档案'], ['contact', '项目合作'],
+];
+
+export function MobileNavigation({ basePath }: { basePath: string }) {
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('top');
+  useEffect(() => {
+    if (!window.matchMedia('(max-width: 640px)').matches) return;
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.find(entry => entry.isIntersecting);
+      if (visible) setActive(visible.target.id);
+    }, { rootMargin: '-10% 0px -65% 0px', threshold: 0 });
+    document.querySelectorAll('main > section[id]').forEach(section => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  return <>
+    <nav className="mobile-dock" aria-label="手机快捷导航">
+      <button type="button" onClick={() => setOpen(true)} aria-haspopup="dialog" aria-label="打开页面导航"><span aria-hidden="true">☷</span>导航</button>
+      <a href="#course" aria-current={active === 'course' ? 'location' : undefined}><span aria-hidden="true">◎</span>课程</a>
+      <a href="#cases" aria-current={active === 'geo-pilot' ? 'location' : undefined}><span aria-hidden="true">↗</span>案例</a>
+      <ContactTrigger basePath={basePath} className="mobile-dock-contact" label="微信咨询" arrow="↗" title="添加微信，直接沟通需求" />
+    </nav>
+    {open && <ModalShell className="mobile-menu" label="页面导航" onClose={() => setOpen(false)}>
+      <div className="mobile-menu-card">
+        <div className="mobile-menu-heading"><div><span>EXPLORE YUANYI</span><h2>你想了解什么？</h2></div><button type="button" aria-label="关闭导航" autoFocus onClick={() => setOpen(false)}>×</button></div>
+        <nav aria-label="所有服务与内容">{pageNavigation.map(([id, label], index) => <a key={id} href={`#${id}`} aria-current={active === id ? 'location' : undefined} onClick={() => setOpen(false)}><span>{String(index + 1).padStart(2, '0')}</span>{label}<b aria-hidden="true">↗</b></a>)}</nav>
+        <a className="mobile-menu-top" href="#top" onClick={() => setOpen(false)}>回到首页 ↑</a>
+      </div>
+    </ModalShell>}
+  </>;
 }
 
 export function GeoPilotShowcase({ basePath }: { basePath: string }) {
@@ -287,10 +353,8 @@ export function CaseTabs({ basePath }: { basePath: string }) {
 
   return (
     <div className="case-tabs-wrap client-case-tabs-wrap">
-      <div className="tab-rail" role="tablist" aria-label="解决方案与客户案例">
-        {caseTabs.map((tab, index) => <button key={tab} className={active === index ? 'active' : ''} onClick={() => setActive(index)} role="tab" aria-selected={active === index}><span>0{index + 1}</span>{tab}</button>)}
-      </div>
-
+      <TabRail id="client-case" className="tab-rail" label="解决方案与客户案例" active={active} onChange={setActive} items={caseTabs.map((tab,index) => <><span>0{index + 1}</span>{tab}</>)} />
+      <div id="client-case-panel" role="tabpanel" aria-labelledby={`client-case-tab-${active}`}>
       {active === 0 && (
         <div className="case-panel case-achi">
           <div className="case-copy">
@@ -315,6 +379,7 @@ export function CaseTabs({ basePath }: { basePath: string }) {
           <div className="case-media case-photo"><MobileAsset basePath={basePath} src="training-workshop.webp" alt="海南青创盟 GEO 内容增长活动" /><div><span>案例结果</span><strong>GEO 内容 × 活动 × 社群转化</strong></div></div>
         </div>
       )}
+      </div>
     </div>
   );
 }
@@ -322,22 +387,6 @@ export function CaseTabs({ basePath }: { basePath: string }) {
 export function SpecialDeliveryShowcase({ basePath }: { basePath: string }) {
   const [visualIndex, setVisualIndex] = useState(0);
   const [expandedVisual, setExpandedVisual] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (expandedVisual === null) return;
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setExpandedVisual(null);
-      if (event.key === 'ArrowLeft') setExpandedVisual((current) => current === null ? null : (current + visualCases.length - 1) % visualCases.length);
-      if (event.key === 'ArrowRight') setExpandedVisual((current) => current === null ? null : (current + 1) % visualCases.length);
-    };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [expandedVisual]);
 
   return (
     <div className="special-case-grid">
@@ -365,12 +414,7 @@ export function SpecialDeliveryShowcase({ basePath }: { basePath: string }) {
         <div className="case-media case-photo special-training-photo"><MobileAsset basePath={basePath} src="training-community.webp" alt="政府 AI 培训与企业内训现场" /><div><span>培训目标</span><strong>现场实操 · 完成真实任务</strong></div></div>
       </article>
 
-      {expandedVisual !== null && <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="AI 商品视觉大图" onClick={() => setExpandedVisual(null)}>
-        <button className="lightbox-close" type="button" onClick={() => setExpandedVisual(null)} aria-label="关闭大图">×</button>
-        <button className="lightbox-arrow lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); setExpandedVisual((expandedVisual + visualCases.length - 1) % visualCases.length); }} aria-label="上一张">‹</button>
-        <figure onClick={(event) => event.stopPropagation()}><img src={`${basePath}/assets/${visualCases[expandedVisual].src}`} alt={visualCases[expandedVisual].alt} /><figcaption><span>{String(expandedVisual + 1).padStart(2,'0')} / {String(visualCases.length).padStart(2,'0')}</span>{visualCases[expandedVisual].label}</figcaption></figure>
-        <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setExpandedVisual((expandedVisual + 1) % visualCases.length); }} aria-label="下一张">›</button>
-      </div>}
+      {expandedVisual !== null && <ImageLightbox images={visualCases} index={expandedVisual} basePath={basePath} label="AI 商品视觉大图" onChange={setExpandedVisual} onClose={() => setExpandedVisual(null)} />}
     </div>
   );
 }
@@ -379,22 +423,6 @@ export function IncubatorShowcase({ basePath }: { basePath: string }) {
   const [activeImage, setActiveImage] = useState(2);
   const [expandedImage, setExpandedImage] = useState<number | null>(null);
   const selected = incubatorImages[activeImage];
-
-  useEffect(() => {
-    if (expandedImage === null) return;
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setExpandedImage(null);
-      if (event.key === 'ArrowLeft') setExpandedImage((current) => current === null ? null : (current + incubatorImages.length - 1) % incubatorImages.length);
-      if (event.key === 'ArrowRight') setExpandedImage((current) => current === null ? null : (current + 1) % incubatorImages.length);
-    };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [expandedImage]);
 
   return (
     <div className="incubator-showcase">
@@ -410,12 +438,7 @@ export function IncubatorShowcase({ basePath }: { basePath: string }) {
         <p>真实空间、真实海景、真实办公条件。可根据团队人数与项目周期匹配入驻方式。</p>
       </div>
 
-      {expandedImage !== null && <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="AI 海景孵化基地实景大图" onClick={() => setExpandedImage(null)}>
-        <button className="lightbox-close" type="button" onClick={() => setExpandedImage(null)} aria-label="关闭大图">×</button>
-        <button className="lightbox-arrow lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); setExpandedImage((expandedImage + incubatorImages.length - 1) % incubatorImages.length); }} aria-label="上一张">‹</button>
-        <figure className="incubator-lightbox-figure" onClick={(event) => event.stopPropagation()}><img src={`${basePath}/assets/${incubatorImages[expandedImage].src}`} alt={incubatorImages[expandedImage].alt} /><figcaption><span>{String(expandedImage + 1).padStart(2,'0')} / {String(incubatorImages.length).padStart(2,'0')}</span>{incubatorImages[expandedImage].label}</figcaption></figure>
-        <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setExpandedImage((expandedImage + 1) % incubatorImages.length); }} aria-label="下一张">›</button>
-      </div>}
+      {expandedImage !== null && <ImageLightbox images={incubatorImages} index={expandedImage} basePath={basePath} label="AI 海景孵化基地实景大图" onChange={setExpandedImage} onClose={() => setExpandedImage(null)} />}
     </div>
   );
 }
@@ -428,13 +451,11 @@ export function DigitalIpShowcase({ basePath }: { basePath: string }) {
     <div className="digital-ip-showcase">
       <div className="platform-demo">
         <div className="platform-demo-bar"><span>元一智能 · AI 内容获客工作台</span><b>PLATFORM CASE</b></div>
-        <a className="platform-screen" href={`${basePath}/assets/${screen.src}`} target="_blank" rel="noreferrer" aria-label={`查看${screen.label}完整界面`}>
+        <a className="platform-screen" id="platform-panel" role="tabpanel" aria-labelledby={`platform-tab-${activeScreen}`} href={`${basePath}/assets/${screen.src}`} target="_blank" rel="noreferrer" aria-label={`查看${screen.label}完整界面`}>
           <MobileAsset basePath={basePath} src={screen.src} alt={screen.alt} />
           <span>查看完整界面 ↗</span>
         </a>
-        <div className="platform-screen-tabs" role="tablist" aria-label="数字人 IP 智能体平台界面">
-          {platformScreens.map((item,index)=><button key={item.src} className={activeScreen===index?'active':''} type="button" onClick={()=>setActiveScreen(index)} role="tab" aria-selected={activeScreen===index}><span>0{index+1}</span><strong>{item.label}</strong><small>{item.detail}</small></button>)}
-        </div>
+        <TabRail id="platform" className="platform-screen-tabs" label="数字人 IP 智能体平台界面" active={activeScreen} onChange={setActiveScreen} items={platformScreens.map((item,index)=><><span>0{index+1}</span><strong>{item.label}</strong><small>{item.detail}</small></>)} />
       </div>
       <div className="digital-result-card">
         <div className="digital-result-head"><div><span>OUTPUT · 01</span><strong>数字人成片结果</strong></div><b>27 SEC</b></div>
@@ -453,29 +474,13 @@ export function DigitalIpShowcase({ basePath }: { basePath: string }) {
 export function TrainingGallery({ basePath }: { basePath: string }) {
   const [expandedImage, setExpandedImage] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (expandedImage === null) return;
-    const previousOverflow = document.body.style.overflow;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setExpandedImage(null);
-      if (event.key === 'ArrowLeft') setExpandedImage((current) => current === null ? null : (current + trainingGalleryImages.length - 1) % trainingGalleryImages.length);
-      if (event.key === 'ArrowRight') setExpandedImage((current) => current === null ? null : (current + 1) % trainingGalleryImages.length);
-    };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [expandedImage]);
-
   return (
-    <div className="training-gallery-block">
+    <div className="training-gallery-block" id="training-highlights">
       <div className="training-gallery-heading">
         <div><span>PAST TRAINING HIGHLIGHTS</span><h3>往期实战现场</h3></div>
         <p>从小班工作坊、企业培训到海南 Codex 交流会，记录真实学习、协作与成果共创。每一场都从业务问题出发，在现场完成练习与交付。</p>
       </div>
-      <div className="training-gallery-grid" aria-label="AI 实战提效营往期现场案例">
+      <div className="training-gallery-grid" id="training-gallery" aria-label="AI 实战提效营往期现场案例">
         {trainingGalleryImages.map((item, index) => (
           <button className={`training-gallery-card training-gallery-card-${index + 1}`} type="button" key={item.src} onClick={() => setExpandedImage(index)} aria-label={`放大查看${item.label}`}>
             <MobileAsset basePath={basePath} src={item.src} alt={item.alt} />
@@ -484,30 +489,20 @@ export function TrainingGallery({ basePath }: { basePath: string }) {
           </button>
         ))}
       </div>
-
-      {expandedImage !== null && <div className="image-lightbox training-lightbox" role="dialog" aria-modal="true" aria-label="AI 实战提效营往期现场大图" onClick={() => setExpandedImage(null)}>
-        <button className="lightbox-close" type="button" onClick={() => setExpandedImage(null)} aria-label="关闭大图">×</button>
-        <button className="lightbox-arrow lightbox-prev" type="button" onClick={(event) => { event.stopPropagation(); setExpandedImage((expandedImage + trainingGalleryImages.length - 1) % trainingGalleryImages.length); }} aria-label="上一张">‹</button>
-        <figure className="training-lightbox-figure" onClick={(event) => event.stopPropagation()}>
-          <img src={`${basePath}/assets/${trainingGalleryImages[expandedImage].src}`} alt={trainingGalleryImages[expandedImage].alt} />
-          <figcaption><span>{String(expandedImage + 1).padStart(2, '0')} / {String(trainingGalleryImages.length).padStart(2, '0')}</span><strong>{trainingGalleryImages[expandedImage].label}</strong><small>{trainingGalleryImages[expandedImage].detail}</small></figcaption>
-        </figure>
-        <button className="lightbox-arrow lightbox-next" type="button" onClick={(event) => { event.stopPropagation(); setExpandedImage((expandedImage + 1) % trainingGalleryImages.length); }} aria-label="下一张">›</button>
-      </div>}
+      <CarouselControls targetId="training-gallery" count={trainingGalleryImages.length} label="往期实战现场" />
+      {expandedImage !== null && <ImageLightbox images={trainingGalleryImages} index={expandedImage} basePath={basePath} label="AI 实战提效营往期现场大图" onChange={setExpandedImage} onClose={() => setExpandedImage(null)} />}
     </div>
   );
 }
 
-export function CourseTabs() {
+export function CourseTabs({ basePath }: { basePath: string }) {
   const [active, setActive] = useState(0);
   const tabs = ['课程概览', '5 个数字员工', '完整课表', '核心模块', '成果系统', '14 天陪跑'];
 
   return (
     <div className="course-tabs-wrap">
-      <div className="course-tab-rail" role="tablist" aria-label="AI 实战提效营内容">
-        {tabs.map((tab, index) => <button key={tab} className={active === index ? 'active' : ''} onClick={() => setActive(index)} role="tab" aria-selected={active === index}><span>0{index + 1}</span>{tab}</button>)}
-      </div>
-
+      <TabRail id="course-content" className="course-tab-rail" label="AI 实战提效营内容" active={active} onChange={setActive} items={tabs.map((tab,index)=><><span>0{index + 1}</span>{tab}</>)} />
+      <div id="course-content-panel" role="tabpanel" aria-labelledby={`course-content-tab-${active}`}>
       {active === 0 && <div className="course-panel course-overview">
         <div className="course-metrics"><article><strong>14 天</strong><span>搭建 AI 数字内容团队</span></article><article><strong>6 次</strong><span>任务制实战课程</span></article><article><strong>12 小时</strong><span>系统学习与实操</span></article><article><strong>5 个</strong><span>24 小时候命数字员工</span></article></div>
         <div className="course-command"><div><span>1 名运营</span><strong>你负责方向与确认</strong><small>统筹全局 · 指挥团队</small></div><i>→</i><div><span>5 个数字员工</span><strong>AI 负责协作与执行</strong><small>持续生产 · 自动运转</small></div></div>
@@ -528,6 +523,8 @@ export function CourseTabs() {
       {active === 4 && <div className="course-panel deliverables-grid">{deliverables.map((item,index)=><article key={item[0]}><span>0{index+1}</span><div><h4>{item[0]}</h4><p>{item[1]}</p></div></article>)}<div className="deliverable-summary"><strong>三套核心系统</strong><p>AI 办公提效工作台 + AI 内容自动生产系统 + AI 发布与 GEO 增长系统，形成可展示、可复用、可继续迭代的成果包。</p></div></div>}
 
       {active === 5 && <div className="course-panel follow-panel"><div className="follow-intro"><strong>14 DAY SUPPORT</strong><h4>结营不是结束，应用才刚开始。</h4><p>14 天社群陪跑由助教收集问题，讲师安排答疑、作品点评和最终复盘；并提供商业咨询与工作流使用指导。</p></div><div className="practice-grid">{[['竞品分析','拆解同行账号的标题、封面、结构与行动引导'],['内容审核','检查敏感词、事实、授权、平台表达和人工确认点'],['发布日历','建立 7 天或 30 天发布计划与内容状态表'],['数据复盘','记录曝光、互动、线索或订单，形成优化结论'],['数据回流','把发布内容和数据回填到飞书或系统'],['持续服务','课程答疑、商业咨询、复训与工作流使用指导']].map((item,index)=><article key={item[0]}><span>0{index+1}</span><h4>{item[0]}</h4><p>{item[1]}</p></article>)}</div><p className="compliance-note">合规提醒：素材采集、自动发布、声音克隆、形象克隆和 GEO 不做违规承诺；涉及第三方素材、声音或人物形象时必须确认授权。</p></div>}
+      </div>
+      <div className="course-actions"><a href="#training-highlights">查看往期实战现场 <span>↓</span></a><ContactTrigger basePath={basePath} className="button button-primary" label="咨询课程安排" title="添加微信，咨询实战提效营" note="扫码添加杰瑞米，备注“实战提效营”，沟通课程安排与学习需求。" /></div>
     </div>
   );
 }
@@ -538,10 +535,8 @@ export function GrowthTabs() {
 
   return (
     <div className="growth-tabs-wrap">
-      <div className="growth-rail" role="tablist" aria-label="私教班三期成长档案">
-        {growthPhases.map((item,index)=><button key={item.phase} className={active===index?'active':''} onClick={()=>setActive(index)} role="tab" aria-selected={active===index}><span>{item.phase}</span><strong>{item.role}</strong><small>{item.date}</small></button>)}
-      </div>
-      <div className="growth-panel">
+      <TabRail id="growth-content" className="growth-rail" label="私教班三期成长档案" active={active} onChange={setActive} items={growthPhases.map(item=><><span>{item.phase}</span><strong>{item.role}</strong><small>{item.date}</small></>)} />
+      <div className="growth-panel" id="growth-content-panel" role="tabpanel" aria-labelledby={`growth-content-tab-${active}`}>
         <div className="growth-main"><span>{phase.phase} · {phase.date}</span><h3>{phase.role}</h3><p className="growth-question">“{phase.question}”</p><blockquote>{phase.quote}</blockquote></div>
         <dl className="growth-facts"><div><dt>核心认知</dt><dd>{phase.insight}</dd></div><div><dt>工具学习</dt><dd>{phase.tools}</dd></div><div><dt>GEO 认知</dt><dd>{phase.geo}</dd></div><div><dt>能力沉淀</dt><dd>{phase.capability}</dd></div></dl>
       </div>
@@ -568,45 +563,33 @@ export function ContactTrigger({
 }: ContactTriggerProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setOpen(false); };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', closeOnEscape);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener('keydown', closeOnEscape);
-    };
-  }, [open]);
+  const [copyFailed, setCopyFailed] = useState(false);
 
   async function copyWechat() {
-    await navigator.clipboard.writeText('b352543239');
-    setCopied(true);
+    const success = await copyText('b352543239');
+    setCopied(success);
+    setCopyFailed(!success);
     window.setTimeout(() => setCopied(false), 1800);
   }
 
   return (
     <>
-      <button className={`${className} contact-trigger`.trim()} type="button" onClick={() => setOpen(true)}>
+      <button className={`${className} contact-trigger`.trim()} type="button" aria-haspopup="dialog" onClick={() => { setCopyFailed(false); setOpen(true); }}>
         {label}{arrow && <span>{arrow}</span>}
       </button>
-      {open && createPortal(
-        <div className="contact-modal" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setOpen(false); }}>
-          <section className="contact-modal-card" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+      {open && <ModalShell className="contact-modal" label={title} onClose={() => setOpen(false)}>
+          <section className="contact-modal-card">
             <button className="contact-modal-close" type="button" aria-label="关闭联系二维码" onClick={() => setOpen(false)} autoFocus>×</button>
             <div className="contact-modal-copy">
               <span>WECHAT CONTACT</span>
-              <h2 id="contact-modal-title">{title}</h2>
+              <h2>{title}</h2>
               <p>{note}</p>
-              <div className="contact-modal-id"><small>微信号</small><strong>b352543239</strong><button type="button" onClick={copyWechat}>{copied ? '已复制 ✓' : '复制微信号'}</button></div>
+              <div className="contact-modal-id"><small>微信号</small><strong>b352543239</strong><button type="button" onClick={copyWechat} aria-live="polite">{copied ? '已复制 ✓' : '复制微信号'}</button></div>
+              <p className="contact-copy-feedback" role="status">{copyFailed ? '暂时无法自动复制，请长按微信号复制。' : '长按二维码保存，或复制微信号添加。'}</p>
             </div>
             <div className="contact-modal-qr"><img src={`${basePath}/assets/contact-wechat.jpg`} alt="杰瑞米微信二维码" /></div>
           </section>
-        </div>,
-        document.body,
-      )}
+      </ModalShell>}
     </>
   );
 }
@@ -616,10 +599,11 @@ export function BriefForm() {
   const [organization, setOrganization] = useState('企业');
   const [challenge, setChallenge] = useState('');
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const brief = useMemo(() => `元一智能科技｜项目合作需求\n合作方向：${projectType}\n机构类型：${organization}\n当前问题：${challenge || '待进一步沟通'}\n期望下一步：预约一次场景诊断`, [projectType, organization, challenge]);
 
   async function copyBrief() {
-    await navigator.clipboard.writeText(brief); setCopied(true); window.setTimeout(() => setCopied(false), 1800);
+    const success = await copyText(brief); setCopied(success); setCopyFailed(!success); window.setTimeout(() => setCopied(false), 1800);
   }
 
   return (
@@ -628,7 +612,8 @@ export function BriefForm() {
       <label>合作方向<select value={projectType} onChange={(event) => setProjectType(event.target.value)}><option>AI 技术应用</option><option>AI 数字人 / 个人 IP</option><option>GEO 内容增长</option><option>AI 实战训练</option><option>综合项目共建</option></select></label>
       <label>机构类型<select value={organization} onChange={(event) => setOrganization(event.target.value)}><option>企业</option><option>政府 / 公共机构</option><option>培训机构 / 学校</option><option>创业团队 / 个人品牌</option></select></label>
       <label>当前最想解决的问题<textarea value={challenge} onChange={(event) => setChallenge(event.target.value)} placeholder="例如：希望搭建持续产出内容并分发到多个平台的工作流……" rows={4} /></label>
-      <button className="copy-button" type="button" onClick={copyBrief}>{copied ? '已复制需求简报 ✓' : '生成并复制需求简报'}<span>→</span></button>
+      <button className="copy-button" type="button" onClick={copyBrief} aria-live="polite">{copied ? '已复制需求简报 ✓' : '生成并复制需求简报'}<span>→</span></button>
+      {copyFailed && <div className="brief-copy-fallback" role="status"><p>暂时无法自动复制，请长按下方简报复制。</p><textarea readOnly aria-label="需求简报，可长按复制" value={brief} rows={6} /></div>}
     </div>
   );
 }

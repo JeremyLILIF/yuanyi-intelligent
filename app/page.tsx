@@ -1,4 +1,4 @@
-import { BriefForm, CaseTabs, ContactTrigger, CourseTabs, DigitalIpShowcase, GeoPilotShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, SiteMotionEffects, SpecialDeliveryShowcase, TrainingGallery } from './interactions';
+import { BriefForm, CarouselControls, CaseTabs, ContactTrigger, CourseTabs, DigitalIpShowcase, GeoPilotShowcase, GrowthTabs, HeroOceanBackdrop, IncubatorShowcase, MobileNavigation, SiteMotionEffects, SpecialDeliveryShowcase, TrainingGallery } from './interactions';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
@@ -10,6 +10,8 @@ const products = [
   { index: '05', title: 'GEO Pilot', label: '内容增长系统', text: '把洞察、知识、生成、分发与反馈串成可追踪、可持续优化的增长闭环。' },
   { index: '06', title: 'AI 训练营', label: '能力共建', text: '围绕真实岗位任务开展工具实操、项目训练和应用辅导，把学习转化为成果。' },
 ];
+
+const productDestinations = ['#community', '#incubator', '#contact', '#digital-ip', '#geo-pilot', '#course'];
 
 const communityBenefits = [
   ['01', 'Codex 安装教程', '从环境准备到工具配置，降低第一次上手的门槛。'],
@@ -41,6 +43,7 @@ export default function Home() {
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
       <SiteMotionEffects />
+      <MobileNavigation basePath={basePath} />
 
       <header className="site-header">
         <a className="brand" href="#top" aria-label="元一智能科技首页">
@@ -91,10 +94,10 @@ export default function Home() {
           <p>六项能力从空间载体、技术落地、内容增长到组织训练与长期社群彼此连接，形成可交付、可持续迭代的服务体系。</p>
         </div>
         <div className="product-grid">
-          {products.map((product) => (
-            <article className="product-card" key={product.index}>
+          {products.map((product, index) => (
+            <a className="product-card" key={product.index} href={productDestinations[index]} aria-label={`了解${product.title}`}>
               <div className="product-top"><span>{product.index}</span><i>↗</i></div><p>{product.label}</p><h3>{product.title}</h3><div className="product-line" /><p className="product-desc">{product.text}</p>
-            </article>
+            </a>
           ))}
         </div>
       </section>
@@ -107,7 +110,7 @@ export default function Home() {
             <p>以 2 天 1 晚集中实训或 14 天 6 次实战课推进：由 1 名运营指挥 5 个数字员工，亲手搭建一套可以持续运转的 AI 数字内容团队。</p>
             <div className="course-pills"><span>5 个数字员工</span><span>AI 办公提效</span><span>全自动内容工作台</span><span>发布与 GEO 增长</span></div>
           </div>
-          <CourseTabs />
+          <CourseTabs basePath={basePath} />
           <TrainingGallery basePath={basePath} />
         </div>
       </section>
@@ -115,14 +118,14 @@ export default function Home() {
       <section className="about-section motion-surface" id="about">
         <div className="section about-inner">
           <div className="about-intro">
-            <div><p className="section-kicker">ABOUT YUANYI</p><h2><span className="title-keep-line">我们是一支懂业务、懂技术，</span><br /><em>也懂商业增长的 AI 实战团队。</em></h2></div>
+            <div><p className="section-kicker">ABOUT YUANYI</p><h2><span className="title-keep-line"><span className="heading-phrase">我们是一支</span><span className="heading-phrase">懂业务、懂技术，</span></span><br /><em><span className="heading-phrase">也懂商业增长的</span><span className="heading-phrase"> AI 实战团队。</span></em></h2></div>
             <div className="about-values">
               <article><span>01</span><strong>看懂业务</strong><p>从真实场景、业务目标和现有流程出发，明确最值得解决的问题。</p></article>
               <article><span>02</span><strong>做得出方案</strong><p>把模型、工具、内容与流程组合成可实施、可交付的解决方案。</p></article>
               <article><span>03</span><strong>陪得到结果</strong><p>通过实施、培训和运营迭代，让团队会使用、业务有改善。</p></article>
             </div>
           </div>
-          <div className="team-grid">
+          <div className="team-grid" id="team-gallery">
             {team.map((member, index) => (
               <article className={`team-card team-card-${index + 1}`} key={member.name}>
                 <div className="team-photo"><picture><source media="(max-width: 640px)" srcSet={`${basePath}/assets/mobile/${member.image}`} /><img src={`${basePath}/assets/${member.image}`} alt={member.name} loading="lazy" decoding="async" /></picture></div>
@@ -134,6 +137,7 @@ export default function Home() {
               </article>
             ))}
           </div>
+          <CarouselControls targetId="team-gallery" count={team.length} label="核心团队" />
         </div>
       </section>
 
